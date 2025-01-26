@@ -22,7 +22,6 @@ void    init_mlx(t_game *game)
 
 void    get_player_info(t_game *game)
 {
-    game->player = malloc(sizeof(t_player));
     int i = 0;
     int j = 0;
     while (game->map[i])

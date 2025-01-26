@@ -57,6 +57,15 @@ void	get_info(t_game *game)
 {
 	game->width = 48;
 	game->height = 48;
+	game->player = malloc(sizeof(t_player));
+	if (!game->player)
+	{
+		ft_error(MLX_ERROR);
+		exit(FAILURE);
+	}
+	game->player->move_speed = 5;
+	game->player->rot_speed = 5;
+	game->player->angle = 0;
 }
 
 t_game  *init_cub(int ac, char **av)

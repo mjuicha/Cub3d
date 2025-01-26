@@ -54,7 +54,10 @@ typedef struct s_player
 	int	 map_x;
 	int	 map_y;
 	int	 pos_x;
-	int	 pos_y;	
+	int	 pos_y;
+	int  angle;
+	int  move_speed;
+	int  rot_speed;
 }            t_player;
 
 typedef struct s_game
@@ -67,7 +70,7 @@ typedef struct s_game
 
 	int     width;
 	int     height;
-	
+
 	char    **map;
 	int     mapfd;
 	t_player *player;
@@ -84,5 +87,8 @@ t_game  *get_map(t_game *game);
 void    start_game(t_game *game);
 void    launch_game(t_game *game);
 int valid_input(int ac, char **av);
+void    player(t_game *game);
+void	events_hook(t_game *game);
+void    draw_walls(t_game *game);
 /***********************  draw  ***********************/
 #endif

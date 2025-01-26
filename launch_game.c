@@ -31,4 +31,5 @@ void    draw_walls(t_game *game)
 void    launch_game(t_game *game)
 {
     draw_walls(game);
+    player(game);
 }
