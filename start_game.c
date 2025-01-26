@@ -44,11 +44,30 @@ void    get_player_info(t_game *game)
 	}
 }
 
+void    init_img(t_game *game)
+{
+    game->black_wall = mlx_xpm_file_to_image(game->mlx, BLACK_WALL, &game->width, &game->height);
+    if (!game->black_wall)
+    {
+        free(game);
+        ft_putendl_fd(XPM_ERROR, STDERR_FILENO);
+        exit(FAILURE);
+    }
+    game->empty_wall = mlx_xpm_file_to_image(game->mlx, EMPTY_WALL, &game->width, &game->height);
+    if (!game->empty_wall)
+    {
+        free(game);
+        ft_putendl_fd(XPM_ERROR, STDERR_FILENO);
+        exit(FAILURE);
+    }
+}
+
 void    start_game(t_game *game)
 {
     if (!game)
         exit(FAILURE);
     init_mlx(game);
+    init_img(game);
     get_map(game);
     get_player_info(game);
 }

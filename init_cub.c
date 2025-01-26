@@ -20,13 +20,12 @@ int	valid_extension(char **av)
 	return (SUCCESS);
 }
 
-int valid_input(int ac, char **av)
+int valid_args(int ac)
 {
-	if (!valid_args(ac))
-		return (FAILURE);
-	if (!valid_extension(av))
-		return (FAILURE);
-	return (SUCCESS);
+	if (ac == 2)
+		return (SUCCESS);
+	ft_error(ERROR_ARG);
+	return (FAILURE);
 }
 
 int	valid_file(char **av)
@@ -45,14 +44,6 @@ int	valid_format(t_game *game)
 	return (SUCCESS);
 }
 
-int valid_args(int ac)
-{
-	if (ac == 2)
-		return (SUCCESS);
-	ft_error(ERROR_ARG);
-	return (FAILURE);
-}
-
 int valid_input(int ac, char **av)
 {
 	if (!valid_args(ac))
@@ -60,6 +51,12 @@ int valid_input(int ac, char **av)
 	if (!valid_extension(av))
 		return (FAILURE);
 	return (SUCCESS);
+}
+
+void	get_info(t_game *game)
+{
+	game->width = 48;
+	game->height = 48;
 }
 
 t_game  *init_cub(int ac, char **av)
@@ -77,4 +74,6 @@ t_game  *init_cub(int ac, char **av)
 	game->mapfd = fd;
 	if (!valid_format(game))
 		return (NULL);
+	get_info(game);
+	return (game);
 }

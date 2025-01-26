@@ -20,14 +20,18 @@
 /***********************  colors  *************************/
 # define BLACK      0x00000000
 # define WHITE      0x00FFFFFF
-# define GREY	   0x00A9A9A9
-# define RED	   0x00FF0000
+# define GREY	  	0x00A9A9A9
+# define RED	 	0x00FF0000
+/***********************  XPM Files  **********************/
+# define BLACK_WALL "xpm_files/black.xpm"
+# define EMPTY_WALL "xpm_files/white.xpm"
 /***********************  errors  *************************/
 # define ERROR_ARG "\033[31mError: Wrong number of arguments\n\033[0m"
 # define ERROR_EXT "\033[31mError: Wrong extension\n\033[0m"
 # define OPPEN_ERROR "\033[31mError: Can't open file\n\033[0m"
 # define MLX_ERROR "\033[31mError: mlx_init failed\n\033[0m"
 # define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
+# define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
 /***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
@@ -58,6 +62,12 @@ typedef struct s_game
 	void    *mlx;
 	void    *mlx_win;
 	
+	void	*black_wall;
+	void	*empty_wall;
+
+	int     width;
+	int     height;
+	
 	char    **map;
 	int     mapfd;
 	t_player *player;
@@ -71,5 +81,8 @@ char	*ft_strdup(const char *s1);
 /***********************  init  ***********************/
 t_game  *init_cub(int ac, char **av);
 t_game  *get_map(t_game *game);
+void    start_game(t_game *game);
+void    launch_game(t_game *game);
+int valid_input(int ac, char **av);
 /***********************  draw  ***********************/
 #endif

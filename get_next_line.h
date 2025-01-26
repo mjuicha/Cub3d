@@ -3,7 +3,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "../includes/cub3d.h"
+# include "cub3d.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
