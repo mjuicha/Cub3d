@@ -34,14 +34,11 @@ int	key_released(int keycode, t_game *game)
         game->player->side_dir = 0;
     else if (keycode == LEFT || keycode == RIGHT)
         game->player->turn_dir = 0;
-    printf("angle: %f\n", game->player->angle);
-    printf("in degrees: %f\n", game->player->angle * (180 / M_PI));
     return (0);
 }
 
 void	events_hook(t_game *game)
-{
-    
+{   
 	mlx_hook(game->mlx_win, 2, 0, key_pressed, game);
     mlx_hook(game->mlx_win, 3, 0, key_released, game);
 	mlx_hook(game->mlx_win, 17, 0, close_window, game);
