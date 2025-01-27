@@ -28,8 +28,25 @@ void    draw_walls(t_game *game)
         my++;
     }
 }
-void    launch_game(t_game *game)
+
+void    update_position(t_game *game)
 {
+    game->player->pos_x += game->player->walk_dir * cos(game->player->angle) * game->player->move_speed;
+    game->player->pos_y += game->player->walk_dir * sin(game->player->angle) * game->player->move_speed;
+    game->player->pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2) * game->player->move_speed;
+    game->player->pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2) * game->player->move_speed;
+    game->player->angle += game->player->turn_dir * game->player->rot_speed;
+    if (game->player->angle >= 2 * M_PI)
+        game->player->angle -= 2 * M_PI;
+    if (game->player->angle < 0)
+        game->player->angle += 2 * M_PI;
+}
+
+int    render_game(t_game *game)
+{
+    update_position(game);
+    mlx_clear_window(game->mlx, game->mlx_win);
     draw_walls(game);
     player(game);
+    return (0);
 }

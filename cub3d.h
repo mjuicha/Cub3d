@@ -22,6 +22,7 @@
 # define WHITE      0x00FFFFFF
 # define GREY	  	0x00A9A9A9
 # define RED	 	0x00FF0000
+# define GREEN	 	0x0000FF00
 /***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
@@ -51,13 +52,16 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	int	 map_x;
-	int	 map_y;
-	int	 pos_x;
-	int	 pos_y;
-	int  angle;
-	int  move_speed;
-	int  rot_speed;
+	int	 	map_x;
+	int	 	map_y;
+	double 	pos_x;
+	double	pos_y;
+	int		walk_dir;
+	int		side_dir;
+	int		turn_dir;
+	double  angle;
+	double  move_speed;
+	double  rot_speed;
 }            t_player;
 
 typedef struct s_game
@@ -85,8 +89,8 @@ char	*ft_strdup(const char *s1);
 t_game  *init_cub(int ac, char **av);
 t_game  *get_map(t_game *game);
 void    start_game(t_game *game);
-void    launch_game(t_game *game);
-int valid_input(int ac, char **av);
+int    	render_game(t_game *game);
+int 	valid_input(int ac, char **av);
 void    player(t_game *game);
 void	events_hook(t_game *game);
 void    draw_walls(t_game *game);

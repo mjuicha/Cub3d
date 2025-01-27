@@ -63,9 +63,12 @@ void	get_info(t_game *game)
 		ft_error(MLX_ERROR);
 		exit(FAILURE);
 	}
-	game->player->move_speed = 5;
-	game->player->rot_speed = 5;
-	game->player->angle = 0;
+	game->player->walk_dir = 0;
+	game->player->turn_dir = 0;
+	game->player->side_dir = 0;
+	game->player->move_speed = 2.0;
+	game->player->rot_speed = 10.0 * (M_PI / 180);
+	game->player->angle = 0.0;
 }
 
 t_game  *init_cub(int ac, char **av)
