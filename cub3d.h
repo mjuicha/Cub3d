@@ -17,6 +17,7 @@
 # define LEFT       123
 # define RIGHT      124
 /***********************  movement  ***********************/
+# define FOV		60 * (M_PI / 180)
 /***********************  colors  *************************/
 # define BLACK      0x00000000
 # define WHITE      0x00FFFFFF

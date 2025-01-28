@@ -41,18 +41,18 @@ void	cast_ray(t_game *game, double angle)
 	}
 }
 
-void	eye(t_game *game)
+void	fov(t_game *game)
 {
-	cast_ray(game, game->player->angle);
+	double angle = game->player->angle - FOV / 2;
+	while (angle < game->player->angle + FOV / 2)
+	{
+		cast_ray(game, angle);
+		angle += FOV / WIDTH;
+	}
 }
 
 void    player(t_game *game)
 {
     pl(game);
-	eye(game);
-	// printf("angle: %f\n", game->player->angle);
-	// printf("pos_x: %d\n", game->player->pos_x);
-	// printf("pos_y: %d\n", game->player->pos_y);
-	// printf("move_speed: %f\n", game->player->move_speed);
-	// printf("rot_speed: %f\n", game->player->rot_speed);
+	fov(game);
 }
