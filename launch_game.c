@@ -44,10 +44,6 @@ void    update_position(t_game *game)
         printf("angle: %f\n", game->player->angle);
         printf("Radian: %f\n", game->player->angle * 180 / M_PI);
     }
-    if (game->player->angle >= 2 * M_PI)
-        game->player->angle -= 2 * M_PI;
-    if (game->player->angle < 0)
-        game->player->angle += 2 * M_PI;
 }
 
 int    render_game(t_game *game)

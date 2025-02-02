@@ -58,6 +58,7 @@ void	get_info(t_game *game)
 	game->width = 48;
 	game->height = 48;
 	game->player = malloc(sizeof(t_player));
+	game->player->dir = malloc(sizeof(t_dir));
 	if (!game->player)
 	{
 		ft_error(MLX_ERROR);
@@ -68,7 +69,9 @@ void	get_info(t_game *game)
 	game->player->side_dir = 0;
 	game->player->move_speed = 2.0;
 	game->player->rot_speed = 10.0 * (M_PI / 180);
-	game->player->angle = -M_PI / 2;
+	game->player->angle = M_PI / 2;
+	game->player->ready = 1;
+	game->player->fetch = 0;
 }
 
 t_game  *init_cub(int ac, char **av)

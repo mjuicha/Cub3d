@@ -51,6 +51,13 @@ typedef struct s_map
 	struct s_map *next;
 }               t_map;
 
+typedef struct s_dir
+{
+	int up;
+	int down;
+	int left;
+	int right;
+}               t_dir;
 typedef struct s_player
 {
 	int	 	map_x;
@@ -63,6 +70,9 @@ typedef struct s_player
 	double  angle;
 	double  move_speed;
 	double  rot_speed;
+	int		ready;
+	int		fetch;
+	t_dir   *dir;
 }            t_player;
 
 typedef struct s_game
