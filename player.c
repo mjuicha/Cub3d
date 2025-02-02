@@ -148,6 +148,8 @@ void	cast_rayy(t_game *game, double angle)
 	int delta_hy = 0;
 	int delta_vx = 0;
 	int delta_vy = 0;
+	bool fh = false;
+	bool fv = false;
 	/////////////////////
 	/// HORIZONTAL RAY //
 	/////////////////////
@@ -176,6 +178,7 @@ void	cast_rayy(t_game *game, double angle)
 			break;
 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
 		{
+			fh = true;
 			break;
 		}
 		HTx += delta_hx;
@@ -209,17 +212,18 @@ void	cast_rayy(t_game *game, double angle)
 			break;
 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
 		{
+			fv = true;
 			break;
 		}
 		VTx += delta_vx;
 		VTy += delta_vy;
 	}
-	int V_dis = phitagore(x, y, vAx, vAy);
-	int H_dis = phitagore(x, y, hAx, hAy);
-	if (V_dis < H_dis)
-		bresenhams_line(x, y, vAx, vAy, game);
-	else
-		bresenhams_line(x, y, hAx, hAy, game);
+	int H_dis = (fh) ? phitagore(x, y, HTx, HTy) : 1000000;
+	int V_dis = (fv) ? phitagore(x, y, VTx, VTy) : 1000000;
+	vAy = (V_dis < H_dis) ? VTy : HTy;
+	vAx = (H_dis < V_dis) ? HTx : VTx;
+	int dis = (H_dis < V_dis) ? H_dis : V_dis;
+	bresenhams_line(x, y, vAx, vAy, game);
 }
 
 double	normalize_angle(double angle)

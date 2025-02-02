@@ -40,6 +40,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
