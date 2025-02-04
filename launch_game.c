@@ -45,8 +45,6 @@ void    update_position(t_game *game)
     game->player->pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2) * game->player->move_speed;
     game->player->angle += game->player->turn_dir * game->player->rot_speed;
     game->player->angle = normalize_angle(game->player->angle);
-    if (game->player->turn_dir)
-	    printf("oooo angle degrees is %f\n", game->player->angle * 180 / M_PI);
 }
 
 int    render_game(t_game *game)

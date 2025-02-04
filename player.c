@@ -102,9 +102,8 @@ void	bresenhams_line(int x, int y, int endx, int endy, t_game *game)
 	}
 }
 
-void	get_dir(t_game *game)
+void	get_dir(t_game *game, double angle)
 {
-	double angle = game->player->angle;
 	game->player->dir->down = (angle > 0 && angle < M_PI);
 	game->player->dir->up = !game->player->dir->down;
 	game->player->dir->right = (angle < M_PI / 2 || angle > 3 * M_PI / 2);
@@ -135,11 +134,19 @@ void	cast_ray(t_game *game, double angle)
 		mlx_pixel_put(game->mlx, game->mlx_win, (int)x, (int)y, GREEN);
 	}
 }
+int	up(t_game *game)
+{
+	return (game->player->dir->up);
+}
+int	left(t_game *game)
+{
+	return (game->player->dir->left);
+}
 void	cast_rayy(t_game *game, double angle)
 {
 	double x = game->player->pos_x;
 	double y = game->player->pos_y;
-	get_dir(game);
+	get_dir(game, angle);
 	int map_x, map_y;
 	int hAx, hAy;
 	int HTx, HTy;
@@ -171,12 +178,10 @@ void	cast_rayy(t_game *game, double angle)
 		delta_hx *= -1;
 	HTx = hAx;
 	HTy = hAy;
-	if (game->player->dir->up)
-		HTy -= 1;
 	while (1)
 	{
 		map_x = HTx / game->width;
-		map_y = HTy / game->height;
+		map_y = (HTy - up(game)) / game->height;
 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
 			break;
 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
@@ -209,11 +214,9 @@ void	cast_rayy(t_game *game, double angle)
 		delta_vy *= -1;
 	VTx = vAx;
 	VTy = vAy;
-	if (game->player->dir->left)
-		VTx -= 1;
 	while (1)
 	{
-		map_x = VTx / game->width;
+		map_x = (VTx - left(game)) / game->width;
 		map_y = VTy / game->height;
 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
 			break;
@@ -228,22 +231,24 @@ void	cast_rayy(t_game *game, double angle)
 	int H_dis = (fh) ? phitagore(x, y, HTx, HTy) : 1000000;
 	int V_dis = (fv) ? phitagore(x, y, VTx, VTy) : 1000000;
 	vAy = (V_dis < H_dis) ? VTy : HTy;
-	vAx = (H_dis < V_dis) ? HTx : VTx;
-	int dis = (H_dis < V_dis) ? H_dis : V_dis;
-	vAy++;
-	vAx++;
+	vAx = (V_dis < H_dis) ? VTx : HTx;
+	int dis = (V_dis < H_dis) ? V_dis : H_dis;
 	bresenhams_line(x, y, vAx, vAy, game);
+	if (game->player->fetch == 0)
+	{
+		printf("x is %d\n", vAx);
+		printf("angle is %f\n", angle * 180 / M_PI);
+	}
 }
 
 void	fov(t_game *game)
 {
+	if (game->player->turn_dir || game->player->fetch == 0)
+		printf("angle is |%f\n", game->player->angle * 180 / M_PI);
 	double angle = game->player->angle - FOV / 2;
 	while (angle < game->player->angle + FOV / 2)
 	{
 		cast_rayy(game, angle);
-		if (game->player->fetch == 0)
-			printf("angle in degrees is %f\n", angle * 180 / M_PI);
-		// cast_ray(game, game->player->angle);
 		angle += FOV / WIDTH;
 	}
 	game->player->fetch = 1;

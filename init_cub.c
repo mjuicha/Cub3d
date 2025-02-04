@@ -69,7 +69,7 @@ void	get_info(t_game *game)
 	game->player->side_dir = 0;
 	game->player->move_speed = 2.0;
 	game->player->rot_speed = 10.0 * (M_PI / 180);
-	game->player->angle = 260 * (M_PI / 180);
+	game->player->angle = 350 * (M_PI / 180);
 	game->player->ready = 1;
 	game->player->fetch = 0;
 }
