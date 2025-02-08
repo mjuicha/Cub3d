@@ -74,7 +74,7 @@ void	circle(t_game *game, int x, int y, int r)
 // 		}
 // 	}
 // }
-void	bresenhams_line(int x, int y, int endx, int endy, t_game *game)
+void	bresenhams_line(int x, int y, int endx, int endy, t_game *game, int color)
 {
 	int dx = abs(endx - x);
 	int dy = abs(endy - y);
@@ -85,7 +85,7 @@ void	bresenhams_line(int x, int y, int endx, int endy, t_game *game)
 
 	while (1)
 	{
-		mlx_pixel_put(game->mlx, game->mlx_win, x, y, GREEN);
+		mlx_pixel_put(game->mlx, game->mlx_win, x, y, color);
 		if (x == endx && y == endy)
 			break ;
 		e2 = 2 * err;
@@ -163,21 +163,17 @@ void	cast_rayy(t_game *game, double angle)
 	/////////////////////
 	/// HORIZONTAL RAY //
 	/////////////////////
-	hAy = (int)y / game->height * game->height;
+	hAy = floor(y / game->height) * game->height;
 	if (game->player->dir->down)
 	{
 		hAy += game->height;
-		pixel = -1;
+		pixel = 0;
 	}
 	hAx = x + (hAy - y) / tan(angle);
-	if (angle == M_PI / 2 || angle == 3 * M_PI / 2)
-		hAx = x;
 	delta_hy = game->height;
 	if (game->player->dir->up)
 		delta_hy *= -1;//clear
 	delta_hx = game->height / tan(angle);
-	if (angle == M_PI / 2 || angle == 3 * M_PI / 2)
-		delta_hx = 0;
 	if (game->player->dir->left && delta_hx > 0)
 		delta_hx *= -1;
 	if (game->player->dir->right && delta_hx < 0)
@@ -186,12 +182,17 @@ void	cast_rayy(t_game *game, double angle)
 	HTy = hAy;
 	while (1)
 	{
-		map_x = HTx / game->width;
-		map_y = (HTy - pixel) / game->height;
+		map_x = floor(HTx / game->width);
+		map_y = floor(HTy - pixel) / game->height;
 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
 			break;
 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
 		{
+			if (HTx == 432 && game->player->fetch == 0)
+			{
+				printf("pos of H is %d, %d\n", HTx, HTy);
+				printf("map is %d, %d\n", map_x, map_y);
+			}
 			fh = true;
 			break;
 		}
@@ -203,21 +204,17 @@ void	cast_rayy(t_game *game, double angle)
 	///////////////////
 	int VTx, VTy;
 	pixel = 1;
-	vAx = (int)x / game->width * game->width;// done
+	vAx = floor(x / game->width) * game->width;// done
 	if (game->player->dir->right)
 	{
 		vAx += game->width;
-		pixel = -1;
+		pixel = 0;
 	}
 	vAy = y + (vAx - x) * tan(angle);
-	if (angle == 0 || angle == M_PI)
-		vAy = y;
 	delta_vx = game->width;
 	if (game->player->dir->left)
 		delta_vx *= -1;
 	delta_vy = game->width * tan(angle);
-	if (angle == 0 || angle == M_PI)
-		delta_vy = 0;
 	if (game->player->dir->up && delta_vy > 0)
 		delta_vy *= -1;
 	if (game->player->dir->down && delta_vy < 0)
@@ -226,12 +223,17 @@ void	cast_rayy(t_game *game, double angle)
 	VTy = vAy;
 	while (1)
 	{
-		map_x = (VTx - pixel) / game->width;
-		map_y = VTy / game->height;
+		map_x = floor(VTx - pixel) / game->width;
+		map_y = floor(VTy / game->height);
 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
 			break;
 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
 		{
+			if (VTx == 432 && game->player->fetch == 0)
+			{
+				printf("pos of V is %d, %d\n", VTx, VTy);
+				printf("map is %d, %d\n", map_x, map_y);
+			}
 			fv = true;
 			break;
 		}
@@ -240,14 +242,13 @@ void	cast_rayy(t_game *game, double angle)
 	}
 	int H_dis = (fh) ? phitagore(x, y, HTx, HTy) : 1000000;
 	int V_dis = (fv) ? phitagore(x, y, VTx, VTy) : 1000000;
-	vAy = (V_dis < H_dis) ? VTy : HTy;
-	vAx = (V_dis < H_dis) ? VTx : HTx;
+	vAy = (V_dis <= H_dis) ? VTy : HTy;
+	vAx = (V_dis <= H_dis) ? VTx : HTx;
 	int dis = (V_dis < H_dis) ? V_dis : H_dis;
-	bresenhams_line(x, y, vAx, vAy, game);
+	bresenhams_line(x, y, vAx, vAy, game, GREEN);
 	if (game->player->fetch == 0)
 	{
 		printf("x is %d\n", vAx);
-		printf("angle is %f\n", angle * 180 / M_PI);
 	}
 }
 
