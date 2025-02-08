@@ -36,44 +36,7 @@ void	circle(t_game *game, int x, int y, int r)
 		i++;
 	}
 }
-// void	cast_ray(t_game *game, double angle)
-// {
-// 	double x = game->player->pos_x;
-// 	double y = game->player->pos_y;
-// 	double dx = cos(angle);
-// 	double dy = sin(angle);
-// 	int map_x, map_y;
-// 	int Ax, Ay, Bx, By;
-// 	Ay = (int)y / game->height * game->height;
-// 	Ax = x + (Ay - y) / tan(angle);
-// 	By = Ay + game->height;
-// 	Bx = By / tan(angle);
-// 	int delta_x = Bx - Ax;
-// 	int delta_y = game->height;
-// 	map_x = Ax / game->width;
-// 	map_y = Ay / game->height;
-// 	printf("Ax is %d, Ay is %d\n", Ax, Ay);
-// 	printf("Bx is %d, By is %d\n", Bx, By);
-// 	printf("delta_x is %d, delta_y is %d\n", delta_x, delta_y);
-// 	int xx = 0;
-// 	while (1)
-// 	{
-// 		xx++;
-// 		Ax += delta_x;
-// 		Ay += delta_y;
-// 		map_x = Ax / game->width;
-// 		map_y = Ay / game->height;
-// 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
-// 			break;
-// 		printf("xx is %d\n", xx);
-// 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
-// 		{
-// 			printf("break is on %d, %d\n", map_x, map_y);
-// 			printf("heet is on %d, %d\n", Ax, Ay);
-// 			break;
-// 		}
-// 	}
-// }
+
 void	bresenhams_line(int x, int y, int endx, int endy, t_game *game, int color)
 {
 	int dx = abs(endx - x);
@@ -104,7 +67,7 @@ void	bresenhams_line(int x, int y, int endx, int endy, t_game *game, int color)
 
 void	get_dir(t_game *game, double angle)
 {
-	game->player->dir->down = (angle >= 0 && angle <= M_PI);
+	game->player->dir->down = (angle >= 0.0 && angle <= M_PI);
 	game->player->dir->up = !game->player->dir->down;
 	game->player->dir->right = (angle <= M_PI / 2 || angle >= 3 * M_PI / 2);
 	game->player->dir->left = !game->player->dir->right;
@@ -251,6 +214,108 @@ void	cast_rayy(t_game *game, double angle)
 		printf("x is %d\n", vAx);
 	}
 }
+int	check_waaal(t_game *game, int y, int x)
+{
+	if (x < 0 || y < 0 || x >= 10 || y >= 10)
+		return (1);
+	if (game->map[y][x] == '1')
+		return (1);
+	return (0);
+}
+
+void	hoz(t_game *game, double angle)
+{
+	game->hy = (floor(game->player->pos_y / game->height) * game->height) + (game->player->dir->down ? game->height : 0);
+	game->hx = game->player->pos_x + ((game->hy - game->player->pos_y) / tan(angle));
+	double dy = game->height;
+	if (game->player->dir->up)
+		dy *= -1;
+	double dx = game->height / tan(angle);
+	if (game->player->dir->left && dx > 0)
+		dx *= -1;
+	if (game->player->dir->right && dx < 0)
+		dx *= -1;
+	double vet = 0;
+	while (1)
+	{
+		vet = floor((game->hy - (game->player->dir->up ? 1 : 0)) / game->height);
+		if (check_waaal(game, vet, floor(game->hx / game->width)))
+			break;
+		game->hx += dx;
+		game->hy += dy;
+	}
+}
+
+void	ver(t_game *game, double angle)
+{
+	game->vx = (floor(game->player->pos_x / game->width) * game->width) + (game->player->dir->right ? game->width : 0);
+	game->vy = game->player->pos_y + ((game->vx - game->player->pos_x) * tan(angle));
+	double dx = game->width;
+	if (game->player->dir->left)
+		dx *= -1;
+	double dy = game->width * tan(angle);
+	if (game->player->dir->up && dy > 0)
+		dy *= -1;
+	if (game->player->dir->down && dy < 0)
+		dy *= -1;
+	double het = 0;
+	while (1)
+	{
+		het = floor((game->vx - (game->player->dir->left ? 1 : 0)) / game->width);
+		if (check_waaal(game, floor(game->vy / game->height), het))
+			break;
+		game->vx += dx;
+		game->vy += dy;
+	}
+}
+
+int draw_line(t_game *mlx, int beginX, int beginY, int endX, int endY, int color)
+{
+	double deltaX = endX - beginX; // 10
+	double deltaY = endY - beginY; // 0
+	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	deltaX /= pixels; // 1
+	deltaY /= pixels; // 0
+	double pixelX = beginX;
+	double pixelY = beginY;
+	while (pixels)
+	{
+		mlx_pixel_put(mlx, mlx->mlx_win, pixelX, pixelY, color);
+		pixelX += deltaX;
+		pixelY += deltaY;
+		--pixels;
+	}
+	return (0);
+}
+
+void	cast_ra(t_game *game, double angle)
+{
+	angle = normalize_angle(angle);
+	get_dir(game, angle);
+	hoz(game, angle);
+	ver(game, angle);
+	int H_dis = phitagore(game->player->pos_x, game->player->pos_y, game->hx, game->hy);
+	int V_dis = phitagore(game->player->pos_x, game->player->pos_y, game->vx, game->vy);
+	if (H_dis <= V_dis + EPSILON)
+		draw_line(game, game->player->pos_x, game->player->pos_y, game->hx, game->hy, GREEN);
+	else
+		draw_line(game, game->player->pos_x, game->player->pos_y, game->vx, game->vy, GREEN);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void	fov(t_game *game)
 {
@@ -259,7 +324,7 @@ void	fov(t_game *game)
 	double angle = game->player->angle - FOV / 2;
 	while (angle < game->player->angle + FOV / 2)
 	{
-		cast_rayy(game, angle);
+		cast_ra(game, angle);
 		angle += FOV / WIDTH;
 	}
 	game->player->fetch = 1;

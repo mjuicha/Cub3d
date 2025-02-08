@@ -8,6 +8,7 @@
 # define WIDTH      480
 # define HEIGHT     480
 # define TILE_SIZE  48
+# define EPSILON    0.000001
 /***********************  keys  ***************************/
 # define ESC        53
 # define W          13
@@ -87,6 +88,13 @@ typedef struct s_game
 	int     width;
 	int     height;
 
+///	///////////////
+	double  hx;
+	double  hy;
+///	///////////////
+	double  vx;
+	double  vy;
+///////////////////
 	char    **map;
 	int     mapfd;
 	t_player *player;
