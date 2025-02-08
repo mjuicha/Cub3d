@@ -104,9 +104,9 @@ void	bresenhams_line(int x, int y, int endx, int endy, t_game *game)
 
 void	get_dir(t_game *game, double angle)
 {
-	game->player->dir->down = (angle > 0 && angle < M_PI);
+	game->player->dir->down = (angle >= 0 && angle <= M_PI);
 	game->player->dir->up = !game->player->dir->down;
-	game->player->dir->right = (angle < M_PI / 2 || angle > 3 * M_PI / 2);
+	game->player->dir->right = (angle <= M_PI / 2 || angle >= 3 * M_PI / 2);
 	game->player->dir->left = !game->player->dir->right;
 }
 
@@ -134,18 +134,20 @@ void	cast_ray(t_game *game, double angle)
 		mlx_pixel_put(game->mlx, game->mlx_win, (int)x, (int)y, GREEN);
 	}
 }
-int	up(t_game *game)
+
+double	normalize_angle(double angle)
 {
-	return (game->player->dir->up);
+	angle = fmod(angle, 2 * M_PI);
+	if (angle < 0)
+		angle += 2 * M_PI;
+	return (angle);
 }
-int	left(t_game *game)
-{
-	return (game->player->dir->left);
-}
+
 void	cast_rayy(t_game *game, double angle)
 {
 	double x = game->player->pos_x;
 	double y = game->player->pos_y;
+	angle = normalize_angle(angle);
 	get_dir(game, angle);
 	int map_x, map_y;
 	int hAx, hAy;
@@ -155,6 +157,7 @@ void	cast_rayy(t_game *game, double angle)
 	int delta_hy = 0;
 	int delta_vx = 0;
 	int delta_vy = 0;
+	int pixel = 1;
 	bool fh = false;
 	bool fv = false;
 	/////////////////////
@@ -162,7 +165,10 @@ void	cast_rayy(t_game *game, double angle)
 	/////////////////////
 	hAy = (int)y / game->height * game->height;
 	if (game->player->dir->down)
+	{
 		hAy += game->height;
+		pixel = -1;
+	}
 	hAx = x + (hAy - y) / tan(angle);
 	if (angle == M_PI / 2 || angle == 3 * M_PI / 2)
 		hAx = x;
@@ -181,7 +187,7 @@ void	cast_rayy(t_game *game, double angle)
 	while (1)
 	{
 		map_x = HTx / game->width;
-		map_y = (HTy - up(game)) / game->height;
+		map_y = (HTy - pixel) / game->height;
 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
 			break;
 		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
@@ -196,9 +202,13 @@ void	cast_rayy(t_game *game, double angle)
 	/// VERICAL  RAY //
 	///////////////////
 	int VTx, VTy;
+	pixel = 1;
 	vAx = (int)x / game->width * game->width;// done
 	if (game->player->dir->right)
+	{
 		vAx += game->width;
+		pixel = -1;
+	}
 	vAy = y + (vAx - x) * tan(angle);
 	if (angle == 0 || angle == M_PI)
 		vAy = y;
@@ -216,7 +226,7 @@ void	cast_rayy(t_game *game, double angle)
 	VTy = vAy;
 	while (1)
 	{
-		map_x = (VTx - left(game)) / game->width;
+		map_x = (VTx - pixel) / game->width;
 		map_y = VTy / game->height;
 		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
 			break;

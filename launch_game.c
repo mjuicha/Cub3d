@@ -29,13 +29,7 @@ void    draw_walls(t_game *game)
     }
 }
 
-double	normalize_angle(double angle)
-{
-	angle = fmod(angle, 2 * M_PI);
-	if (angle < 0)
-		angle += 2 * M_PI;
-	return (angle);
-}
+
 
 void    update_position(t_game *game)
 {
@@ -44,7 +38,6 @@ void    update_position(t_game *game)
     game->player->pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2) * game->player->move_speed;
     game->player->pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2) * game->player->move_speed;
     game->player->angle += game->player->turn_dir * game->player->rot_speed;
-    game->player->angle = normalize_angle(game->player->angle);
 }
 
 int    render_game(t_game *game)
