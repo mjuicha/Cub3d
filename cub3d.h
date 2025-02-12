@@ -8,7 +8,6 @@
 # define WIDTH      480
 # define HEIGHT     480
 # define TILE_SIZE  48
-# define EPSILON    0.000001
 /***********************  keys  ***************************/
 # define ESC        53
 # define W          13
@@ -25,6 +24,8 @@
 # define GREY	  	0x00A9A9A9
 # define RED	 	0x00FF0000
 # define GREEN	 	0x0000FF00
+# define BLUE	 	0x000000FF
+# define YELLOW	 	0x00FFFF00
 /***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
@@ -81,6 +82,7 @@ typedef struct s_game
 {
 	void    *mlx;
 	void    *mlx_win;
+	void    *img;
 	
 	void	*black_wall;
 	void	*empty_wall;
@@ -95,6 +97,15 @@ typedef struct s_game
 	double  vx;
 	double  vy;
 ///////////////////
+	int 	bpp;
+	int 	line_length;
+	int 	*endian;
+	char    *addr;
+///////////////////
+	int 	*dis;
+	double  *t_angle;
+	int 	*is_hor;
+	double  *raydist;
 	char    **map;
 	int     mapfd;
 	t_player *player;

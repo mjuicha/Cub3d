@@ -28,7 +28,23 @@ void    draw_walls(t_game *game)
         my++;
     }
 }
-
+void    put_pixel_to_img(t_game *game, int x, int y, int color);
+void    reset_color(t_game *game)
+{
+    uint32_t    color = BLACK;
+    int x = 0;
+    int y = 0;
+    while (y < HEIGHT)
+    {
+        x = 0;
+        while (x < WIDTH)
+        {
+            put_pixel_to_img(game, x, y, color);
+            x++;
+        }
+        y++;
+    }
+}
 
 
 void    update_position(t_game *game)
@@ -38,13 +54,53 @@ void    update_position(t_game *game)
     game->player->pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2) * game->player->move_speed;
     game->player->pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2) * game->player->move_speed;
     game->player->angle += game->player->turn_dir * game->player->rot_speed;
+    // if (game->player->walk_dir || game->player->side_dir || game->player->turn_dir)
+    //     reset_color(game);
+}
+
+void    put_pixel_to_img(t_game *game, int x, int y, int color)
+{
+    char    *dst;
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+        return ;
+    dst = game->addr + (y * game->line_length + x * (game->bpp / 8));
+    *(unsigned int *)dst = color;
+}
+void	projection(t_game *game)
+{
+    int ray = 0;
+    while (ray < WIDTH)
+    {
+	    double	dis_pro = (WIDTH / 2) / tan(FOV / 2);
+        double  c_dis = game->dis[ray] * cos(game->t_angle[ray] - game->player->angle);
+	    double wall_height = (game->height / c_dis) * dis_pro;
+	    int b_pix = (HEIGHT / 2) + (wall_height / 2);
+	    int t_pix = (HEIGHT / 2) - (wall_height / 2);
+	    if (b_pix > HEIGHT)
+	    	b_pix = HEIGHT;
+	    if (t_pix < 0)
+    		t_pix = 0;
+        int y = t_pix;
+        while (y < b_pix)
+        {
+            put_pixel_to_img(game, ray, y, !game->is_hor[ray] ? WHITE : GREY);
+            y++;
+        }
+        ray++;
+    }
+}
+void    draw_color(t_game *game)
+{
+    mlx_put_image_to_window(game->mlx, game->mlx_win, game->img, 0, 0);
 }
 
 int    render_game(t_game *game)
 {
+    reset_color(game);
     update_position(game);
-    mlx_clear_window(game->mlx, game->mlx_win);
-    draw_walls(game);
     player(game);
+    projection(game);
+    draw_color(game);
+
     return (0);
 }

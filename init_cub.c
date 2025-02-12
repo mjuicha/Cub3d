@@ -64,6 +64,9 @@ void	get_info(t_game *game)
 		ft_error(MLX_ERROR);
 		exit(FAILURE);
 	}
+	game->dis = malloc(sizeof(int) * WIDTH);
+	game->t_angle = malloc(sizeof(double) * WIDTH);
+	game->is_hor = malloc(sizeof(int) * WIDTH);
 	game->player->walk_dir = 0;
 	game->player->turn_dir = 0;
 	game->player->side_dir = 0;

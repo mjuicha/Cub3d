@@ -287,8 +287,47 @@ int draw_line(t_game *mlx, int beginX, int beginY, int endX, int endY, int color
 	}
 	return (0);
 }
+void	rect(t_game *game, int x, int y, int height)
+{
+	int i = 0;
+	while (i < height)
+	{
+		mlx_pixel_put(game->mlx, game->mlx_win, x, y + i, GREEN);
+		if (game->player->fetch == 0)
+			printf("************\n");
+		i++;
+	}
+}
 
-void	cast_ra(t_game *game, double angle)
+void	wall_draw(t_game *game, int ray, int t_pix, int b_pix)
+{
+	while (t_pix < b_pix)
+	{
+		mlx_pixel_put(game->mlx, game->mlx_win, ray, t_pix, GREEN);
+		t_pix++;
+	}
+}
+
+void	floor_draw(t_game *game, int ray, int b_pix, int t_pix)
+{
+	int i = 0;
+	i = b_pix;
+	while (i < HEIGHT)
+	{
+		mlx_pixel_put(game->mlx, game->mlx_win, ray, i, YELLOW);
+		i++;
+	}
+	i = 0;
+	while (i < t_pix)
+	{
+		mlx_pixel_put(game->mlx, game->mlx_win, ray, i, BLUE);
+		i++;
+	}
+}
+
+
+
+void	cast_ra(t_game *game, double angle, int ray)
 {
 	angle = normalize_angle(angle);
 	get_dir(game, angle);
@@ -296,25 +335,14 @@ void	cast_ra(t_game *game, double angle)
 	ver(game, angle);
 	int H_dis = phitagore(game->player->pos_x, game->player->pos_y, game->hx, game->hy);
 	int V_dis = phitagore(game->player->pos_x, game->player->pos_y, game->vx, game->vy);
-	if (H_dis <= V_dis + EPSILON)
-		draw_line(game, game->player->pos_x, game->player->pos_y, game->hx, game->hy, GREEN);
-	else
-		draw_line(game, game->player->pos_x, game->player->pos_y, game->vx, game->vy, GREEN);
+	// if (H_dis <= V_dis)
+	// 	draw_line(game, game->player->pos_x, game->player->pos_y, game->hx, game->hy, GREEN);
+	// else
+	// 	draw_line(game, game->player->pos_x, game->player->pos_y, game->vx, game->vy, GREEN);
+	game->dis[ray] = (H_dis <= V_dis) ? H_dis : V_dis;
+	game->t_angle[ray] = angle;
+	game->is_hor[ray] = (H_dis <= V_dis) ? 1 : 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void	fov(t_game *game)
@@ -322,16 +350,19 @@ void	fov(t_game *game)
 	if (game->player->turn_dir || game->player->fetch == 0)
 		printf("angle is |%f\n", game->player->angle * 180 / M_PI);
 	double angle = game->player->angle - FOV / 2;
-	while (angle < game->player->angle + FOV / 2)
+	int i = 0;
+	while (i < WIDTH)
 	{
-		cast_ra(game, angle);
+		cast_ra(game, angle, i);
 		angle += FOV / WIDTH;
+		i++;
 	}
-	game->player->fetch = 1;
 }
+
 
 void    player(t_game *game)
 {
-    pl(game);
+    // pl(game);
 	fov(game);
+	game->player->fetch = 1;
 }
