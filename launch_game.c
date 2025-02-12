@@ -66,7 +66,7 @@ void    put_pixel_to_img(t_game *game, int x, int y, int color)
     dst = game->addr + (y * game->line_length + x * (game->bpp / 8));
     *(unsigned int *)dst = color;
 }
-void	projection(t_game *game)
+void	wall_projection(t_game *game)
 {
     int ray = 0;
     while (ray < WIDTH)
@@ -74,21 +74,32 @@ void	projection(t_game *game)
 	    double	dis_pro = (WIDTH / 2) / tan(FOV / 2);
         double  c_dis = game->dis[ray] * cos(game->t_angle[ray] - game->player->angle);
 	    double wall_height = (game->height / c_dis) * dis_pro;
-	    int b_pix = (HEIGHT / 2) + (wall_height / 2);
-	    int t_pix = (HEIGHT / 2) - (wall_height / 2);
-	    if (b_pix > HEIGHT)
-	    	b_pix = HEIGHT;
-	    if (t_pix < 0)
-    		t_pix = 0;
-        int y = t_pix;
-        while (y < b_pix)
+	    game->b_pix = (HEIGHT / 2) + (wall_height / 2);
+	    game->t_pix = (HEIGHT / 2) - (wall_height / 2);
+	    if (game->b_pix > HEIGHT)
+	    	game->b_pix = HEIGHT;
+	    if (game->t_pix < 0)
+    		game->t_pix = 0;
+        int y = 0;
+        while (y < game->t_pix)
+        {
+            put_pixel_to_img(game, ray, y, SKY_BLUE);
+            y++;
+        }
+        while (y < game->b_pix)
         {
             put_pixel_to_img(game, ray, y, !game->is_hor[ray] ? WHITE : GREY);
+            y++;
+        }
+        while (y < HEIGHT)
+        {
+            put_pixel_to_img(game, ray, y, FLOOR);
             y++;
         }
         ray++;
     }
 }
+
 void    draw_color(t_game *game)
 {
     mlx_put_image_to_window(game->mlx, game->mlx_win, game->img, 0, 0);
@@ -99,7 +110,7 @@ int    render_game(t_game *game)
     reset_color(game);
     update_position(game);
     player(game);
-    projection(game);
+    wall_projection(game);
     draw_color(game);
 
     return (0);

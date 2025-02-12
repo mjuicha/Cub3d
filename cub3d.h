@@ -26,6 +26,8 @@
 # define GREEN	 	0x0000FF00
 # define BLUE	 	0x000000FF
 # define YELLOW	 	0x00FFFF00
+# define SKY_BLUE	0x0080DFFF
+# define FLOOR		0x00B6855B
 /***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
@@ -102,6 +104,8 @@ typedef struct s_game
 	int 	*endian;
 	char    *addr;
 ///////////////////
+	int		t_pix;
+	int		b_pix;
 	int 	*dis;
 	double  *t_angle;
 	int 	*is_hor;
