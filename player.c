@@ -240,7 +240,10 @@ void	hoz(t_game *game, double angle)
 	{
 		vet = floor((game->hy - (game->player->dir->up ? 1 : 0)) / game->height);
 		if (check_waaal(game, vet, floor(game->hx / game->width)))
+		{
+			game->hy = game->hy + (game->player->dir->down ? 1 : 0);
 			break;
+		}
 		game->hx += dx;
 		game->hy += dy;
 	}
@@ -263,7 +266,10 @@ void	ver(t_game *game, double angle)
 	{
 		het = floor((game->vx - (game->player->dir->left ? 1 : 0)) / game->width);
 		if (check_waaal(game, floor(game->vy / game->height), het))
+		{
+			game->vx = game->vx + (game->player->dir->right ? 1 : 0);
 			break;
+		}
 		game->vx += dx;
 		game->vy += dy;
 	}
