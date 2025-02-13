@@ -64,7 +64,8 @@ void	get_info(t_game *game)
 		ft_error(MLX_ERROR);
 		exit(FAILURE);
 	}
-	game->dis = malloc(sizeof(int) * WIDTH);
+	game->dis = malloc(sizeof(double) * WIDTH);
+	game->is_spec = malloc(sizeof(double) * WIDTH);
 	game->t_angle = malloc(sizeof(double) * WIDTH);
 	game->is_hor = malloc(sizeof(int) * WIDTH);
 	game->player->walk_dir = 0;
@@ -72,7 +73,7 @@ void	get_info(t_game *game)
 	game->player->side_dir = 0;
 	game->player->move_speed = 2.0;
 	game->player->rot_speed = 10.0 * (M_PI / 180);
-	game->player->angle = 50 * (M_PI / 180);
+	game->player->angle = 0 * (M_PI / 180);
 	game->player->ready = 1;
 	game->player->fetch = 0;
 }

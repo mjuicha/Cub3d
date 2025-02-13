@@ -73,9 +73,9 @@ void	get_dir(t_game *game, double angle)
 	game->player->dir->left = !game->player->dir->right;
 }
 
-int phitagore(int x1, int y1, int x2, int y2)
+double phitagore(int x1, int y1, int x2, int y2)
 {
-	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
+	return (sqrtl(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 void	cast_ray(t_game *game, double angle)
 {
@@ -238,12 +238,9 @@ void	hoz(t_game *game, double angle)
 	double vet = 0;
 	while (1)
 	{
-		vet = floor((game->hy - (game->player->dir->up ? 1 : 0)) / game->height);
+		vet = floor((game->hy + (game->player->dir->up ? -1 : 0)) / game->height);
 		if (check_waaal(game, vet, floor(game->hx / game->width)))
-		{
-			game->hy = game->hy + (game->player->dir->down ? 1 : 0);
 			break;
-		}
 		game->hx += dx;
 		game->hy += dy;
 	}
@@ -264,12 +261,9 @@ void	ver(t_game *game, double angle)
 	double het = 0;
 	while (1)
 	{
-		het = floor((game->vx - (game->player->dir->left ? 1 : 0)) / game->width);
+		het = floor((game->vx + (game->player->dir->left ? -1 : 0)) / game->width);
 		if (check_waaal(game, floor(game->vy / game->height), het))
-		{
-			game->vx = game->vx + (game->player->dir->right ? 1 : 0);
 			break;
-		}
 		game->vx += dx;
 		game->vy += dy;
 	}
@@ -339,15 +333,12 @@ void	cast_ra(t_game *game, double angle, int ray)
 	get_dir(game, angle);
 	hoz(game, angle);
 	ver(game, angle);
-	int H_dis = phitagore(game->player->pos_x, game->player->pos_y, game->hx, game->hy);
-	int V_dis = phitagore(game->player->pos_x, game->player->pos_y, game->vx, game->vy);
-	// if (H_dis <= V_dis)
-	// 	draw_line(game, game->player->pos_x, game->player->pos_y, game->hx, game->hy, GREEN);
-	// else
-	// 	draw_line(game, game->player->pos_x, game->player->pos_y, game->vx, game->vy, GREEN);
+	double H_dis = phitagore(game->player->pos_x, game->player->pos_y, game->hx, game->hy);
+	double V_dis = phitagore(game->player->pos_x, game->player->pos_y, game->vx, game->vy);
 	game->dis[ray] = (H_dis <= V_dis) ? H_dis : V_dis;
 	game->t_angle[ray] = angle;
 	game->is_hor[ray] = (H_dis <= V_dis) ? 1 : 0;
+	game->is_spec[ray] = (H_dis == V_dis) ? 1 : 0;
 }
 
 
@@ -370,5 +361,4 @@ void    player(t_game *game)
 {
     // pl(game);
 	fov(game);
-	game->player->fetch = 1;
 }

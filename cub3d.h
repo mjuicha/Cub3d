@@ -106,7 +106,8 @@ typedef struct s_game
 ///////////////////
 	int		t_pix;
 	int		b_pix;
-	int 	*dis;
+	double 	*dis;
+	double  *is_spec;
 	double  *t_angle;
 	int 	*is_hor;
 	double  *raydist;

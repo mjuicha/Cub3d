@@ -71,6 +71,8 @@ void	wall_projection(t_game *game)
     int ray = 0;
     while (ray < WIDTH)
     {
+        if (game->is_spec[ray] && game->is_hor[ray] && (!game->is_hor[ray - 1] || !game->is_hor[ray + 1]))
+            game->is_hor[ray] = 0;
 	    double	dis_pro = (WIDTH / 2) / tan(FOV / 2);
         double  c_dis = game->dis[ray] * cos(game->t_angle[ray] - game->player->angle);
 	    double wall_height = (game->height / c_dis) * dis_pro;
@@ -88,7 +90,7 @@ void	wall_projection(t_game *game)
         }
         while (y < game->b_pix)
         {
-            put_pixel_to_img(game, ray, y, !game->is_hor[ray] ? WHITE : GREY);
+            put_pixel_to_img(game, ray, y, !game->is_hor[ray] ? WHITE : RED);
             y++;
         }
         while (y < HEIGHT)
@@ -111,7 +113,7 @@ int    render_game(t_game *game)
     update_position(game);
     player(game);
     wall_projection(game);
+	game->player->fetch = 1;
     draw_color(game);
-
     return (0);
 }
