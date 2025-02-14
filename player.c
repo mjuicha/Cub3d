@@ -77,26 +77,6 @@ double phitagore(int x1, int y1, int x2, int y2)
 {
 	return (sqrtl(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
-void	cast_ray(t_game *game, double angle)
-{
-	double x = game->player->pos_x;
-	double y = game->player->pos_y;
-	double dx = cos(angle);
-	double dy = sin(angle);
-	int map_x, map_y;
-	while (1)
-	{
-		x += dx;
-		y += dy;
-		map_x = (int)x / game->width;
-		map_y = (int)y / game->height;
-		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
-			break;
-		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
-			break;
-		mlx_pixel_put(game->mlx, game->mlx_win, (int)x, (int)y, GREEN);
-	}
-}
 
 double	normalize_angle(double angle)
 {
@@ -106,124 +86,16 @@ double	normalize_angle(double angle)
 	return (angle);
 }
 
-void	cast_rayy(t_game *game, double angle)
-{
-	double x = game->player->pos_x;
-	double y = game->player->pos_y;
-	angle = normalize_angle(angle);
-	get_dir(game, angle);
-	int map_x, map_y;
-	int hAx, hAy;
-	int HTx, HTy;
-	int vAx, vAy;
-	int delta_hx = 0;
-	int delta_hy = 0;
-	int delta_vx = 0;
-	int delta_vy = 0;
-	int pixel = 1;
-	bool fh = false;
-	bool fv = false;
-	/////////////////////
-	/// HORIZONTAL RAY //
-	/////////////////////
-	hAy = floor(y / game->height) * game->height;
-	if (game->player->dir->down)
-	{
-		hAy += game->height;
-		pixel = 0;
-	}
-	hAx = x + (hAy - y) / tan(angle);
-	delta_hy = game->height;
-	if (game->player->dir->up)
-		delta_hy *= -1;//clear
-	delta_hx = game->height / tan(angle);
-	if (game->player->dir->left && delta_hx > 0)
-		delta_hx *= -1;
-	if (game->player->dir->right && delta_hx < 0)
-		delta_hx *= -1;
-	HTx = hAx;
-	HTy = hAy;
-	while (1)
-	{
-		map_x = floor(HTx / game->width);
-		map_y = floor(HTy - pixel) / game->height;
-		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
-			break;
-		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
-		{
-			if (HTx == 432 && game->player->fetch == 0)
-			{
-				printf("pos of H is %d, %d\n", HTx, HTy);
-				printf("map is %d, %d\n", map_x, map_y);
-			}
-			fh = true;
-			break;
-		}
-		HTx += delta_hx;
-		HTy += delta_hy;
-	}
-	///////////////////
-	/// VERICAL  RAY //
-	///////////////////
-	int VTx, VTy;
-	pixel = 1;
-	vAx = floor(x / game->width) * game->width;// done
-	if (game->player->dir->right)
-	{
-		vAx += game->width;
-		pixel = 0;
-	}
-	vAy = y + (vAx - x) * tan(angle);
-	delta_vx = game->width;
-	if (game->player->dir->left)
-		delta_vx *= -1;
-	delta_vy = game->width * tan(angle);
-	if (game->player->dir->up && delta_vy > 0)
-		delta_vy *= -1;
-	if (game->player->dir->down && delta_vy < 0)
-		delta_vy *= -1;
-	VTx = vAx;
-	VTy = vAy;
-	while (1)
-	{
-		map_x = floor(VTx - pixel) / game->width;
-		map_y = floor(VTy / game->height);
-		if (map_x < 0 || map_y < 0 || map_x >= 10 || map_y >= 10)
-			break;
-		if (game->map[map_y][map_x] && game->map[map_y][map_x] == '1')
-		{
-			if (VTx == 432 && game->player->fetch == 0)
-			{
-				printf("pos of V is %d, %d\n", VTx, VTy);
-				printf("map is %d, %d\n", map_x, map_y);
-			}
-			fv = true;
-			break;
-		}
-		VTx += delta_vx;
-		VTy += delta_vy;
-	}
-	int H_dis = (fh) ? phitagore(x, y, HTx, HTy) : 1000000;
-	int V_dis = (fv) ? phitagore(x, y, VTx, VTy) : 1000000;
-	vAy = (V_dis <= H_dis) ? VTy : HTy;
-	vAx = (V_dis <= H_dis) ? VTx : HTx;
-	int dis = (V_dis < H_dis) ? V_dis : H_dis;
-	bresenhams_line(x, y, vAx, vAy, game, GREEN);
-	if (game->player->fetch == 0)
-	{
-		printf("x is %d\n", vAx);
-	}
-}
 int	check_waaal(t_game *game, int y, int x)
 {
-	if (x < 0 || y < 0 || x >= 10 || y >= 10)
+	if (x < 0 || y < 0 || x >= 35 || y >= 35)
 		return (1);
 	if (game->map[y][x] == '1')
 		return (1);
 	return (0);
 }
 
-void	hoz(t_game *game, double angle)
+double	hoz(t_game *game, double angle)
 {
 	game->hy = (floor(game->player->pos_y / game->height) * game->height) + (game->player->dir->down ? game->height : 0);
 	game->hx = game->player->pos_x + ((game->hy - game->player->pos_y) / tan(angle));
@@ -244,9 +116,10 @@ void	hoz(t_game *game, double angle)
 		game->hx += dx;
 		game->hy += dy;
 	}
+	return (phitagore(game->player->pos_x, game->player->pos_y, game->hx, game->hy));
 }
 
-void	ver(t_game *game, double angle)
+double	ver(t_game *game, double angle)
 {
 	game->vx = (floor(game->player->pos_x / game->width) * game->width) + (game->player->dir->right ? game->width : 0);
 	game->vy = game->player->pos_y + ((game->vx - game->player->pos_x) * tan(angle));
@@ -267,6 +140,7 @@ void	ver(t_game *game, double angle)
 		game->vx += dx;
 		game->vy += dy;
 	}
+	return (phitagore(game->player->pos_x, game->player->pos_y, game->vx, game->vy));
 }
 
 int draw_line(t_game *mlx, int beginX, int beginY, int endX, int endY, int color)
@@ -331,10 +205,8 @@ void	cast_ra(t_game *game, double angle, int ray)
 {
 	angle = normalize_angle(angle);
 	get_dir(game, angle);
-	hoz(game, angle);
-	ver(game, angle);
-	double H_dis = phitagore(game->player->pos_x, game->player->pos_y, game->hx, game->hy);
-	double V_dis = phitagore(game->player->pos_x, game->player->pos_y, game->vx, game->vy);
+	double H_dis = hoz(game, angle);
+	double V_dis = ver(game, angle);
 	game->dis[ray] = (H_dis <= V_dis) ? H_dis : V_dis;
 	game->t_angle[ray] = angle;
 	game->is_hor[ray] = (H_dis <= V_dis) ? 1 : 0;
@@ -345,7 +217,9 @@ void	cast_ra(t_game *game, double angle, int ray)
 void	fov(t_game *game)
 {
 	if (game->player->turn_dir || game->player->fetch == 0)
-		printf("angle is |%f\n", game->player->angle * 180 / M_PI);
+		printf("angle is %f\n", game->player->angle * 180 / M_PI);
+	if (game->player->walk_dir || game->player->fetch == 0)
+		printf("player pos x is %d and y is %d\n", (int)game->player->pos_x / 48, (int)game->player->pos_y / 48);
 	double angle = game->player->angle - FOV / 2;
 	int i = 0;
 	while (i < WIDTH)
@@ -354,11 +228,4 @@ void	fov(t_game *game)
 		angle += FOV / WIDTH;
 		i++;
 	}
-}
-
-
-void    player(t_game *game)
-{
-    // pl(game);
-	fov(game);
 }

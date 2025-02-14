@@ -5,8 +5,8 @@
 # define SUCCESS    1
 # define FAILURE    0
 /***********************  window  *************************/
-# define WIDTH      480
-# define HEIGHT     480
+# define WIDTH      1024
+# define HEIGHT     768
 # define TILE_SIZE  48
 /***********************  keys  ***************************/
 # define ESC        53
@@ -63,10 +63,8 @@ typedef struct s_dir
 	int left;
 	int right;
 }               t_dir;
-typedef struct s_player
+typedef struct s_player // nadi
 {
-	int	 	map_x;
-	int	 	map_y;
 	double 	pos_x;
 	double	pos_y;
 	int		walk_dir;
@@ -75,7 +73,6 @@ typedef struct s_player
 	double  angle;
 	double  move_speed;
 	double  rot_speed;
-	int		ready;
 	int		fetch;
 	t_dir   *dir;
 }            t_player;
@@ -86,12 +83,12 @@ typedef struct s_game
 	void    *mlx_win;
 	void    *img;
 	
-	void	*black_wall;
-	void	*empty_wall;
-
 	int     width;
 	int     height;
 
+	//void	*black_wall;
+	//void	*empty_wall;
+	
 ///	///////////////
 	double  hx;
 	double  hy;
@@ -103,14 +100,15 @@ typedef struct s_game
 	int 	line_length;
 	int 	*endian;
 	char    *addr;
-///////////////////
+	///////////////////
 	int		t_pix;
 	int		b_pix;
+	///////////////////
 	double 	*dis;
 	double  *is_spec;
 	double  *t_angle;
 	int 	*is_hor;
-	double  *raydist;
+	///////////////////
 	char    **map;
 	int     mapfd;
 	t_player *player;
@@ -127,7 +125,7 @@ t_game  *get_map(t_game *game);
 void    start_game(t_game *game);
 int    	render_game(t_game *game);
 int 	valid_input(int ac, char **av);
-void    player(t_game *game);
+void	fov(t_game *game);
 void	events_hook(t_game *game);
 void    draw_walls(t_game *game);
 /***********************  draw  ***********************/
