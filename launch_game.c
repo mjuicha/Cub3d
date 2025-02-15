@@ -61,13 +61,20 @@ void    put_pixel_to_img(t_game *game, int x, int y, int color)
 	dst = game->addr + (y * game->line_length + x * (game->bpp / 8));
 	*(unsigned int *)dst = color;
 }
+
+unsigned int	get_coloor(t_game *game, int x, int y)
+{
+	char    *dst;
+	dst = game->addr1 + (y * game->line_length1 + x * (game->bpp1 / 8));
+	return (*(unsigned int *)dst);
+}
 void	wall_projection(t_game *game)
 {
 	int ray = 0;
 	while (ray < WIDTH)
 	{
-		if (game->is_spec[ray] && game->is_hor[ray] && (!game->is_hor[ray - 1] || !game->is_hor[ray + 1]))
-			game->is_hor[ray] = 0;
+		// if (game->is_spec[ray] && game->is_hor[ray] && (!game->is_hor[ray - 1] || !game->is_hor[ray + 1]))
+		// 	game->is_hor[ray] = 0;
 		double	dis_pro = (WIDTH / 2) / tan(FOV / 2);
 		double  c_dis = game->dis[ray] * cos(game->t_angle[ray] - game->player->angle);
 		double wall_height = (game->height / c_dis) * dis_pro;
@@ -83,9 +90,16 @@ void	wall_projection(t_game *game)
 			put_pixel_to_img(game, ray, y, SKY_BLUE);
 			y++;
 		}
+		int xoff;
+		int yoff;
+		if (game->is_hor[ray])
+			xoff = (int)game->wallx[ray] % game->width;
+		else
+			xoff = (int)game->wally[ray] % game->height;
 		while (y < game->b_pix)
 		{
-			put_pixel_to_img(game, ray, y, !game->is_hor[ray] ? WHITE : GREY);
+			yoff = (y - game->t_pix) * game->height / wall_height;
+			put_pixel_to_img(game, ray, y, get_coloor(game, xoff, yoff));
 			y++;
 		}
 		while (y < HEIGHT)
@@ -102,11 +116,18 @@ void    draw_color(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img, 0, 0);
 }
 
+void	get_img(t_game *game)
+{
+	game->black_wall = mlx_xpm_file_to_image(game->mlx, EMPTY_WALL, &game->width, &game->height);
+	game->endian1 = malloc(sizeof(int));
+	game->addr1 = mlx_get_data_addr(game->black_wall, &game->bpp1, &game->line_length1, game->endian1);
+}
 int    render_game(t_game *game)
 {
 	reset_color(game);
 	update_position(game);
 	fov(game);
+	get_img(game);
 	wall_projection(game);
 	game->player->fetch = 1;
 	draw_color(game);

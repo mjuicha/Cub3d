@@ -67,6 +67,8 @@ void	get_info(t_game *game)
 	game->dis = malloc(sizeof(double) * WIDTH);
 	game->is_spec = malloc(sizeof(double) * WIDTH);
 	game->t_angle = malloc(sizeof(double) * WIDTH);
+	game->wallx = malloc(sizeof(double) * WIDTH);
+	game->wally = malloc(sizeof(double) * WIDTH);
 	game->is_hor = malloc(sizeof(int) * WIDTH);
 	game->player->walk_dir = 0;
 	game->player->turn_dir = 0;

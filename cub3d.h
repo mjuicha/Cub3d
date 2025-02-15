@@ -86,7 +86,7 @@ typedef struct s_game
 	int     width;
 	int     height;
 
-	//void	*black_wall;
+	void	*black_wall;
 	//void	*empty_wall;
 	
 ///	///////////////
@@ -96,10 +96,18 @@ typedef struct s_game
 	double  vx;
 	double  vy;
 ///////////////////
+	double 	*wallx;
+	double 	*wally;
+///////////////////
 	int 	bpp;
 	int 	line_length;
 	int 	*endian;
 	char    *addr;
+///////////////////
+	int 	bpp1;
+	int 	line_length1;
+	int 	*endian1;
+	char    *addr1;
 	///////////////////
 	int		t_pix;
 	int		b_pix;

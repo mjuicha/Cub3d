@@ -208,6 +208,8 @@ void	cast_ra(t_game *game, double angle, int ray)
 	double H_dis = hoz(game, angle);
 	double V_dis = ver(game, angle);
 	game->dis[ray] = (H_dis <= V_dis) ? H_dis : V_dis;
+	game->wallx[ray] = (H_dis <= V_dis) ? game->hx : game->vx;
+	game->wally[ray] = (H_dis <= V_dis) ? game->hy : game->vy;
 	game->t_angle[ray] = angle;
 	game->is_hor[ray] = (H_dis <= V_dis) ? 1 : 0;
 	game->is_spec[ray] = (H_dis == V_dis) ? 1 : 0;
