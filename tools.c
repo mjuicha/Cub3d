@@ -25,6 +25,21 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (s1[x] - s2[x]);
 }
 
+int	ft_strchr2(char *str, char *set)
+{
+	int i;
+
+	if (!str || !set)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (ft_strchr(str, set[0]) && ft_strchr(str, set[1]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 char	*ft_strdup(const char *s1)
 {
 	size_t	x;

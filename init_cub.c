@@ -53,11 +53,114 @@ int valid_input(int ac, char **av)
 	return (SUCCESS);
 }
 
+int	direction(char *line)
+{
+	if (ft_strchr2(line, "NO"))
+		return (1);
+	if (ft_strchr2(line, "SO"))
+		return (2);
+	if (ft_strchr2(line, "WE"))
+		return (3);
+	if (ft_strchr2(line, "EA"))
+		return (4);
+	return (0);
+}
+int	white_space(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
+int	skip(char *line)
+{
+	int i = 0;
+	while (white_space(line[i]))
+		i++;
+	if (direction(line + i))
+		i += 2;
+	while (white_space(line[i]))
+		i++;
+	return (i);
+}
+
+
+char	*path(char *line)
+{
+	int i = 0;
+	i = skip(line);
+	int alloc = 0;
+	while (line[i + alloc] && !white_space(line[i + alloc]))
+		alloc++;
+	char *path = malloc(sizeof(char) * (alloc + 1));
+	if (!path)
+	{
+		ft_error(MLX_ERROR);
+		exit(FAILURE);
+	}
+	int j = 0;
+	while (j < alloc)
+	{
+		path[j] = line[i + j];
+		j++;
+	}
+	path[j] = '\0';
+	return (path);
+}
+
+char	**alloc(char **tab, int size)
+{
+	tab = malloc(sizeof(char *) * (size + 1));
+	if (!tab)
+	{
+		ft_error(MLX_ERROR);
+		exit(FAILURE);
+	}
+	int i = 0;
+	while (i < size)
+	{
+		tab[i] = NULL;
+		i++;
+	}
+	return (tab);
+}
+
+int	check_array(t_game *game)
+{
+	int i = 0;
+	while (game->texture_path[i] && i < 4)
+	{
+		if (game->texture_path[i] == NULL)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	**get_texture_path(t_game *game)
+{
+	char	*line;
+
+	game->texture_path = alloc(game->texture_path, 5);
+	line = get_next_line(game->mapfd);
+	int i = 0;
+	while (line && check_array(game))
+	{
+		if ((i = direction(line)))
+			game->texture_path[i - 1] = path(line);
+		free(line);
+		line = get_next_line(game->mapfd);
+	}
+	game->texture_path[4] = NULL;
+	return (game->texture_path);
+}
+
 void	get_info(t_game *game)
 {
 	game->width = 48;
 	game->height = 48;
 	game->player = malloc(sizeof(t_player));
+	// game->texture_path = get_texture_path(game);
 	game->player->dir = malloc(sizeof(t_dir));
 	if (!game->player)
 	{
@@ -73,7 +176,7 @@ void	get_info(t_game *game)
 	game->player->walk_dir = 0;
 	game->player->turn_dir = 0;
 	game->player->side_dir = 0;
-	game->player->move_speed = 8.0;
+	game->player->move_speed = 4.0;
 	game->player->rot_speed = 2.0 * (M_PI / 180);
 	game->player->angle = 0 * (M_PI / 180);
 	game->player->fetch = 0;

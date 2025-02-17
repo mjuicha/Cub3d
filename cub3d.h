@@ -87,7 +87,11 @@ typedef struct s_game
 	int     height;
 
 	void	*black_wall;
-	//void	*empty_wall;
+	void	*blue_wall;
+	void	*red_wall;
+	void	*grey_wall;
+
+	char	**texture_path;
 	
 ///	///////////////
 	double  hx;
@@ -109,6 +113,21 @@ typedef struct s_game
 	int 	*endian1;
 	char    *addr1;
 	///////////////////
+	int 	bpp2;
+	int 	line_length2;
+	int 	*endian2;
+	char    *addr2;
+	///////////////////
+	int 	bpp3;
+	int 	line_length3;
+	int 	*endian3;
+	char    *addr3;
+	///////////////////
+	int 	bpp4;
+	int 	line_length4;
+	int 	*endian4;
+	char    *addr4;
+	///////////////////
 	int		t_pix;
 	int		b_pix;
 	///////////////////
@@ -122,6 +141,8 @@ typedef struct s_game
 	t_player *player;
 }               t_game;
 
+/***********************  prototypes  ***********************/
+int	ft_strchr2(char *str, char *set);
 /***********************  utils  ***********************/
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
