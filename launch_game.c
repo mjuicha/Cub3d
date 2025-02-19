@@ -62,10 +62,39 @@ void    put_pixel_to_img(t_game *game, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-unsigned int	get_coloor(t_game *game, int x, int y)
+
+int	is_nord(double angle)
 {
-	char    *dst;
-	dst = game->addr1 + (y * game->line_length1 + x * (game->bpp1 / 8));
+	if (angle >= 0 && angle < M_PI)
+		return (1);
+	return (0);
+}
+
+int	is_east(double angle)
+{
+	if (angle >= M_PI_2 && angle < 3 * M_PI_2)
+		return (1);
+	return (0);
+}
+
+unsigned int	get_coloor(t_game *game, int x, int y, int ray)
+{
+	char	*dst;
+
+	if (game->off)
+	{
+		if (is_nord(game->t_angle[ray]))
+			dst = game->addr1 + (y * game->line_length1 + x * (game->bpp1 / 8));
+		else
+			dst = game->addr3 + (y * game->line_length3 + x * (game->bpp3 / 8));
+	}
+	else
+	{
+		if (is_east(game->t_angle[ray]))
+			dst = game->addr2 + (y * game->line_length2 + x * (game->bpp2 / 8));
+		else
+			dst = game->addr4 + (y * game->line_length4 + x * (game->bpp4 / 8));
+	}
 	return (*(unsigned int *)dst);
 }
 void	wall_projection(t_game *game)
@@ -93,14 +122,20 @@ void	wall_projection(t_game *game)
 		int xoff;
 		int yoff;
 		if (game->is_hor[ray])
+		{
 			xoff = (int)game->wallx[ray] % game->width;
+			game->off = 1;
+		}
 		else
+		{
 			xoff = (int)game->wally[ray] % game->height;
+			game->off = 0;
+		}
 		while (y < game->b_pix)
 		{
 			int dft = y + (wall_height / 2) - HEIGHT / 2;
 			yoff = dft * game->height / wall_height;
-			put_pixel_to_img(game, ray, y, get_coloor(game, xoff, yoff));
+			put_pixel_to_img(game, ray, y, get_coloor(game, xoff, yoff, ray));
 			y++;
 		}
 		while (y < HEIGHT)
@@ -138,12 +173,9 @@ void	get_img2(t_game *game)
 
 void	get_img(t_game *game)
 {
-	game->black_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/black.xpm", &game->width, &game->height);
+	game->black_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/wood.xpm", &game->width, &game->height);
 	game->endian1 = malloc(sizeof(int));
 	game->addr1 = mlx_get_data_addr(game->black_wall, &game->bpp1, &game->line_length1, game->endian1);
-	game->blue_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/blue_stone.xpm", &game->width, &game->height);
-	game->endian2 = malloc(sizeof(int));
-	game->addr2 = mlx_get_data_addr(game->blue_wall, &game->bpp2, &game->line_length2, game->endian2);
 	// game->red_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/red_brick.xpm", &game->width, &game->height);
 	// game->endian3 = malloc(sizeof(int));
 	// game->addr3 = mlx_get_data_addr(game->red_wall, &game->bpp3, &game->line_length3, game->endian3);
@@ -156,8 +188,6 @@ int    render_game(t_game *game)
 	reset_color(game);
 	update_position(game);
 	fov(game);
-	get_img(game);
-	get_img2(game);
 	wall_projection(game);
 	game->player->fetch = 1;
 	draw_color(game);

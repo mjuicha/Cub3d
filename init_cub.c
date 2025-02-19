@@ -180,6 +180,7 @@ void	get_info(t_game *game)
 	game->player->rot_speed = 2.0 * (M_PI / 180);
 	game->player->angle = 0 * (M_PI / 180);
 	game->player->fetch = 0;
+	game->off = 0;
 }
 
 t_game  *init_cub(int ac, char **av)

@@ -138,11 +138,14 @@ typedef struct s_game
 	///////////////////
 	char    **map;
 	int     mapfd;
+	int off;
 	t_player *player;
 }               t_game;
 
 /***********************  prototypes  ***********************/
 int	ft_strchr2(char *str, char *set);
+double	normalize_angle(double angle);
+void    put_pixel_to_img(t_game *game, int x, int y, int color);
 /***********************  utils  ***********************/
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
