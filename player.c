@@ -218,8 +218,6 @@ void	cast_ra(t_game *game, double angle, int ray)
 
 void	fov(t_game *game)
 {
-	if (game->player->turn_dir || game->player->fetch == 0)
-		printf("angle is %f\n", game->player->angle * 180 / M_PI);
 	double angle = game->player->angle - FOV / 2;
 	int i = 0;
 	while (i < WIDTH)

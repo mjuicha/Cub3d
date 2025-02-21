@@ -185,6 +185,8 @@ void	get_info(t_game *game)
 	game->player->angle = 0 * (M_PI / 180);
 	game->player->fetch = 0;
 	game->off = 0;
+	game->mouse_ready = 0;
+	game->old_mouse_x = WIDTH / 2;
 }
 
 t_game  *init_cub(int ac, char **av)

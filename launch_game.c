@@ -41,6 +41,13 @@ int	is_wall(t_game *game)
 	return (0);
 }
 
+void	turn_player(t_game *game)
+{
+	game->player->angle += game->player->turn_dir * game->player->rot_speed;
+	if (game->player->turn_dir)
+		printf("angle is %f\n", game->player->angle * 180 / M_PI);
+}
+
 void	update_position(t_game *game)
 {
 	if (!is_wall(game))
@@ -50,7 +57,7 @@ void	update_position(t_game *game)
 		game->player->pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2) * game->player->move_speed;
 		game->player->pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2) * game->player->move_speed;
 	}
-	game->player->angle += game->player->turn_dir * game->player->rot_speed;
+	turn_player(game);
 }
 
 void    put_pixel_to_img(t_game *game, int x, int y, int color)
@@ -102,8 +109,8 @@ void	wall_projection(t_game *game)
 	int ray = 0;
 	while (ray < WIDTH)
 	{
-		// if (game->is_spec[ray] && game->is_hor[ray] && (!game->is_hor[ray - 1] || !game->is_hor[ray + 1]))
-		// 	game->is_hor[ray] = 0;
+		if (game->is_spec[ray] && game->is_hor[ray] && (!game->is_hor[ray - 1] || !game->is_hor[ray + 1]))
+			game->is_hor[ray] = 0;
 		double	dis_pro = (WIDTH / 2) / tan(FOV / 2);
 		double  c_dis = game->dis[ray] * cos(game->t_angle[ray] - game->player->angle);
 		double wall_height = (game->height / c_dis) * dis_pro;

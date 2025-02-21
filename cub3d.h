@@ -67,9 +67,9 @@ typedef struct s_player // nadi
 {
 	double 	pos_x;
 	double	pos_y;
-	int		walk_dir;
-	int		side_dir;
-	int		turn_dir;
+	float	walk_dir;
+	float	side_dir;
+	float	turn_dir;
 	double  angle;
 	double  move_speed;
 	double  rot_speed;
@@ -140,6 +140,8 @@ typedef struct s_game
 	char    *start_line;
 	int     mapfd;
 	int off;
+	int 	mouse_ready;
+	int	 	old_mouse_x;
 	t_player *player;
 }               t_game;
 
@@ -147,6 +149,7 @@ typedef struct s_game
 int	ft_strchr2(char *str, char *set);
 double	normalize_angle(double angle);
 void    put_pixel_to_img(t_game *game, int x, int y, int color);
+void	turn_player(t_game *game);
 /***********************  utils  ***********************/
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
