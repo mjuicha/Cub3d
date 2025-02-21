@@ -220,8 +220,6 @@ void	fov(t_game *game)
 {
 	if (game->player->turn_dir || game->player->fetch == 0)
 		printf("angle is %f\n", game->player->angle * 180 / M_PI);
-	if (game->player->walk_dir || game->player->fetch == 0)
-		printf("player pos x is %d and y is %d\n", (int)game->player->pos_x / 48, (int)game->player->pos_y / 48);
 	double angle = game->player->angle - FOV / 2;
 	int i = 0;
 	while (i < WIDTH)

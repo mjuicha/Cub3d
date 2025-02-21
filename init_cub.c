@@ -125,10 +125,12 @@ char	**alloc(char **tab, int size)
 	return (tab);
 }
 
-int	check_array(t_game *game)
+int	check_array(t_game *game, char *line)
 {
 	int i = 0;
-	while (game->texture_path[i] && i < 4)
+	if (line[0] == '\n')
+		return (1);
+	while (i < 4)
 	{
 		if (game->texture_path[i] == NULL)
 			return (1);
@@ -141,16 +143,18 @@ char	**get_texture_path(t_game *game)
 {
 	char	*line;
 
+	int i = 0;
 	game->texture_path = alloc(game->texture_path, 5);
 	line = get_next_line(game->mapfd);
-	int i = 0;
-	while (line && check_array(game))
+	while (line && check_array(game, line))
 	{
 		if ((i = direction(line)))
 			game->texture_path[i - 1] = path(line);
 		free(line);
 		line = get_next_line(game->mapfd);
 	}
+	if (line)
+		game->start_line = ft_strdup(line);
 	game->texture_path[4] = NULL;
 	return (game->texture_path);
 }
@@ -160,7 +164,7 @@ void	get_info(t_game *game)
 	game->width = 48;
 	game->height = 48;
 	game->player = malloc(sizeof(t_player));
-	// game->texture_path = get_texture_path(game);
+	game->texture_path = get_texture_path(game);
 	game->player->dir = malloc(sizeof(t_dir));
 	if (!game->player)
 	{

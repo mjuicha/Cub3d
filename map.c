@@ -74,7 +74,7 @@ t_game	*get_map(t_game *game)
 	t_map	*map = NULL;
 	char	*str;
 
-	str = get_next_line(game->mapfd);
+	str = game->start_line;
 	map = add_back_map(map, new_map(str));
 	while (str)
 	{

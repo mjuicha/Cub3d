@@ -5,14 +5,15 @@ void get_img2(t_game *game);
 
 void	get_img3(t_game *game)
 {
-	game->red_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/red_brick.xpm", &game->width, &game->height);
+	game->red_wall = mlx_xpm_file_to_image(game->mlx, game->texture_path[2], &game->width, &game->height);
+
 	game->endian3 = malloc(sizeof(int));
 	game->addr3 = mlx_get_data_addr(game->red_wall, &game->bpp3, &game->line_length3, game->endian3);
 }
 
 void	get_img4(t_game *game)
 {
-	game->grey_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/grey_stone.xpm", &game->width, &game->height);
+	game->grey_wall = mlx_xpm_file_to_image(game->mlx, game->texture_path[3], &game->width, &game->height);
 	game->endian4 = malloc(sizeof(int));
 	game->addr4 = mlx_get_data_addr(game->grey_wall, &game->bpp4, &game->line_length4, game->endian4);
 }

@@ -137,6 +137,7 @@ typedef struct s_game
 	int 	*is_hor;
 	///////////////////
 	char    **map;
+	char    *start_line;
 	int     mapfd;
 	int off;
 	t_player *player;

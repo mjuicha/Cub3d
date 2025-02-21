@@ -166,22 +166,16 @@ char	*dir(t_game *game)
 
 void	get_img2(t_game *game)
 {
-	game->blue_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/blue_stone.xpm", &game->width, &game->height);
+	game->blue_wall = mlx_xpm_file_to_image(game->mlx, game->texture_path[1], &game->width, &game->height);
 	game->endian2 = malloc(sizeof(int));
 	game->addr2 = mlx_get_data_addr(game->blue_wall, &game->bpp2, &game->line_length2, game->endian2);
 }
 
 void	get_img(t_game *game)
 {
-	game->black_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/wood.xpm", &game->width, &game->height);
+	game->black_wall = mlx_xpm_file_to_image(game->mlx, game->texture_path[0], &game->width, &game->height);
 	game->endian1 = malloc(sizeof(int));
 	game->addr1 = mlx_get_data_addr(game->black_wall, &game->bpp1, &game->line_length1, game->endian1);
-	// game->red_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/red_brick.xpm", &game->width, &game->height);
-	// game->endian3 = malloc(sizeof(int));
-	// game->addr3 = mlx_get_data_addr(game->red_wall, &game->bpp3, &game->line_length3, game->endian3);
-	// game->grey_wall = mlx_xpm_file_to_image(game->mlx, "xpm_files/grey_stone.xpm", &game->width, &game->height);
-	// game->endian4 = malloc(sizeof(int));
-	// game->addr4 = mlx_get_data_addr(game->grey_wall, &game->bpp4, &game->line_length4, game->endian4);
 }
 int    render_game(t_game *game)
 {
