@@ -161,8 +161,8 @@ char	**get_texture_path(t_game *game)
 
 void	get_info(t_game *game)
 {
-	game->width = 48;
-	game->height = 48;
+	game->width = 64;
+	game->height = 64;
 	game->player = malloc(sizeof(t_player));
 	game->texture_path = get_texture_path(game);
 	game->player->dir = malloc(sizeof(t_dir));

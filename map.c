@@ -68,8 +68,8 @@ char	**list2array(t_map *map)
 	array[i] = NULL;
 	return (array);
 }	
-
 t_game	*get_map(t_game *game)
+
 {
 	t_map	*map = NULL;
 	char	*str;

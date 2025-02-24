@@ -46,9 +46,9 @@ int mouse_move(int x, int y, t_game *game)
     {
         diff = abs(x - old_mouse_x);
         if (x > old_mouse_x)
-            game->player->turn_dir = 0.07039;
+            game->player->turn_dir = 0.07;
         else
-            game->player->turn_dir = -0.07039;
+            game->player->turn_dir = -0.07;
         while (diff--)
             turn_player(game);
         game->player->turn_dir = 0;

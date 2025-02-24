@@ -26,7 +26,7 @@ void    reset_color(t_game *game)
 
 int	is_wall(t_game *game)
 {
-	int pos_x ;
+	int pos_x;
 	int pos_y;
 	pos_x = game->player->pos_x + game->player->walk_dir * cos(game->player->angle) * game->player->move_speed;
 	pos_y = game->player->pos_y + game->player->walk_dir * sin(game->player->angle) * game->player->move_speed;
@@ -35,7 +35,7 @@ int	is_wall(t_game *game)
 	int mapx;
 	int mapy;
 	mapx = pos_x / game->width;
-	mapy = pos_y / game->height;
+	mapy = pos_y / game->height;        
 	if (game->map[mapy][mapx] && game->map[mapy][mapx] == '1')
 		return (1);
 	return (0);
@@ -48,15 +48,26 @@ void	turn_player(t_game *game)
 		printf("angle is %f\n", game->player->angle * 180 / M_PI);
 }
 
-void	update_position(t_game *game)
+void walk_direct(t_game *game)
+{
+    if (!is_wall(game))
+    {
+        game->player->pos_x += game->player->walk_dir * cos(game->player->angle) * game->player->move_speed;
+        game->player->pos_y += game->player->walk_dir * sin(game->player->angle) * game->player->move_speed;
+    }
+}
+void	side_direct(t_game *game)
 {
 	if (!is_wall(game))
 	{
-		game->player->pos_x += game->player->walk_dir * cos(game->player->angle) * game->player->move_speed;
-		game->player->pos_y += game->player->walk_dir * sin(game->player->angle) * game->player->move_speed;
 		game->player->pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2) * game->player->move_speed;
 		game->player->pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2) * game->player->move_speed;
 	}
+}
+void	update_position(t_game *game)
+{
+	walk_direct(game);
+	side_direct(game);
 	turn_player(game);
 }
 
@@ -186,7 +197,8 @@ void	get_img(t_game *game)
 }
 int    render_game(t_game *game)
 {
-	reset_color(game);
+	mlx_destroy_image(game->mlx, game->img);
+	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	update_position(game);
 	fov(game);
 	wall_projection(game);

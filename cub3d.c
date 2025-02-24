@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 	get_img2(game);
 	get_img3(game);
 	get_img4(game);
+
 	events_hook(game);
 	mlx_loop_hook(game->mlx, render_game, game);
     mlx_loop(game->mlx);

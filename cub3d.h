@@ -7,7 +7,7 @@
 /***********************  window  *************************/
 # define WIDTH      1024
 # define HEIGHT     768
-# define TILE_SIZE  48
+# define TILE_SIZE  64
 /***********************  keys  ***************************/
 # define ESC        53
 # define W          13
