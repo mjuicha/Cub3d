@@ -90,13 +90,8 @@ int	check_waaal(t_game *game, int y, int x)
 {
 	if (x < 0 || y < 0 || x >= 35 || y >= 35)
 		return (1);
-	if (game->map[y][x] == '1')
+	if (game->map[y][x] == '1' || game->map[y][x] == 'D')
 		return (1);
-	if (game->map[y][x] == 'D')
-	{
-		game->adoor = 1;
-		return (1);
-	}
 	return (0);
 }
 
@@ -203,21 +198,27 @@ void	floor_draw(t_game *game, int ray, int b_pix, int t_pix)
 		i++;
 	}
 }
-
-
+void	is_door(t_game *game, int ray)
+{
+	int x = game->wallx[ray] / game->width;
+	int y = game->wally[ray] / game->height;
+	if (game->map[y][x] == 'D')
+		game->is_door[ray] = 1;
+	else
+		game->is_door[ray] = 0;
+}
 
 void	cast_ra(t_game *game, double angle, int ray)
 {
 	angle = normalize_angle(angle);
 	get_dir(game, angle);
-	game->adoor = 0;
 	double H_dis = hoz(game, angle);
 	double V_dis = ver(game, angle);
 	game->dis[ray] = (H_dis <= V_dis) ? H_dis : V_dis;
 	game->wallx[ray] = (H_dis <= V_dis) ? game->hx : game->vx;
 	game->wally[ray] = (H_dis <= V_dis) ? game->hy : game->vy;
+	is_door(game, ray);
 	game->t_angle[ray] = angle;
-	game->is_door[ray] = game->adoor;
 	game->is_hor[ray] = (H_dis <= V_dis) ? 1 : 0;
 	game->is_spec[ray] = (H_dis == V_dis) ? 1 : 0;
 }
@@ -227,9 +228,6 @@ void	fov(t_game *game)
 {
 	double angle = game->player->angle - FOV / 2;
 	int i = 0;
-	while (i < WIDTH)
-		game->is_door[i++] = 0;
-	i = 0;
 	while (i < WIDTH)
 	{
 		cast_ra(game, angle, i);

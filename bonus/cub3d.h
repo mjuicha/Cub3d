@@ -149,7 +149,6 @@ typedef struct s_game
 	int off;
 	int 	mouse_ready;
 	int	 	old_mouse_x;
-	int	 	adoor;
 	t_player *player;
 }               t_game;
 
