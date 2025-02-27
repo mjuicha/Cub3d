@@ -38,6 +38,7 @@
 # define MLX_ERROR "\033[31mError: mlx_init failed\n\033[0m"
 # define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
 # define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
+# define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
 /***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
@@ -54,6 +55,7 @@ typedef struct s_map
 {
 	char        *line;
 	struct s_map *next;
+	
 }               t_map;
 
 typedef struct s_dir
@@ -137,11 +139,13 @@ typedef struct s_game
 	int 	*is_hor;
 	///////////////////
 	char    **map;
+	char	**cp_map;
 	char    *start_line;
 	int     mapfd;
 	int off;
 	int 	mouse_ready;
 	int	 	old_mouse_x;
+	int		mapcounter;
 	t_player *player;
 }               t_game;
 
@@ -164,5 +168,7 @@ int 	valid_input(int ac, char **av);
 void	fov(t_game *game);
 void	events_hook(t_game *game);
 void    draw_walls(t_game *game);
+int	valid_format(t_game *game);
+int	white_space(char c);
 /***********************  draw  ***********************/
 #endif

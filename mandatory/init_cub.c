@@ -38,9 +38,117 @@ int	valid_file(char **av)
 	return (fd);
 }
 
+void	show_map(t_game *game)
+{
+	int i = 0;
+	while (game->map[i])
+	{
+		printf(">> %d %s", i,game->map[i]);
+		i++;
+	}
+}
+
+int	check_line(char *line)
+{
+	int i = 0;
+
+	while (line[i])
+	{
+		if (white_space(line[i]))
+			i++;
+		else if (line[i] != '1')
+			return (FAILURE);
+		else
+			i++;
+	}
+	return (SUCCESS);
+}
+
+int	check_mline(char *line)
+{
+	int i = 0;
+	while (white_space(line[i]))
+		i++;
+	if (line[i] && line[i] == '1')
+		i++;
+	else
+		return (FAILURE);
+	i = ft_strlen(line) - 1;
+	while (white_space(line[i]))
+		i--;
+	if (line[i] && line[i] == '1')
+		return (SUCCESS);
+	return (FAILURE);
+}
+
+int	check_middle(t_game *game)
+{
+	int i = 1;
+	while (i < game->mapcounter - 1)
+	{
+		if (!check_mline(game->map[i]))
+			return (FAILURE);
+		i++;
+	}
+	return (SUCCESS);
+}
+
+int	check_edges(t_game *game)
+{
+	char	*line;
+
+	line = game->map[0];
+	if (!check_line(line))
+		return (FAILURE);
+	line = game->map[game->mapcounter - 1];
+	if (!check_line(line))
+		return (FAILURE);
+	if (!check_middle(game))
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+void	copy_map(t_game *game)
+{
+	int i = 0;
+	game->cp_map = malloc(sizeof(char *) * (game->mapcounter + 1));
+	if (!game->cp_map)
+	{
+		ft_error(MLX_ERROR);
+		exit(FAILURE);
+	}
+	while (i < game->mapcounter)
+	{
+		game->cp_map[i] = ft_strdup(game->map[i]);
+		i++;
+	}
+	game->cp_map[i] = NULL;
+}
+
+void	flood_fill(t_game *game, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= game->mapcounter || y >= ft_strlen(game->map[x]))
+		return ;
+	if (game->cp_map[x][y] == '1' || game->cp_map[x][y] == 'x' || game->cp_map[x][y] == ' ')
+		return ;
+	game->cp_map[x][y] = 'x';
+	flood_fill(game, x + 1, y);
+	flood_fill(game, x - 1, y);
+	flood_fill(game, x, y + 1);
+	flood_fill(game, x, y - 1);
+}
+
 int	valid_format(t_game *game)
 {
-	(void)game;
+	if (!check_edges(game))
+	{
+		ft_error(MAP_ERROR);
+		return (FAILURE);
+	}
+	copy_map(game);
+	
+	printf("map is valid\n");
+	exit(0);
 	return (SUCCESS);
 }
 
@@ -191,7 +299,7 @@ void	get_info(t_game *game)
 
 t_game  *init_cub(int ac, char **av)
 {
-    t_game	*game;
+	t_game	*game;
 	int		fd;
 
 	if (!valid_input(ac, av))
@@ -202,8 +310,6 @@ t_game  *init_cub(int ac, char **av)
 	if (!game)
 		return (NULL);
 	game->mapfd = fd;
-	if (!valid_format(game))
-		return (NULL);
 	get_info(game);
 	return (game);
 }

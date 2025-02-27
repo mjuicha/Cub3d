@@ -52,6 +52,8 @@ void    start_game(t_game *game)
         exit(FAILURE);
     init_mlx(game);
     get_map(game);
+    if (valid_format(game) == FAILURE)
+        exit(FAILURE);
     get_player_info(game);
 }
 
