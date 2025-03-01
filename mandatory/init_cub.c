@@ -112,7 +112,7 @@ int	find_open_space(char c, int i, int j, t_game *game)
 {
 	if (c == ' ' || c == '1')
 		return (FAILURE);
-	else if (c == '0' || ft_strchr("NSWEP", c))
+	else if (c == '0' || ft_strchr("NSWE", c))
 	{
 		if (game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' ' || game->map[i - 1][j] == ' ' || game->map[i + 1][j] == ' ')
 			return (printf("<%c >%c i%d !%c\n",game->map[i][j - 1], game->map[i][j + 1], game->map[i - 1][j], game->map[i + 1][j])
@@ -159,6 +159,19 @@ void	flood_fill(t_game *game, int x, int y)
 	flood_fill(game, x, y - 1);
 }
 
+double	angle_dir(char c)
+{
+	if (c == 'N')
+		return (3 * M_PI / 2);
+	if (c == 'S')
+		return (M_PI / 2);
+	if (c == 'W')
+		return (M_PI);
+	if (c == 'E')
+		return (0);
+	return (0);
+}
+
 int	check_valid_char(t_game *game)
 {
 	int i = 0;
@@ -171,11 +184,14 @@ int	check_valid_char(t_game *game)
 		j = 0;
 		while (line[j])
 		{
-			if (ft_strchr("NSWEP", line[j]))
+			if (ft_strchr("NSWE", line[j]))
 			{
 				if (found_player)
 					return (FAILURE);
 				found_player = 1;
+				game->player->angle = angle_dir(line[j]);
+				game->player->pos_x = j * TILE_SIZE + (game->width / 2);
+				game->player->pos_y = i * TILE_SIZE + (game->height / 2);
 			}
 			else if (line[j] != '0' && line[j] != '1' && line[j] != ' ')
 				return (FAILURE);
@@ -197,7 +213,6 @@ int	valid_format(t_game *game)
 		return (FAILURE);
 	}
 	printf("map is valid\n");
-	exit(0);
 	return (SUCCESS);
 }
 
@@ -339,7 +354,6 @@ void	get_info(t_game *game)
 	game->player->side_dir = 0;
 	game->player->move_speed = 4.0;
 	game->player->rot_speed = 2.0 * (M_PI / 180);
-	game->player->angle = 0 * (M_PI / 180);
 	game->player->fetch = 0;
 	game->off = 0;
 	game->mouse_ready = 0;
