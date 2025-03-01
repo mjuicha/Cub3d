@@ -21,6 +21,7 @@ t_map	*new_map(char *line)
 
 	if (!line)
 		return (NULL);
+	line = ft_strrmv(line, 10);
 	new = malloc(sizeof(t_map));
 	if (!new)
 		return (NULL);
@@ -67,7 +68,8 @@ char	**list2array(t_map *map, t_game *game)
 	}
 	array[i] = NULL;
 	return (array);
-}	
+}
+
 t_game	*get_map(t_game *game)
 
 {

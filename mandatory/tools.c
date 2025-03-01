@@ -40,6 +40,31 @@ int	ft_strchr2(char *str, char *set)
 	}
 	return (0);
 }
+
+char	*ft_strrmv(char *str, char c)
+{
+	char *new;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	new = malloc(sizeof(char) * (ft_strlen(str)));
+	if (!new)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] != c)
+		{
+			new[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new[j] = '\0';
+	return (new);
+}
+
 char	*ft_strdup(const char *s1)
 {
 	size_t	x;

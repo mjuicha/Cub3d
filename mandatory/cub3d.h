@@ -159,6 +159,7 @@ size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_putendl_fd(char *str, int fd);
 char	*ft_strdup(const char *s1);
+char	*ft_strrmv(char *str, char c);
 /***********************  init  ***********************/
 t_game  *init_cub(int ac, char **av);
 t_game  *get_map(t_game *game);

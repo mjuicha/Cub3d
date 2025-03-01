@@ -54,7 +54,7 @@ int	check_line(char *line)
 
 	while (line[i])
 	{
-		if (white_space(line[i]))
+		if (line[i] == ' ')
 			i++;
 		else if (line[i] != '1')
 			return (FAILURE);
@@ -67,14 +67,14 @@ int	check_line(char *line)
 int	check_mline(char *line)
 {
 	int i = 0;
-	while (white_space(line[i]))
+	while (line[i] == ' ')
 		i++;
 	if (line[i] && line[i] == '1')
 		i++;
 	else
 		return (FAILURE);
 	i = ft_strlen(line) - 1;
-	while (white_space(line[i]))
+	while (line[i] == ' ')
 		i--;
 	if (line[i] && line[i] == '1')
 		return (SUCCESS);
@@ -108,21 +108,42 @@ int	check_edges(t_game *game)
 	return (SUCCESS);
 }
 
-void	copy_map(t_game *game)
+int	find_open_space(char c, int i, int j, t_game *game)
 {
-	int i = 0;
-	game->cp_map = malloc(sizeof(char *) * (game->mapcounter + 1));
-	if (!game->cp_map)
+	if (c == ' ' || c == '1')
+		return (FAILURE);
+	else if (c == '0' || ft_strchr("NSWEP", c))
 	{
-		ft_error(MLX_ERROR);
-		exit(FAILURE);
+		if (game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' ' || game->map[i - 1][j] == ' ' || game->map[i + 1][j] == ' ')
+			return (printf("<%c >%c i%d !%c\n",game->map[i][j - 1], game->map[i][j + 1], game->map[i - 1][j], game->map[i + 1][j])
+				,SUCCESS);
 	}
-	while (i < game->mapcounter)
+	else
+		return (printf ("c %d\n", c),
+			SUCCESS);
+	return (FAILURE);
+}
+
+int check_open_spaces(t_game *game)
+{
+	int i = 1;
+	int j = 1;
+
+	char *line = game->map[i];
+	printf("mapcounter %d\n", game->mapcounter);
+	while (i < game->mapcounter - 1)
 	{
-		game->cp_map[i] = ft_strdup(game->map[i]);
+		j = 1;
+		while (line[j])
+		{
+			if (find_open_space(line[j], i , j, game))
+				return (printf("gi %d %d %d\n",i,j,line[j]), FAILURE);
+			j++;
+		}
 		i++;
+		line = game->map[i];
 	}
-	game->cp_map[i] = NULL;
+	return (SUCCESS);
 }
 
 void	flood_fill(t_game *game, int x, int y)
@@ -138,15 +159,43 @@ void	flood_fill(t_game *game, int x, int y)
 	flood_fill(game, x, y - 1);
 }
 
+int	check_valid_char(t_game *game)
+{
+	int i = 0;
+	int j = 0;
+	int found_player = 0;
+	char *line = game->map[i];
+
+	while (i < game->mapcounter)
+	{
+		j = 0;
+		while (line[j])
+		{
+			if (ft_strchr("NSWEP", line[j]))
+			{
+				if (found_player)
+					return (FAILURE);
+				found_player = 1;
+			}
+			else if (line[j] != '0' && line[j] != '1' && line[j] != ' ')
+				return (FAILURE);
+			j++;
+		}
+		i++;
+		line = game->map[i];
+	}
+	if (!found_player)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	valid_format(t_game *game)
 {
-	if (!check_edges(game))
+	if (!check_edges(game) || !check_valid_char(game) || !check_open_spaces(game))
 	{
 		ft_error(MAP_ERROR);
 		return (FAILURE);
 	}
-	copy_map(game);
-	
 	printf("map is valid\n");
 	exit(0);
 	return (SUCCESS);
