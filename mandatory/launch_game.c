@@ -199,6 +199,7 @@ int    render_game(t_game *game)
 {
 	mlx_destroy_image(game->mlx, game->img);
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+
 	update_position(game);
 	fov(game);
 	wall_projection(game);
