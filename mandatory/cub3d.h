@@ -92,6 +92,7 @@ typedef struct s_game
 	void	*blue_wall;
 	void	*red_wall;
 	void	*grey_wall;
+	void	*sprite;
 
 	char	**texture_path;
 	
@@ -104,6 +105,11 @@ typedef struct s_game
 ///////////////////
 	double 	*wallx;
 	double 	*wally;
+///////////////////
+	int 	bpp0;
+	int 	line_length0;
+	int 	*endian0;
+	char    *addr0;
 ///////////////////
 	int 	bpp;
 	int 	line_length;
