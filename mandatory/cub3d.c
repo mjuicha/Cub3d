@@ -18,27 +18,16 @@ void	get_img4(t_game *game)
 	game->addr4 = mlx_get_data_addr(game->grey_wall, &game->bpp4, &game->line_length4, game->endian4);
 }
 
-void	shows_map(t_game *game)
-{
-	int i = 0;
-	while (game->map[i])
-	{
-		printf(">> %d %s\n", i,game->map[i]);
-		i++;
-	}
-}
 int	main(int ac, char **av)
 {
 	t_game  *game;
 
 	game = init_cub(ac, av);
     start_game(game);
-	shows_map(game);
 	get_img(game);
 	get_img2(game);
 	get_img3(game);
 	get_img4(game);
-
 	events_hook(game);
 	mlx_loop_hook(game->mlx, render_game, game);
     mlx_loop(game->mlx);
