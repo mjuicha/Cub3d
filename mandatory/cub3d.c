@@ -22,13 +22,13 @@ int	main(int ac, char **av)
 {
 	t_game  *game;
 
-	game = init_cub(ac, av);
-    start_game(game);
-	get_img(game);
-	get_img2(game);
-	get_img3(game);
-	get_img4(game);
-	events_hook(game);
+	game = init_cub(ac, av); // parsing
+    start_game(game); // setup first frame
+	get_img(game); // load textures
+	get_img2(game); // load textures
+	get_img3(game); // 		load textures
+	get_img4(game); // 		load textures
+	events_hook(game); 
 	mlx_loop_hook(game->mlx, render_game, game);
     mlx_loop(game->mlx);
 	return (0);

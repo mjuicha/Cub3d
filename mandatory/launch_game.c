@@ -115,6 +115,7 @@ unsigned int	get_coloor(t_game *game, int x, int y, int ray)
 	}
 	return (*(unsigned int *)dst);
 }
+
 void	wall_projection(t_game *game)
 {
 	int ray = 0;

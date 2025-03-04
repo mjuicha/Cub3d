@@ -88,7 +88,7 @@ double	normalize_angle(double angle)
 
 int	check_waaal(t_game *game, int y, int x)
 {
-	if (x < 0 || y < 0 || x >= 35 || y >= 35)
+	if (x < 0 || y < 0 ||  y >= game->mapcounter || x >= ft_strlen(game->map[y]))
 		return (1);
 	if (game->map[y][x] && game->map[y][x] == '1')
 		return (1);
