@@ -17,6 +17,7 @@
 # define LEFT       123
 # define RIGHT      124
 # define SPACE      49
+# define M          46
 /***********************  movement  ***********************/
 # define FOV		60 * (M_PI / 180)
 /***********************  colors  *************************/
@@ -99,6 +100,10 @@ typedef struct s_game
 	void	*red_wall;
 	void	*grey_wall;
 	void	*door;
+	void	*sprite;
+	void	*sprite1;
+	void	*sprite2;
+	void	*sprite3;
 
 	char	**texture_path;
 	
@@ -111,6 +116,26 @@ typedef struct s_game
 ///////////////////
 	double 	*wallx;
 	double 	*wally;
+///////////////////
+	int 	bpp00;
+	int 	line_length00;
+	int 	*endian00;
+	char    *addr00;
+///////////////////
+	int 	bpp01;
+	int 	line_length01;
+	int 	*endian01;
+	char    *addr01;
+///////////////////
+	int 	bpp02;
+	int 	line_length02;
+	int 	*endian02;
+	char    *addr02;
+///////////////////
+	int 	bpp03;
+	int 	line_length03;
+	int 	*endian03;
+	char    *addr03;
 ///////////////////
 	int 	bpp;
 	int 	line_length;
@@ -159,6 +184,7 @@ typedef struct s_game
 	int	 	old_mouse_x;
 	int	 	mapcounter;
 	t_player *player;
+	int set;
 }               t_game;
 
 /***********************  prototypes  ***********************/

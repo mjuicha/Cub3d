@@ -80,6 +80,8 @@ void    open_close_door(t_game *game)
     }
 }
 
+
+
 int	key_pressed(int keycode, t_game *game)
 {
 	if (keycode == ESC)
@@ -98,6 +100,8 @@ int	key_pressed(int keycode, t_game *game)
         game->player->turn_dir = 1;
     else if (keycode == SPACE)
         open_close_door(game);
+    else if (keycode == M)
+        game->set = 1;
 	return (0);
 }
 

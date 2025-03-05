@@ -24,7 +24,25 @@ void	get_door(t_game *game)
 	game->endian5 = malloc(sizeof(int));
 	game->addr5 = mlx_get_data_addr(game->door, &game->bpp5, &game->line_length5, game->endian5);
 }
-	
+
+void	sprites_img(t_game *game)
+{
+	int width = 250;
+	int height = 222;
+	game->sprite = mlx_xpm_file_to_image(game->mlx, "xpm_files/gun/Sgun.xpm", &width, &height);
+	game->endian00 = malloc(sizeof(int));
+	game->addr00 = mlx_get_data_addr(game->sprite, &game->bpp00, &game->line_length00, game->endian00);
+	game->sprite1 = mlx_xpm_file_to_image(game->mlx, "xpm_files/gun/c1.xpm", &width, &height);
+	game->endian01 = malloc(sizeof(int));
+	game->addr01 = mlx_get_data_addr(game->sprite, &game->bpp01, &game->line_length01, game->endian01);
+	game->sprite2 = mlx_xpm_file_to_image(game->mlx, "xpm_files/gun/c2.xpm", &width, &height);
+	game->endian02 = malloc(sizeof(int));
+	game->addr02 = mlx_get_data_addr(game->sprite, &game->bpp02, &game->line_length02, game->endian02);
+	game->sprite3 = mlx_xpm_file_to_image(game->mlx, "xpm_files/gun/c3.xpm", &width, &height);
+	game->endian03 = malloc(sizeof(int));
+	game->addr03 = mlx_get_data_addr(game->sprite, &game->bpp03, &game->line_length03, game->endian03);
+}
+
 int	main(int ac, char **av)
 {
 	t_game  *game;
@@ -36,6 +54,8 @@ int	main(int ac, char **av)
 	get_img3(game);
 	get_img4(game);
 	get_door(game);
+	game->set = 0;
+	sprites_img(game);
 	events_hook(game);
 	mlx_loop_hook(game->mlx, render_game, game);
     mlx_loop(game->mlx);

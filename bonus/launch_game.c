@@ -197,6 +197,27 @@ void	get_img(t_game *game)
 	game->endian1 = malloc(sizeof(int));
 	game->addr1 = mlx_get_data_addr(game->black_wall, &game->bpp1, &game->line_length1, game->endian1);
 }
+
+void	get_sprite(t_game *game)
+{
+	static int	frame = 0;
+	int			speed = 10; // Adjust this value to control the speed
+
+		if (!game->set)
+			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite, 378, 273);
+	if (frame++ % speed == 0)
+	{
+		if (1 == game->set++)
+			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite1, 378, 273);
+		else if (2 == game->set++)
+			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite2, 378, 273);
+		else if (3 == game->set)
+			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite3, 378, 273);
+		else
+			game->set = 0;
+	}
+}
+
 int    render_game(t_game *game)
 {
 	mlx_destroy_image(game->mlx, game->img);
@@ -206,6 +227,7 @@ int    render_game(t_game *game)
 	wall_projection(game);
 	game->player->fetch = 1;
 	draw_color(game);
+	get_sprite(game);
 	return (0);
 }
 
