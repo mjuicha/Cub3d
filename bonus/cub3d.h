@@ -16,6 +16,7 @@
 # define D          2
 # define LEFT       123
 # define RIGHT      124
+# define SPACE      49
 /***********************  movement  ***********************/
 # define FOV		60 * (M_PI / 180)
 /***********************  colors  *************************/
@@ -55,6 +56,13 @@ typedef struct s_map
 	char        *line;
 	struct s_map *next;
 }               t_map;
+
+typedef struct s_door_pos
+{
+	int x;
+	int y;
+	int valid;
+}               t_door_pos;
 
 typedef struct s_dir
 {
@@ -149,6 +157,7 @@ typedef struct s_game
 	int off;
 	int 	mouse_ready;
 	int	 	old_mouse_x;
+	int	 	mapcounter;
 	t_player *player;
 }               t_game;
 

@@ -7,6 +7,79 @@ int	close_window(t_game *game)
 	exit(0);
 }
 
+t_door_pos *check_door(t_game *game, int mapx, int mapy)
+{
+    t_door_pos *door;
+    door = malloc(sizeof(t_door_pos));
+
+    door->x = 0;
+    door->valid = 1;
+    if (game->map[mapy - 1][mapx] == 'D' || game->map[mapy - 1][mapx] == 'd')
+    {
+        door->x = mapx;
+        door->y = mapy - 1;
+    }
+    else if (game->map[mapy + 1][mapx] == 'D' || game->map[mapy + 1][mapx] == 'd')
+    {
+        door->x = mapx;
+        door->y = mapy + 1;
+    }
+    else if (game->map[mapy][mapx - 1] == 'D' || game->map[mapy][mapx - 1] == 'd')
+    {
+        door->x = mapx - 1;
+        door->y = mapy;
+    }
+    else if (game->map[mapy][mapx + 1] == 'D' || game->map[mapy][mapx + 1] == 'd')
+    {
+        door->x = mapx + 1;
+        door->y = mapy;
+    }
+    else if (game->map[mapy - 1][mapx + 1] == 'D' || game->map[mapy - 1][mapx + 1] == 'd')
+    {
+        door->y = mapy - 1;
+        door->x = mapx + 1;
+    }
+    else if (game->map[mapy - 1][mapx - 1] == 'D' || game->map[mapy - 1][mapx - 1] == 'd')
+    {
+        door->y = mapy - 1;
+        door->x = mapx - 1;
+    }
+    else if (game->map[mapy + 1][mapx + 1] == 'D' || game->map[mapy + 1][mapx + 1] == 'd')
+    {
+        door->y = mapy + 1;
+        door->x = mapx + 1;
+    }
+    else if (game->map[mapy + 1][mapx - 1] == 'D' || game->map[mapy + 1][mapx - 1] == 'd')
+    {
+        door->y = mapy + 1;
+        door->x = mapx - 1;
+    }
+    else 
+        door->valid = 0;
+    return (door);
+}
+
+void    open_close_door(t_game *game)
+{
+    int mapx;
+    int mapy;
+    t_door_pos *door;
+
+    mapx = game->player->pos_x / game->width;
+    mapy = game->player->pos_y / game->height;
+    door = check_door(game, mapx, mapy);
+    printf("mapx is %d and mapy is %d\n", mapx, mapy);
+    printf("door x is %d and door y is %d\n", door->x, door->y);
+    if (door->valid)
+    {
+        if (game->map[door->y][door->x] == 'D')
+            game->map[door->y][door->x] = 'd';
+        else if (game->map[door->y][door->x] == 'd')
+            game->map[door->y][door->x] = 'D';
+        printf("door opened %c\n", game->map[door->y][door->x]);
+    }
+}
+
 int	key_pressed(int keycode, t_game *game)
 {
 	if (keycode == ESC)
@@ -23,6 +96,8 @@ int	key_pressed(int keycode, t_game *game)
         game->player->turn_dir = -1;
     else if (keycode == RIGHT)
         game->player->turn_dir = 1;
+    else if (keycode == SPACE)
+        open_close_door(game);
 	return (0);
 }
 

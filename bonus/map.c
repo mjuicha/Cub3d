@@ -44,19 +44,18 @@ t_map	*add_back_map(t_map *map, t_map *new_map)
 	return (map);
 }
 
-char	**list2array(t_map *map)
+char	**list2array(t_map *map, t_game *game)
 {
 	char	**array;
 	int		i;
-	int		counter;
 	t_map	*tmp;
 
-	counter = mapcounter(map);
-	array = malloc(sizeof(char *) * (counter + 1));
+	game->mapcounter = mapcounter(map);
+	array = malloc(sizeof(char *) * (game->mapcounter + 1));
 	if (!array)
 		return (NULL);
 	i = 0;
-	while (map && i < counter)
+	while (map && i < game->mapcounter)
 	{
 		array[i] = ft_strdup(map->line);
 		free(map->line);
@@ -82,7 +81,7 @@ t_game	*get_map(t_game *game)
 		str = get_next_line(game->mapfd);
 		map = add_back_map(map, new_map(str));
 	}
-	game->map = list2array(map);
+	game->map = list2array(map, game);
 	close(game->mapfd);
 	return (game);
 }

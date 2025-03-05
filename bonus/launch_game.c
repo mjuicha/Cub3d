@@ -36,7 +36,7 @@ int	is_wall(t_game *game)
 	int mapy;
 	mapx = pos_x / game->width;
 	mapy = pos_y / game->height;        
-	if (game->map[mapy][mapx] && game->map[mapy][mapx] == '1')
+	if (game->map[mapy][mapx] && game->map[mapy][mapx] == '1' || game->map[mapy][mapx] == 'D')
 		return (1);
 	return (0);
 }
