@@ -227,6 +227,12 @@ void	get_sprite(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->gun, 385, 270);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->warning, 338, 590);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->aim, WIDTH / 2 - 25, HEIGHT / 2 - 25);
+	// mlx_string_put(game->mlx, game->mlx_win, 385, 650, 0x00FF0000, "25 Shots Left");
+}
+
+void	mini_map(t_game *game)
+{
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->circle, 0, 0);
 }
 
 int    render_game(t_game *game)
@@ -239,6 +245,7 @@ int    render_game(t_game *game)
 	game->player->fetch = 1;
 	draw_color(game);
 	get_sprite(game);
+	mini_map(game);
 	return (0);
 }
 

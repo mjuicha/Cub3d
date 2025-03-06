@@ -110,6 +110,7 @@ typedef struct s_game
 	void	*warning;
 	void	*aim;
 	void	*gun;
+	void	*circle;
 
 	char	**texture_path;
 	
@@ -168,6 +169,11 @@ typedef struct s_game
 	int 	*endian08;
 	char    *addr08;
 ///////////////////
+	int 	bpp09;
+	int 	line_length09;
+	int 	*endian09;
+	char    *addr09;
+///////////////////
 	int 	bpp;
 	int 	line_length;
 	int 	*endian;
@@ -214,6 +220,7 @@ typedef struct s_game
 	int 	mouse_ready;
 	int	 	old_mouse_x;
 	int	 	mapcounter;
+	t_door_pos *door_pos;
 	t_player *player;
 	int set;
 }               t_game;
