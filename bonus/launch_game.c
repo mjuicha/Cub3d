@@ -201,21 +201,32 @@ void	get_img(t_game *game)
 void	get_sprite(t_game *game)
 {
 	static int	frame = 0;
-	int			speed = 10; // Adjust this value to control the speed
+	int			speed = 5; // Adjust this value to control the speed
 
-		if (!game->set)
-			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite, 378, 273);
-	if (frame++ % speed == 0)
+
+	if (!game->set)
+		game->gun = game->sprite;
+	else if (frame++ % speed == 0)
 	{
-		if (1 == game->set++)
-			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite1, 378, 273);
-		else if (2 == game->set++)
-			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite2, 378, 273);
+		if (1 == game->set)
+			game->gun = game->sprite1;
+		else if (2 == game->set)
+			game->gun = game->sprite2;
 		else if (3 == game->set)
-			mlx_put_image_to_window(game->mlx, game->mlx_win, game->sprite3, 378, 273);
-		else
+			game->gun = game->sprite3;
+		else if (4 == game->set)
+			game->gun = game->sprite4;
+		else if (5 == game->set)
+			game->gun = game->sprite5;
+		else if (6 == game->set)
+			game->gun = game->sprite6;
+		game->set++;
+		if (game->set == 7)
 			game->set = 0;
 	}
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->gun, 385, 270);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->warning, 338, 590);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->aim, WIDTH / 2 - 25, HEIGHT / 2 - 25);
 }
 
 int    render_game(t_game *game)

@@ -104,6 +104,12 @@ typedef struct s_game
 	void	*sprite1;
 	void	*sprite2;
 	void	*sprite3;
+	void	*sprite4;
+	void	*sprite5;
+	void	*sprite6;
+	void	*warning;
+	void	*aim;
+	void	*gun;
 
 	char	**texture_path;
 	
@@ -136,6 +142,31 @@ typedef struct s_game
 	int 	line_length03;
 	int 	*endian03;
 	char    *addr03;
+///////////////////
+	int 	bpp04;
+	int 	line_length04;
+	int 	*endian04;
+	char    *addr04;
+///////////////////
+	int 	bpp05;
+	int 	line_length05;
+	int 	*endian05;
+	char    *addr05;
+///////////////////
+	int 	bpp06;
+	int 	line_length06;
+	int 	*endian06;
+	char    *addr06;
+///////////////////
+	int 	bpp07;
+	int 	line_length07;
+	int 	*endian07;
+	char    *addr07;
+///////////////////
+	int 	bpp08;
+	int 	line_length08;
+	int 	*endian08;
+	char    *addr08;
 ///////////////////
 	int 	bpp;
 	int 	line_length;
