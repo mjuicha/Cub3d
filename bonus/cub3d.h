@@ -106,7 +106,6 @@ typedef struct s_game
 	void	*grey_wall;
 	void	*door;
 	void	*sky;
-	void	*ground;
 	void	*sprite;
 	void	*sprite1;
 	void	*sprite2;
@@ -130,11 +129,6 @@ typedef struct s_game
 ///////////////////
 	double 	*wallx;
 	double 	*wally;
-///////////////////
-	int 	bppg0;
-	int 	line_lengthg0;
-	int 	*endiang0;
-	char    *addrg0;
 ///////////////////
 	int 	bpp00;
 	int 	line_length00;

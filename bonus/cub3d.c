@@ -71,9 +71,6 @@ void	sprites_img(t_game *game)
 	game->blue = mlx_xpm_file_to_image(game->mlx, "xpm_files/blue.xpm", &width, &height);
 	game->endianm1 = malloc(sizeof(int));
 	game->addrm1 = mlx_get_data_addr(game->red, &game->bppm1, &game->line_lengthm1, game->endianm1);
-	game->ground = mlx_xpm_file_to_image(game->mlx, "xpm_files/floor.xpm", &width, &height);
-	game->endiang0 = malloc(sizeof(int));
-	game->addrg0 = mlx_get_data_addr(game->ground, &game->bppg0, &game->line_lengthg0, game->endiang0);
 }
 
 int	main(int ac, char **av)
