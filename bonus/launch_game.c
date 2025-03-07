@@ -117,6 +117,16 @@ unsigned int	get_coloor(t_game *game, int x, int y, int ray)
 	}
 	return (*(unsigned int *)dst);
 }
+unsigned int sky_coloor(t_game *game, int x, int y)
+{
+    if (y < 0)
+        y = 0;
+    if (y >= 384)
+        y = 384 - 1;
+
+    char *dst = game->addr09 + (y * game->line_length09 + x * (game->bpp09 / 8));
+    return (*(unsigned int *)dst);
+}
 void	wall_projection(t_game *game)
 {
 	int ray = 0;
@@ -134,10 +144,12 @@ void	wall_projection(t_game *game)
 		if (game->t_pix < 0)
 			game->t_pix = 0;
 		int y = 0;
+		int sx;
 		while (y < game->t_pix)
 		{
-			put_pixel_to_img(game, ray, y, game->ceiling);
-			y++;
+    		sx = (y * 384) / (HEIGHT / 2); // Proper texture mapping
+    		put_pixel_to_img(game, ray, y, sky_coloor(game, ray % 1024, sx));
+    		y++;
 		}
 		int xoff;
 		int yoff;
@@ -160,6 +172,7 @@ void	wall_projection(t_game *game)
 		}
 		while (y < HEIGHT)
 		{
+			sx = (y * 384) / (HEIGHT / 2); 
 			put_pixel_to_img(game, ray, y, game->floor);
 			y++;
 		}

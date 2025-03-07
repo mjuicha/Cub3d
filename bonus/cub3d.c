@@ -56,6 +56,9 @@ void	sprites_img(t_game *game)
 	game->aim = mlx_xpm_file_to_image(game->mlx, "xpm_files/gun/aim.xpm", &width, &height);
 	game->endian08 = malloc(sizeof(int));
 	game->addr08 = mlx_get_data_addr(game->sprite, &game->bpp08, &game->line_length08, game->endian08);
+	game->sky = mlx_xpm_file_to_image(game->mlx, "xpm_files/sky.xpm", &width, &height);
+	game->endian09 = malloc(sizeof(int));
+	game->addr09 = mlx_get_data_addr(game->sky, &game->bpp09, &game->line_length09, game->endian09);
 	game->red = mlx_xpm_file_to_image(game->mlx, "xpm_files/red.xpm", &width, &height);
 	game->endian6 = malloc(sizeof(int));
 	game->addr6 = mlx_get_data_addr(game->red, &game->bpp6, &game->line_length6, game->endian6);
@@ -68,6 +71,9 @@ void	sprites_img(t_game *game)
 	game->blue = mlx_xpm_file_to_image(game->mlx, "xpm_files/blue.xpm", &width, &height);
 	game->endianm1 = malloc(sizeof(int));
 	game->addrm1 = mlx_get_data_addr(game->red, &game->bppm1, &game->line_lengthm1, game->endianm1);
+	game->ground = mlx_xpm_file_to_image(game->mlx, "xpm_files/floor.xpm", &width, &height);
+	game->endiang0 = malloc(sizeof(int));
+	game->addrg0 = mlx_get_data_addr(game->ground, &game->bppg0, &game->line_lengthg0, game->endiang0);
 }
 
 int	main(int ac, char **av)
