@@ -136,7 +136,7 @@ void	wall_projection(t_game *game)
 		int y = 0;
 		while (y < game->t_pix)
 		{
-			put_pixel_to_img(game, ray, y, SKY_BLUE);
+			put_pixel_to_img(game, ray, y, game->ceiling);
 			y++;
 		}
 		int xoff;
@@ -160,7 +160,7 @@ void	wall_projection(t_game *game)
 		}
 		while (y < HEIGHT)
 		{
-			put_pixel_to_img(game, ray, y, FLOOR);
+			put_pixel_to_img(game, ray, y, game->floor);
 			y++;
 		}
 		ray++;
@@ -268,20 +268,6 @@ void	draw_map(t_game *game)
 	int player_x = game->player->pos_x / game->width;
 	int player_y = game->player->pos_y / game->height;
 	map_2d(game, player_x, player_y);
-	// while (i <= player_y + size)
-	// {
-	// 	j = player_x - size;
-	// 	while (j <= player_x + size)
-	// 	{
-	// 		if (i >= 0 && j >= 0 && game->map[i][j] && game->map[i][j] == '1')
-	// 		{
-	// 			mlx_put_image_to_window(game->mlx, game->mlx_win, game->white, j * 48, i * 48);
-	// 			printf("i is %d j is %d\n", i, j);
-	// 		}
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
 }
 
 void	mini_map(t_game *game)

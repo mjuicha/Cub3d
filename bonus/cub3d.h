@@ -248,6 +248,8 @@ typedef struct s_game
 	t_door_pos *door_pos;
 	t_player *player;
 	int set;
+	int floor;
+	int ceiling;
 }               t_game;
 
 /***********************  prototypes  ***********************/

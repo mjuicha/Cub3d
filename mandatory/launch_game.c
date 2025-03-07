@@ -135,7 +135,7 @@ void	wall_projection(t_game *game)
 		int y = 0;
 		while (y < game->t_pix)
 		{
-			put_pixel_to_img(game, ray, y, SKY_BLUE);
+			put_pixel_to_img(game, ray, y, game->ceiling);
 			y++;
 		}
 		int xoff;
@@ -159,7 +159,7 @@ void	wall_projection(t_game *game)
 		}
 		while (y < HEIGHT)
 		{
-			put_pixel_to_img(game, ray, y, FLOOR);
+			put_pixel_to_img(game, ray, y, game->floor);
 			y++;
 		}
 		ray++;

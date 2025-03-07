@@ -225,7 +225,45 @@ int valid_input(int ac, char **av)
 	return (SUCCESS);
 }
 
-int	direction(char *line)
+void	get_color(char *line, t_game *game, int c)
+{
+	int i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if (line[i] && (line[i] == 'F' || line[i] == 'C'))
+		i += 2;
+	int r = ft_atoi(line + i);
+	if (r < 0 || r > 255)
+	{
+		ft_error(COLOR_ERROR);
+		exit(FAILURE);
+	}
+	while (line[i] && line[i] != ',')
+		i++;
+	i++;
+	int g = ft_atoi(line + i);
+	if (g < 0 || g > 255)
+	{
+		ft_error(COLOR_ERROR);
+		exit(FAILURE);
+	}
+	while (line[i] && line[i] != ',')
+		i++;
+	i++;
+	int b = ft_atoi(line + i);
+	if (b < 0 || b > 255)
+	{
+		ft_error(COLOR_ERROR);
+		exit(FAILURE);
+	}
+	int color = (r << 16) + (g << 8) + b;
+	if (c == 'F')
+		game->floor = color;
+	else
+		game->ceiling = color;
+}
+
+int	direction(char *line, t_game *game)
 {
 	if (ft_strchr2(line, "NO"))
 		return (1);
@@ -235,6 +273,10 @@ int	direction(char *line)
 		return (3);
 	if (ft_strchr2(line, "EA"))
 		return (4);
+	if (ft_strchr2(line, "F "))
+		get_color(line, game, 'F');
+	if (ft_strchr2(line, "C "))
+		get_color(line, game, 'C');
 	return (0);
 }
 int	white_space(char c)
@@ -249,7 +291,7 @@ int	skip(char *line)
 	int i = 0;
 	while (white_space(line[i]))
 		i++;
-	if (direction(line + i))
+	if (direction(line + i, NULL))
 		i += 2;
 	while (white_space(line[i]))
 		i++;
@@ -300,7 +342,7 @@ char	**alloc(char **tab, int size)
 int	check_array(t_game *game, char *line)
 {
 	int i = 0;
-	if (line[0] == '\n')
+	if (line[0] == '\n' || ft_strchr2(line, "F ") || ft_strchr2(line, "C "))
 		return (1);
 	while (i < 4)
 	{
@@ -320,7 +362,7 @@ char	**get_texture_path(t_game *game)
 	line = get_next_line(game->mapfd);
 	while (line && check_array(game, line))
 	{
-		if ((i = direction(line)))
+		if ((i = direction(line, game)))
 			game->texture_path[i - 1] = path(line);
 		free(line);
 		line = get_next_line(game->mapfd);

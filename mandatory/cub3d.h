@@ -39,6 +39,7 @@
 # define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
 # define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
 # define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
+# define COLOR_ERROR "\033[31mError: Invalid color\n\033[0m"
 /***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
@@ -152,6 +153,8 @@ typedef struct s_game
 	int 	mouse_ready;
 	int	 	old_mouse_x;
 	int		mapcounter;
+	int 	floor;
+	int 	ceiling;
 	t_player *player;
 }               t_game;
 
@@ -177,5 +180,6 @@ void	events_hook(t_game *game);
 void    draw_walls(t_game *game);
 int	valid_format(t_game *game);
 int	white_space(char c);
+int	ft_atoi(const char *str);
 /***********************  draw  ***********************/
 #endif
