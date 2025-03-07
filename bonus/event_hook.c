@@ -67,7 +67,7 @@ void    open_close_door(t_game *game)
 
     mapx = game->player->pos_x / game->width;
     mapy = game->player->pos_y / game->height;
-    door = game->door_pos;
+    door = check_door(game, mapx, mapy);
     printf("mapx is %d and mapy is %d\n", mapx, mapy);
     printf("door x is %d and door y is %d\n", door->x, door->y);
     if (door->valid)

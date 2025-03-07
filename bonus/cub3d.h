@@ -95,6 +95,11 @@ typedef struct s_game
 	int     width;
 	int     height;
 
+	void	*brown;
+	void	*green;
+	void	*red;
+	void	*blue;
+
 	void	*black_wall;
 	void	*blue_wall;
 	void	*red_wall;
@@ -128,6 +133,21 @@ typedef struct s_game
 	int 	line_length00;
 	int 	*endian00;
 	char    *addr00;
+///////////////////
+	int 	bppm1;
+	int 	line_lengthm1;
+	int 	*endianm1;
+	char    *addrm1;
+///////////////////
+	int 	bppm2;
+	int 	line_lengthm2;
+	int 	*endianm2;
+	char    *addrm2;
+///////////////////
+	int 	bppm3;
+	int 	line_lengthm3;
+	int 	*endianm3;
+	char    *addrm3;
 ///////////////////
 	int 	bpp01;
 	int 	line_length01;
@@ -203,6 +223,11 @@ typedef struct s_game
 	int 	line_length5;
 	int 	*endian5;
 	char    *addr5;
+	///////////////////
+	int 	bpp6;
+	int 	line_length6;
+	int 	*endian6;
+	char    *addr6;
 	///////////////////
 	int		t_pix;
 	int		b_pix;

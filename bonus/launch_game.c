@@ -201,7 +201,7 @@ void	get_img(t_game *game)
 void	get_sprite(t_game *game)
 {
 	static int	frame = 0;
-	int			speed = 5; // Adjust this value to control the speed
+	int			speed = 3; // Adjust this value to control the speed
 
 
 	if (!game->set)
@@ -230,9 +230,63 @@ void	get_sprite(t_game *game)
 	// mlx_string_put(game->mlx, game->mlx_win, 385, 650, 0x00FF0000, "25 Shots Left");
 }
 
+
+void	map_2d(t_game *game, int player_x, int player_y)
+{
+	int i = 0;
+	int j = 0;
+	int size = 5;
+	int x = player_x - size;
+	int y = player_y - size;
+	while (y <= player_y + size)
+	{
+		x = player_x - size;
+		j = 0;
+		while (x <= player_x + size)
+		{
+			if (y >= 0 && x >= 0 && y <= (game->mapcounter - 1) && x <= ft_strlen(game->map[y]) && game->map[y][x] && (game->map[y][x] == '1' || game->map[y][x] == 'D' || game->map[y][x] == 'd'))
+			{
+				if (game->map[y][x] == 'D' || game->map[y][x] == 'd')
+					mlx_put_image_to_window(game->mlx, game->mlx_win, game->blue, j * 16, i * 16);
+				else
+					mlx_put_image_to_window(game->mlx, game->mlx_win, game->brown, j * 16, i * 16);
+			}
+			else
+				mlx_put_image_to_window(game->mlx, game->mlx_win, game->green, j * 16, i * 16);
+			x++;
+			j++;
+		}
+		y++;
+		i++;
+	}
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->red, size * 16, size * 16);
+
+}
+
+void	draw_map(t_game *game)
+{
+	int player_x = game->player->pos_x / game->width;
+	int player_y = game->player->pos_y / game->height;
+	map_2d(game, player_x, player_y);
+	// while (i <= player_y + size)
+	// {
+	// 	j = player_x - size;
+	// 	while (j <= player_x + size)
+	// 	{
+	// 		if (i >= 0 && j >= 0 && game->map[i][j] && game->map[i][j] == '1')
+	// 		{
+	// 			mlx_put_image_to_window(game->mlx, game->mlx_win, game->white, j * 48, i * 48);
+	// 			printf("i is %d j is %d\n", i, j);
+	// 		}
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+}
+
 void	mini_map(t_game *game)
 {
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->circle, 0, 0);
+	draw_map(game);
 }
 
 int    render_game(t_game *game)
