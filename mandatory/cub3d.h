@@ -64,6 +64,16 @@ typedef struct s_dir
 	int left;
 	int right;
 }               t_dir;
+
+typedef struct s_texture
+{
+	void    *img;
+	char	*addr;
+	int     bpp;
+	int     line_length;
+	int     *endian;
+}			   t_texture;
+
 typedef struct s_player // nadi
 {
 	double 	pos_x;
@@ -82,16 +92,10 @@ typedef struct s_game
 {
 	void    *mlx;
 	void    *mlx_win;
-	void    *img;
+	t_texture *img_win;
 	
 	int     width;
 	int     height;
-
-	void	*black_wall;
-	void	*blue_wall;
-	void	*red_wall;
-	void	*grey_wall;
-	void	*sprite;
 
 	char	**texture_path;
 	
@@ -105,36 +109,6 @@ typedef struct s_game
 	double 	*wallx;
 	double 	*wally;
 ///////////////////
-	int 	bpp0;
-	int 	line_length0;
-	int 	*endian0;
-	char    *addr0;
-///////////////////
-	int 	bpp;
-	int 	line_length;
-	int 	*endian;
-	char    *addr;
-///////////////////
-	int 	bpp1;
-	int 	line_length1;
-	int 	*endian1;
-	char    *addr1;
-	///////////////////
-	int 	bpp2;
-	int 	line_length2;
-	int 	*endian2;
-	char    *addr2;
-	///////////////////
-	int 	bpp3;
-	int 	line_length3;
-	int 	*endian3;
-	char    *addr3;
-	///////////////////
-	int 	bpp4;
-	int 	line_length4;
-	int 	*endian4;
-	char    *addr4;
-	///////////////////
 	int		t_pix;
 	int		b_pix;
 	///////////////////
@@ -148,11 +122,13 @@ typedef struct s_game
 	char    *start_line;
 	int     mapfd;
 	int off;
-	int 	mouse_ready;
-	int	 	old_mouse_x;
 	int		mapcounter;
 	int 	floor;
 	int 	ceiling;
+	t_texture *nord;
+	t_texture *south;
+	t_texture *east;
+	t_texture *west;
 	t_player *player;
 }               t_game;
 
@@ -161,6 +137,7 @@ int	ft_strchr2(char *str, char *set);
 double	normalize_angle(double angle);
 void    put_pixel_to_img(t_game *game, int x, int y, int color);
 void	turn_player(t_game *game);
+void	load_textures(t_game *game);
 /***********************  utils  ***********************/
 size_t	ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);

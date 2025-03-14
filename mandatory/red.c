@@ -74,7 +74,7 @@ void    put_pixel_to_img(t_game *game, int x, int y, int color)
 	char    *dst;
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
-	dst = game->img_win->addr + (y * game->img_win->line_length + x * (game->img_win->bpp / 8));
+	dst = game->addr + (y * game->line_length + x * (game->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -166,7 +166,7 @@ void	wall_projection(t_game *game)
 
 void    draw_color(t_game *game)
 {
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img, 0, 0);
 }
 
 char	*dir(t_game *game)
@@ -185,8 +185,8 @@ char	*dir(t_game *game)
 
 int    render_game(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->img_win->img);
-	game->img_win->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	mlx_destroy_image(game->mlx, game->img);
+	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	update_position(game);
 	fov(game);
 	wall_projection(game);

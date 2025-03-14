@@ -115,12 +115,10 @@ int	find_open_space(char c, int i, int j, t_game *game)
 	else if (c == '0' || ft_strchr("NSWE", c))
 	{
 		if (game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' ' || game->map[i - 1][j] == ' ' || game->map[i + 1][j] == ' ')
-			return (printf("<%c >%c i%d !%c\n",game->map[i][j - 1], game->map[i][j + 1], game->map[i - 1][j], game->map[i + 1][j])
-				,SUCCESS);
+			return (SUCCESS);
 	}
 	else
-		return (printf ("c %d\n", c),
-			SUCCESS);
+		return (SUCCESS);
 	return (FAILURE);
 }
 
@@ -130,14 +128,13 @@ int check_open_spaces(t_game *game)
 	int j = 1;
 
 	char *line = game->map[i];
-	printf("mapcounter %d\n", game->mapcounter);
 	while (i < game->mapcounter - 1)
 	{
 		j = 1;
 		while (line[j])
 		{
 			if (find_open_space(line[j], i , j, game))
-				return (printf("gi %d %d %d\n",i,j,line[j]), FAILURE);
+				return (FAILURE);
 			j++;
 		}
 		i++;
@@ -207,12 +204,11 @@ int	check_valid_char(t_game *game)
 
 int	valid_format(t_game *game)
 {
-	if (!check_edges(game) || !check_valid_char(game) || !check_open_spaces(game))
+	if (!check_edges(game) || !check_valid_char(game) ||!check_open_spaces(game))
 	{
 		ft_error(MAP_ERROR);
 		return (FAILURE);
 	}
-	printf("map is valid\n");
 	return (SUCCESS);
 }
 
@@ -289,11 +285,11 @@ int	white_space(char c)
 int	skip(char *line)
 {
 	int i = 0;
-	while (white_space(line[i]))
+	while (line[i] == ' ')
 		i++;
 	if (direction(line + i, NULL))
 		i += 2;
-	while (white_space(line[i]))
+	while (line[i] == ' ')
 		i++;
 	return (i);
 }
@@ -304,16 +300,16 @@ char	*path(char *line)
 	int i = 0;
 	i = skip(line);
 	int alloc = 0;
-	while (line[i + alloc] && !white_space(line[i + alloc]))
+	while (line[i + alloc] && !(line[i + alloc] == ' '))
 		alloc++;
-	char *path = malloc(sizeof(char) * (alloc + 1));
+	char *path = malloc(sizeof(char) * (alloc));
 	if (!path)
 	{
 		ft_error(MLX_ERROR);
 		exit(FAILURE);
 	}
 	int j = 0;
-	while (j < alloc)
+	while (j < alloc - 1)
 	{
 		path[j] = line[i + j];
 		j++;
@@ -375,8 +371,8 @@ char	**get_texture_path(t_game *game)
 
 void	get_info(t_game *game)
 {
-	game->width = 64;
-	game->height = 64;
+	game->width = TILE_SIZE;
+	game->height = TILE_SIZE;
 	game->player = malloc(sizeof(t_player));
 	game->texture_path = get_texture_path(game);
 	game->player->dir = malloc(sizeof(t_dir));
@@ -398,8 +394,6 @@ void	get_info(t_game *game)
 	game->player->rot_speed = 2.0 * (M_PI / 180);
 	game->player->fetch = 0;
 	game->off = 0;
-	game->mouse_ready = 0;
-	game->old_mouse_x = WIDTH / 2;
 }
 
 t_game  *init_cub(int ac, char **av)

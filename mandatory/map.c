@@ -52,7 +52,6 @@ char	**list2array(t_map *map, t_game *game)
 	t_map	*tmp;
 
 	game->mapcounter = mapcounter(map);
-	printf("counter %d\n", game->mapcounter);
 	array = malloc(sizeof(char *) * (game->mapcounter + 1));
 	if (!array)
 		return (NULL);

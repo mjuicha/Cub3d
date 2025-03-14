@@ -1,4 +1,4 @@
-SRCS = cub3d.c get_next_line.c get_next_line_utils.c init_cub.c launch_game.c map.c start_game.c tools.c player.c event_hook.c ft_atoi.c
+SRCS = cub3d.c get_next_line.c get_next_line_utils.c init_cub.c launch_game.c map.c start_game.c tools.c player.c event_hook.c ft_atoi.c load_textures.c
 OBJD = obj
 OBJS = $(SRCS:%.c=$(OBJD)/%.o)
 

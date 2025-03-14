@@ -16,12 +16,14 @@ void    init_mlx(t_game *game)
         ft_putendl_fd(MLX_WIN_ERROR, STDERR_FILENO);
         exit(FAILURE);
     }
-    game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-    if (!game->img)
+    game->img_win = malloc(sizeof(t_texture));
+    game->img_win->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+    if (!game->img_win->img)
         printf("img failed\n");
-    game->endian = malloc(sizeof(int));
-	game->addr = mlx_get_data_addr(game->img, &game->bpp, &game->line_length, game->endian);
-    if (!game->addr)
+    
+    game->img_win->endian = malloc(sizeof(int));
+	game->img_win->addr = mlx_get_data_addr(game->img_win->img, &game->img_win->bpp, &game->img_win->line_length, game->img_win->endian);
+    if (!game->img_win->addr)
         printf("addr failed\n");
 }
 
