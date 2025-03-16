@@ -2,9 +2,10 @@
 
 int	close_window(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->mlx_win);
 	printf("window closed\n");
-	exit(0);
+    free_imgs(game);
+    game_free(game, NULL);
+    return (0);
 }
 
 int	key_pressed(int keycode, t_game *game)

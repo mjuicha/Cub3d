@@ -2,15 +2,16 @@
 
 int	main(int ac, char **av)
 {
-	t_game  *game;// is done
+	t_game  *game;//
 
-	game = init_cub(ac, av);// is done
-    start_game(game);// is done
-	load_textures(game);// is done
-
-	events_hook(game); // is done
-	mlx_loop_hook(game->mlx, render_game, game);// is done (fix text use)
-    mlx_loop(game->mlx);// is done
+	game = init_cub(ac, av);// protected
+	if (!game)
+		return (1);
+    start_game(game);// protected
+	load_textures(game);// protected
+	events_hook(game);// protected
+	mlx_loop_hook(game->mlx, render_game, game);
+    mlx_loop(game->mlx);
 	return (0);
 }
 

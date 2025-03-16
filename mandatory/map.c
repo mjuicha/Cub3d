@@ -22,10 +22,17 @@ t_map	*new_map(char *line)
 	if (!line)
 		return (NULL);
 	line = ft_strrmv(line, 10);
+	if (!line)
+		return (NULL);
 	new = malloc(sizeof(t_map));
 	if (!new)
 		return (NULL);
-	new->line = ft_strdup(line);
+	new->line = line;
+	if (!new->line)
+	{
+		free(new);
+		return (NULL);
+	}
 	new->next = NULL;
 	return (new);
 }
@@ -77,13 +84,24 @@ t_game	*get_map(t_game *game)
 
 	str = game->start_line;
 	map = add_back_map(map, new_map(str));
+	if (!map)
+	{
+		free_img(game->img_win);
+		mlx_free(game, MALLOC_ERROR);
+	}
 	while (str)
 	{
 		free(str);
 		str = get_next_line(game->mapfd);
 		map = add_back_map(map, new_map(str));
+		if (!map)
+		{
+			free_img(game->img_win);
+			mlx_free(game, MALLOC_ERROR);
+		}
 	}
 	game->map = list2array(map, game);
 	close(game->mapfd);
+	game->alloc_bool->m_fd = 0;
 	return (game);
 }

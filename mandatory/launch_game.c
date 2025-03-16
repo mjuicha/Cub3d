@@ -187,6 +187,11 @@ int    render_game(t_game *game)
 {
 	mlx_destroy_image(game->mlx, game->img_win->img);
 	game->img_win->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->img_win->img)
+	{
+		free_imgs(game);
+		game_free(game, MALLOC_ERROR);	
+	}
 	update_position(game);
 	fov(game);
 	wall_projection(game);

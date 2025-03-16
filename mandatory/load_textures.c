@@ -1,40 +1,55 @@
 #include "cub3d.h"
 
-void	nord_img(t_game *game)
+void	free_imgs(t_game *game)
 {
-	game->nord = malloc(sizeof(t_texture));
-	game->nord->img = mlx_xpm_file_to_image(game->mlx, game->texture_path[0], &game->width, &game->height);
-	game->nord->endian = malloc(sizeof(int));
-	game->nord->addr = mlx_get_data_addr(game->nord->img, &game->nord->bpp, &game->nord->line_length, game->nord->endian);
-}
-void	south_img(t_game *game)
-{
-	game->south = malloc(sizeof(t_texture));
-	game->south->img = mlx_xpm_file_to_image(game->mlx, game->texture_path[1], &game->width, &game->height);
-	game->south->endian = malloc(sizeof(int));
-	game->south->addr = mlx_get_data_addr(game->south->img, &game->south->bpp, &game->south->line_length, game->nord->endian);
+	free_img(game->img_win);
+	if (game->alloc_bool->n)
+		free_img(game->nord);
+	if (game->alloc_bool->s)
+		free_img(game->south);
+	if (game->alloc_bool->e)
+		free_img(game->east);
+	if (game->alloc_bool->w)
+		free_img(game->west);
 }
 
-void	east_img(t_game *game)
+t_texture	*texture_img(t_game *game, char *path)
 {
-	game->east = malloc(sizeof(t_texture));
-	game->east->img = mlx_xpm_file_to_image(game->mlx, game->texture_path[2], &game->width, &game->height);
-	game->east->endian = malloc(sizeof(int));
-	game->east->addr = mlx_get_data_addr(game->east->img, &game->east->bpp, &game->east->line_length, game->east->endian);
-}
+	t_texture *texture;
 
-void	west_img(t_game *game)
-{
-	game->west = malloc(sizeof(t_texture));
-	game->west->img = mlx_xpm_file_to_image(game->mlx, game->texture_path[3], &game->width, &game->height);
-	game->west->endian = malloc(sizeof(int));
-	game->west->addr = mlx_get_data_addr(game->west->img, &game->west->bpp, &game->west->line_length, game->west->endian);
+	texture = malloc(sizeof(t_texture));
+	if (!texture)
+		game_free(game, MALLOC_ERROR);
+	texture->img = mlx_xpm_file_to_image(game->mlx, path, &game->width, &game->height);
+	if (!texture->img)
+	{
+		free(texture);
+		game_free(game, MALLOC_ERROR);
+	}
+	texture->endian = malloc(sizeof(int));
+	if (!texture->endian)
+	{
+		free(texture);
+		game_free(game, MALLOC_ERROR);
+	}
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, &texture->line_length, texture->endian);
+	if (!texture->addr)
+	{
+		free_img(texture);
+		free_imgs(game);
+		game_free(game, MALLOC_ERROR);
+	}
+	return (texture);
 }
 
 void	load_textures(t_game *game)
 {
-	nord_img(game);
-	south_img(game);
-	east_img(game);
-	west_img(game);
+	game->nord = texture_img(game, game->texture_path[0]);
+	game->alloc_bool->n = true;
+	game->south = texture_img(game, game->texture_path[1]);
+	game->alloc_bool->s = true;
+	game->east = texture_img(game, game->texture_path[2]);
+	game->alloc_bool->e = true;
+	game->west = texture_img(game, game->texture_path[3]);
+	game->alloc_bool->w = true;
 }

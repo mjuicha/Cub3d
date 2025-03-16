@@ -12,3 +12,53 @@
 (1)>>>>>> make rotation by mouse ✅
 (2)>>>>>> add doors
 
+
+/****************************************************************/
+/********************* free vs segv *****************************/
+/****************************************************************/
+
+(1)>>>> init bool to control malloc failled
+(2)>>>> 
+(done)
+  ^^
+ game >> fd (done)
+      >> alloc_bool (done)
+      >> player >> dir
+      >> dis
+      >> spec
+      >> t_angle
+      >> wallx & wally
+      >> is_hor
+(GTP) >> texture path[] >> path
+      >> line */*/
+      >> map
+      >> 
+      >> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+freee
+> game
+> alloc_bool
+> 

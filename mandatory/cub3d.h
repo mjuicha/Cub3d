@@ -38,6 +38,7 @@
 # define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
 # define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
 # define COLOR_ERROR "\033[31mError: Invalid color\n\033[0m"
+# define MALLOC_ERROR "\033[31mError: Malloc failed\n\033[0m"
 /***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
@@ -88,6 +89,23 @@ typedef struct s_player // nadi
 	t_dir   *dir;
 }            t_player;
 
+typedef	struct alloc
+{
+	bool m_player;
+	bool m_dir;
+	bool m_dis;
+	bool m_is_spec;
+	bool m_t_angle;
+	bool m_wallx;
+	bool m_wally;
+	bool m_is_hor;
+	bool m_fd;
+	bool n;
+	bool s;
+	bool e;
+	bool w;
+}				t_alloc;
+
 typedef struct s_game
 {
 	void    *mlx;
@@ -120,6 +138,7 @@ typedef struct s_game
 	char    **map;
 	char	**cp_map;
 	char    *start_line;
+	t_alloc *alloc_bool;
 	int     mapfd;
 	int off;
 	int		mapcounter;
@@ -156,5 +175,12 @@ void    draw_walls(t_game *game);
 int	valid_format(t_game *game);
 int	white_space(char c);
 int	ft_atoi(const char *str);
+void	auto_exit(t_game *game, char *error);
+void	free_path(t_game *game);
+void    mlx_free(t_game *game, char *error);
+void    free_img(t_texture *img);
+void	free_map(t_game *game);
+void	game_free(t_game *game, char *error);
+void	free_imgs(t_game *game);
 /***********************  draw  ***********************/
 #endif

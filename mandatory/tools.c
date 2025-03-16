@@ -49,6 +49,8 @@ char	*ft_strrmv(char *str, char c)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	new = malloc(sizeof(char) * (ft_strlen(str)));
 	if (!new)
 		return (NULL);
@@ -71,6 +73,8 @@ char	*ft_strdup(const char *s1)
 	size_t	i;
 	char	*dest;
 
+	if (!s1)
+		return (NULL);
 	x = 0;
 	while (s1[x])
 		x++;
