@@ -3,7 +3,6 @@
 int	close_window(t_game *game)
 {
 	printf("window closed\n");
-    free_imgs(game);
     game_free(game, NULL);
     return (0);
 }

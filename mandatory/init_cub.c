@@ -138,6 +138,8 @@ int	check_edges(t_game *game)
 {
 	char	*line;
 
+	if (!game->map[0] || !game->map[game->mapcounter - 1])
+		return (FAILURE);
 	line = game->map[0];
 	if (!check_line(line))
 		return (FAILURE);
@@ -218,7 +220,6 @@ int	check_valid_char(t_game *game)
 	int j = 0;
 	int found_player = 0;
 	char *line = game->map[i];
-
 	while (i < game->mapcounter)
 	{
 		j = 0;
@@ -259,6 +260,7 @@ void	free_map(t_game *game)
 void	game_free(t_game *game, char *error)
 {
 	free_map(game);
+	free_imgs(game);
 	mlx_free(game, error);
 }
 
@@ -290,7 +292,8 @@ void	free_path(t_game *game)
 		i++;
 	}
 	free(game->texture_path);
-    free(game->start_line);
+	if (game->start_line)
+    	free(game->start_line);
 }
 
 void	get_color(char *line, t_game *game, int c)

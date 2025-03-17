@@ -72,7 +72,7 @@ typedef struct s_texture
 	char	*addr;
 	int     bpp;
 	int     line_length;
-	int     *endian;
+	int     endian;
 }			   t_texture;
 
 typedef struct s_player // nadi
@@ -178,7 +178,6 @@ int	ft_atoi(const char *str);
 void	auto_exit(t_game *game, char *error);
 void	free_path(t_game *game);
 void    mlx_free(t_game *game, char *error);
-void    free_img(t_texture *img);
 void	free_map(t_game *game);
 void	game_free(t_game *game, char *error);
 void	free_imgs(t_game *game);

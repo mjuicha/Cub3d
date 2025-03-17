@@ -2,15 +2,28 @@
 
 void	free_imgs(t_game *game)
 {
-	free_img(game->img_win);
+	mlx_destroy_image(game->mlx, game->img_win->img);
+	free(game->img_win);
 	if (game->alloc_bool->n)
-		free_img(game->nord);
+	{
+		mlx_destroy_image(game->mlx, game->nord->img);
+		free(game->nord);
+	}
 	if (game->alloc_bool->s)
-		free_img(game->south);
+	{
+		mlx_destroy_image(game->mlx, game->south->img);
+		free(game->south);
+	}
 	if (game->alloc_bool->e)
-		free_img(game->east);
+	{
+		mlx_destroy_image(game->mlx, game->east->img);
+		free(game->east);
+	}
 	if (game->alloc_bool->w)
-		free_img(game->west);
+	{
+		mlx_destroy_image(game->mlx, game->west->img);
+		free(game->west);
+	}
 }
 
 t_texture	*texture_img(t_game *game, char *path)
@@ -26,17 +39,11 @@ t_texture	*texture_img(t_game *game, char *path)
 		free(texture);
 		game_free(game, MALLOC_ERROR);
 	}
-	texture->endian = malloc(sizeof(int));
-	if (!texture->endian)
-	{
-		free(texture);
-		game_free(game, MALLOC_ERROR);
-	}
-	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, &texture->line_length, texture->endian);
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, &texture->line_length, &texture->endian);
 	if (!texture->addr)
 	{
-		free_img(texture);
-		free_imgs(game);
+		mlx_destroy_image(game->mlx, texture->img);
+		free(texture);
 		game_free(game, MALLOC_ERROR);
 	}
 	return (texture);

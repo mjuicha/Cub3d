@@ -52,6 +52,19 @@ t_map	*add_back_map(t_map *map, t_map *new_map)
 	return (map);
 }
 
+void	free_list(t_map *map)
+{
+	t_map	*tmp;
+
+	while (map)
+	{
+		tmp = map;
+		map = map->next;
+		free(tmp->line);
+		free(tmp);
+	}
+}
+
 char	**list2array(t_map *map, t_game *game)
 {
 	char	**array;
@@ -61,7 +74,13 @@ char	**list2array(t_map *map, t_game *game)
 	game->mapcounter = mapcounter(map);
 	array = malloc(sizeof(char *) * (game->mapcounter + 1));
 	if (!array)
+	{
+		free_list(map);
+		mlx_destroy_image(game->mlx, game->img_win->img);
+		free(game->img_win);
+		mlx_free(game, MALLOC_ERROR);
 		return (NULL);
+	}
 	i = 0;
 	while (map && i < game->mapcounter)
 	{
@@ -77,16 +96,18 @@ char	**list2array(t_map *map, t_game *game)
 }
 
 t_game	*get_map(t_game *game)
-
 {
 	t_map	*map = NULL;
 	char	*str;
 
-	str = game->start_line;
+	str = ft_strdup(game->start_line);
+	free(game->start_line);
+	game->start_line = NULL;
 	map = add_back_map(map, new_map(str));
 	if (!map)
 	{
-		free_img(game->img_win);
+		mlx_destroy_image(game->mlx, game->img_win->img);
+		free(game->img_win);
 		mlx_free(game, MALLOC_ERROR);
 	}
 	while (str)
@@ -96,7 +117,8 @@ t_game	*get_map(t_game *game)
 		map = add_back_map(map, new_map(str));
 		if (!map)
 		{
-			free_img(game->img_win);
+			mlx_destroy_image(game->mlx, game->img_win->img);
+			free(game->img_win);
 			mlx_free(game, MALLOC_ERROR);
 		}
 	}
