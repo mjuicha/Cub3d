@@ -39,7 +39,7 @@ void	auto_exit(t_game *game, char *error)
 {
 	ft_error(error);
 	auto_free(game);
-	atexit(leaks);
+	// atexit(leaks);
 	if (!error)
 		exit(SUCCESS);
 	exit(FAILURE);
@@ -286,9 +286,10 @@ int valid_input(int ac, char **av)
 void	free_path(t_game *game)
 {
 	int i = 0;
-	while (game->texture_path[i])
+	while (i < 4)
 	{
-		free(game->texture_path[i]);
+		if (game->texture_path[i])
+			free(game->texture_path[i]);
 		i++;
 	}
 	free(game->texture_path);

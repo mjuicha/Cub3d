@@ -2,8 +2,12 @@
 
 void	free_imgs(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->img_win->img);
-	free(game->img_win);
+	if (game->img_win)
+	{
+		if (game->img_win->img)
+			mlx_destroy_image(game->mlx, game->img_win->img);
+		free(game->img_win);
+	}
 	if (game->alloc_bool->n)
 	{
 		mlx_destroy_image(game->mlx, game->nord->img);

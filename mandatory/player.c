@@ -218,12 +218,13 @@ void	cast_ra(t_game *game, double angle, int ray)
 
 void	fov(t_game *game)
 {
-	double angle = game->player->angle - FOV / 2;
+	float dis_proj = (WIDTH / 2) / tan(FOV / 2);
+	float angle;
 	int i = 0;
 	while (i < WIDTH)
 	{
+		angle = game->player->angle + atan((i - WIDTH / 2) / dis_proj);
 		cast_ra(game, angle, i);
-		angle += FOV / WIDTH;
 		i++;
 	}
 }

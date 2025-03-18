@@ -1,0 +1,32 @@
+/*************************************************/
+/********************* leaks *********************/
+/*************************************************/
+
+>> game 
+>> alloc_bool 
+>> alloc_bool {9vars}
+>> texture_path
+>> texture_path {4}
+>> start_line // done
+>> mlx + mlx_win
+>> img_win {img}
+>> new {line} // done
+>> map {line}
+>> texture {img}
+
+
+
+>> fd
+>> game 
+>> alloc_bool
+>> alloc_bool {9vars}
+>> texture_path
+>> start_line
+>> mlx + mlx_win
+>> img_win {img}
+>> map {line}
+>> textures {img}
+/*************************************************/
+/********************* segv **********************/
+/*************************************************/
+
