@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 16:01:58 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/18 16:05:35 by mjuicha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	mapcounter(t_map *map)
@@ -17,7 +29,7 @@ int	mapcounter(t_map *map)
 
 t_map	*new_map(char *line)
 {
-	t_map *new;
+	t_map	*new;
 
 	if (!line)
 		return (NULL);
@@ -52,19 +64,6 @@ t_map	*add_back_map(t_map *map, t_map *new_map)
 	return (map);
 }
 
-void	free_list(t_map *map)
-{
-	t_map	*tmp;
-
-	while (map)
-	{
-		tmp = map;
-		map = map->next;
-		free(tmp->line);
-		free(tmp);
-	}
-}
-
 char	**list2array(t_map *map, t_game *game)
 {
 	char	**array;
@@ -76,8 +75,7 @@ char	**list2array(t_map *map, t_game *game)
 	if (!array)
 	{
 		free_list(map);
-		mlx_destroy_image(game->mlx, game->img_win->img);
-		free(game->img_win);
+		free_imgs(game);
 		mlx_free(game, MALLOC_ERROR);
 		return (NULL);
 	}
@@ -97,9 +95,10 @@ char	**list2array(t_map *map, t_game *game)
 
 t_game	*get_map(t_game *game)
 {
-	t_map	*map = NULL;
+	t_map	*map;
 	char	*str;
 
+	map = NULL;
 	str = ft_strdup(game->start_line);
 	free(game->start_line);
 	game->start_line = NULL;
@@ -115,12 +114,6 @@ t_game	*get_map(t_game *game)
 		free(str);
 		str = get_next_line(game->mapfd);
 		map = add_back_map(map, new_map(str));
-		if (!map)
-		{
-			mlx_destroy_image(game->mlx, game->img_win->img);
-			free(game->img_win);
-			mlx_free(game, MALLOC_ERROR);
-		}
 	}
 	game->map = list2array(map, game);
 	close(game->mapfd);

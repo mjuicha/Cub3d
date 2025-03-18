@@ -1,13 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_textures.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 16:06:10 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/18 16:18:35 by mjuicha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	free_imgs(t_game *game)
 {
-	if (game->img_win)
-	{
-		if (game->img_win->img)
-			mlx_destroy_image(game->mlx, game->img_win->img);
-		free(game->img_win);
-	}
+	if (game->img_win->img)
+		mlx_destroy_image(game->mlx, game->img_win->img);
+	free(game->img_win);
 	if (game->alloc_bool->n)
 	{
 		mlx_destroy_image(game->mlx, game->nord->img);
@@ -32,18 +41,20 @@ void	free_imgs(t_game *game)
 
 t_texture	*texture_img(t_game *game, char *path)
 {
-	t_texture *texture;
+	t_texture	*texture;
 
 	texture = malloc(sizeof(t_texture));
 	if (!texture)
 		game_free(game, MALLOC_ERROR);
-	texture->img = mlx_xpm_file_to_image(game->mlx, path, &game->width, &game->height);
+	texture->img = mlx_xpm_file_to_image(game->mlx, path,
+			&game->width, &game->height);
 	if (!texture->img)
 	{
 		free(texture);
 		game_free(game, MALLOC_ERROR);
 	}
-	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp, &texture->line_length, &texture->endian);
+	texture->addr = mlx_get_data_addr(texture->img,
+			&texture->bpp, &texture->line_length, &texture->endian);
 	if (!texture->addr)
 	{
 		mlx_destroy_image(game->mlx, texture->img);

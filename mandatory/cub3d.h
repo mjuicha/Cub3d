@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/18 17:57:54 by mjuicha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /***********************  includes  ***********************/
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -16,8 +28,6 @@
 # define D          2
 # define LEFT       123
 # define RIGHT      124
-/***********************  movement  ***********************/
-# define FOV		60 * (M_PI / 180)
 /***********************  colors  *************************/
 # define BLACK      0x00000000
 # define WHITE      0x00FFFFFF
@@ -53,108 +63,100 @@
 /***********************  structures  *********************/
 typedef struct s_map
 {
-	char        *line;
-	struct s_map *next;
-	
-}               t_map;
+	char			*line;
+	struct s_map	*next;
+}			t_map;
 
 typedef struct s_dir
 {
-	int up;
-	int down;
-	int left;
-	int right;
-}               t_dir;
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+}				t_dir;
 
 typedef struct s_texture
 {
-	void    *img;
+	void	*img;
 	char	*addr;
-	int     bpp;
-	int     line_length;
-	int     endian;
-}			   t_texture;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}				t_texture;
 
-typedef struct s_player // nadi
+typedef struct s_player
 {
-	double 	pos_x;
+	double	pos_x;
 	double	pos_y;
 	float	walk_dir;
 	float	side_dir;
 	float	turn_dir;
-	double  angle;
-	double  move_speed;
-	double  rot_speed;
+	double	angle;
+	double	move_speed;
+	double	rot_speed;
+	double	fov;
 	int		fetch;
-	t_dir   *dir;
-}            t_player;
+	int		found_player;
+	t_dir	*dir;
+}			t_player;
 
-typedef	struct alloc
+typedef struct alloc
 {
-	bool m_player;
-	bool m_dir;
-	bool m_dis;
-	bool m_is_spec;
-	bool m_t_angle;
-	bool m_wallx;
-	bool m_wally;
-	bool m_is_hor;
-	bool m_fd;
-	bool n;
-	bool s;
-	bool e;
-	bool w;
-}				t_alloc;
+	bool	m_player;
+	bool	m_dir;
+	bool	m_dis;
+	bool	m_is_spec;
+	bool	m_t_angle;
+	bool	m_wallx;
+	bool	m_wally;
+	bool	m_is_hor;
+	bool	m_fd;
+	bool	n;
+	bool	s;
+	bool	e;
+	bool	w;
+}			t_alloc;
 
 typedef struct s_game
 {
-	void    *mlx;
-	void    *mlx_win;
-	t_texture *img_win;
-	
-	int     width;
-	int     height;
-
-	char	**texture_path;
-	
-///	///////////////
-	double  hx;
-	double  hy;
-///	///////////////
-	double  vx;
-	double  vy;
-///////////////////
-	double 	*wallx;
-	double 	*wally;
-///////////////////
-	int		t_pix;
-	int		b_pix;
-	///////////////////
-	double 	*dis;
-	double  *is_spec;
-	double  *t_angle;
-	int 	*is_hor;
-	///////////////////
-	char    **map;
-	char	**cp_map;
-	char    *start_line;
-	t_alloc *alloc_bool;
-	int     mapfd;
-	int off;
-	int		mapcounter;
-	int 	floor;
-	int 	ceiling;
-	t_texture *nord;
-	t_texture *south;
-	t_texture *east;
-	t_texture *west;
-	t_player *player;
-}               t_game;
+	void		*mlx;
+	void		*mlx_win;
+	int			width;
+	int			height;
+	char		**texture_path;
+	double		hx;
+	double		hy;
+	double		vx;
+	double		vy;
+	double		*wallx;
+	double		*wally;
+	int			t_pix;
+	int			b_pix;
+	double		*dis;
+	double		*is_spec;
+	double		*t_angle;
+	int			*is_hor;
+	char		**map;
+	char		**cp_map;
+	char		*start_line;
+	int			mapfd;
+	int			off;
+	int			mapcounter;
+	int			floor;
+	int			ceiling;
+	t_alloc		*alloc_bool;
+	t_texture	*nord;
+	t_texture	*south;
+	t_texture	*east;
+	t_texture	*west;
+	t_player	*player;
+	t_texture	*img_win;
+}				t_game;
 
 /***********************  prototypes  ***********************/
-int	ft_strchr2(char *str, char *set);
+int		ft_strchr2(char *str, char *set);
 double	normalize_angle(double angle);
-void    put_pixel_to_img(t_game *game, int x, int y, int color);
+void	put_pixel_to_img(t_game *game, int x, int y, int color);
 void	turn_player(t_game *game);
 void	load_textures(t_game *game);
 /***********************  utils  ***********************/
@@ -164,22 +166,22 @@ void	ft_putendl_fd(char *str, int fd);
 char	*ft_strdup(const char *s1);
 char	*ft_strrmv(char *str, char c);
 /***********************  init  ***********************/
-t_game  *init_cub(int ac, char **av);
-t_game  *get_map(t_game *game);
-void    start_game(t_game *game);
-int    	render_game(t_game *game);
-int 	valid_input(int ac, char **av);
+t_game	*init_cub(int ac, char **av);
+t_game	*get_map(t_game *game);
+void	start_game(t_game *game);
+int		render_game(t_game *game);
+int		valid_input(int ac, char **av);
 void	fov(t_game *game);
 void	events_hook(t_game *game);
-void    draw_walls(t_game *game);
-int	valid_format(t_game *game);
-int	white_space(char c);
-int	ft_atoi(const char *str);
+void	draw_walls(t_game *game);
+int		valid_format(t_game *game);
+int		ft_atoi(const char *str);
 void	auto_exit(t_game *game, char *error);
 void	free_path(t_game *game);
-void    mlx_free(t_game *game, char *error);
+void	mlx_free(t_game *game, char *error);
 void	free_map(t_game *game);
 void	game_free(t_game *game, char *error);
 void	free_imgs(t_game *game);
+void	free_list(t_map *map);
 /***********************  draw  ***********************/
 #endif
