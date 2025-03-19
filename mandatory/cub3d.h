@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 17:57:54 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/19 01:06:57 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ typedef struct s_game
 	char		*start_line;
 	int			mapfd;
 	int			off;
+	int			xoff;
+	int			yoff;
 	int			mapcounter;
 	int			floor;
 	int			ceiling;
@@ -154,34 +156,64 @@ typedef struct s_game
 }				t_game;
 
 /***********************  prototypes  ***********************/
-int		ft_strchr2(char *str, char *set);
-double	normalize_angle(double angle);
-void	put_pixel_to_img(t_game *game, int x, int y, int color);
-void	turn_player(t_game *game);
-void	load_textures(t_game *game);
+int				ft_strchr2(char *str, char *set);
+double			normalize_angle(double angle);
+void			put_pixel_to_img(t_game *game, int x, int y, int color);
+void			turn_player(t_game *game);
+void			load_textures(t_game *game);
 /***********************  utils  ***********************/
-size_t	ft_strlen(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-void	ft_putendl_fd(char *str, int fd);
-char	*ft_strdup(const char *s1);
-char	*ft_strrmv(char *str, char c);
+size_t			ft_strlen(const char *str);
+int				ft_strcmp(const char *s1, const char *s2);
+void			ft_putendl_fd(char *str, int fd);
+char			*ft_strdup(const char *s1);
+char			*ft_strrmv(char *str, char c);
 /***********************  init  ***********************/
-t_game	*init_cub(int ac, char **av);
-t_game	*get_map(t_game *game);
-void	start_game(t_game *game);
-int		render_game(t_game *game);
-int		valid_input(int ac, char **av);
-void	fov(t_game *game);
-void	events_hook(t_game *game);
-void	draw_walls(t_game *game);
-int		valid_format(t_game *game);
-int		ft_atoi(const char *str);
-void	auto_exit(t_game *game, char *error);
-void	free_path(t_game *game);
-void	mlx_free(t_game *game, char *error);
-void	free_map(t_game *game);
-void	game_free(t_game *game, char *error);
-void	free_imgs(t_game *game);
-void	free_list(t_map *map);
+t_game			*init_cub(int ac, char **av);
+t_game			*get_map(t_game *game);
+void			start_game(t_game *game);
+int				render_game(t_game *game);
+int				valid_input(int ac, char **av);
+void			fov(t_game *game);
+void			events_hook(t_game *game);
+void			draw_walls(t_game *game);
+int				valid_format(t_game *game);
+int				ft_atoi(const char *str);
+void			auto_exit(t_game *game, char *error);
+void			free_path(t_game *game);
+void			mlx_free(t_game *game, char *error);
+void			free_map(t_game *game);
+void			game_free(t_game *game, char *error);
+void			free_imgs(t_game *game);
+void			free_list(t_map *map);
+void			ft_error(char *error);
+int				valid_file(char **av);
+void			init_bool(t_game *game);
+void			alloc_vars(t_game *game);
+char			**get_texture_path(t_game *game);
+int				direction(char *line, t_game *game);
+void			get_color(char *line, t_game *game, int c);
+int				skip(char *line);
+int				check_edges(t_game *game);
+int				check_valid_char(t_game *game);
+double			angle_dir(char c);
+int				check_open_spaces(t_game *game);
+int				find_open_space(char c, int i, int j, t_game *game);
+void			update_position(t_game *game);
+void			get_dir(t_game *game, double angle);
+int				is_down(t_game *game);
+int				is_right(t_game *game);
+int				_up(t_game *game);
+int				_left(t_game *game);
+void			spec_case(t_game *game, int ray);
+double			phitagore(t_game *game, int x2, int y2);
+int				inf_equal(double a, double b);
+int				equal(double a, double b);
+double			d_inf_equal(double a, double b, double r1, double r2);
+int				is_nord(double angle);
+int				is_east(double angle);
+int				get_top_pixel(double wall_height);
+int				get_bottom_pixel(double wall_height);
+double			get_wall_height(t_game *game, int ray);
+unsigned int	get_coloor(t_game *game, int x, int y, int ray);
 /***********************  draw  ***********************/
 #endif

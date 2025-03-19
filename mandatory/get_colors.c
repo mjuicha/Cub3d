@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:01:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 18:04:30 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/18 23:28:56 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,15 @@ unsigned int	get_coloor(t_game *game, int x, int y, int ray)
 				+ (y * game->west->line_length + x * (game->west->bpp / 8));
 	}
 	return (*(unsigned int *)dst);
+}
+
+void	put_pixel_to_img(t_game *game, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = game->img_win->addr + (y * game->img_win->line_length
+			+ x * (game->img_win->bpp / 8));
+	*(unsigned int *)dst = color;
 }
