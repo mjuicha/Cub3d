@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:33:09 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 16:36:28 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/21 03:05:38 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,18 @@ void	init_mlx(t_game *game)
 		auto_exit(game, MLX_WIN_ERROR);
 	}
 	init_img(game);
+}
+
+void	show_map(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (game->map[i])
+	{
+		printf("%s\n", game->map[i]);
+		i++;
+	}
 }
 
 void	start_game(t_game *game)

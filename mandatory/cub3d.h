@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/19 01:06:57 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/21 04:35:19 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define WIDTH      1024
 # define HEIGHT     768
 # define TILE_SIZE  64
+# define CT		 	2
 /***********************  keys  ***************************/
 # define ESC        53
 # define W          13
@@ -215,5 +216,11 @@ int				get_top_pixel(double wall_height);
 int				get_bottom_pixel(double wall_height);
 double			get_wall_height(t_game *game, int ray);
 unsigned int	get_coloor(t_game *game, int x, int y, int ray);
+int				limit(t_game *game);
+int				check_colors(t_game *game);
+int				limit(t_game *game);
+int				is_digit(char c);
+void			skip_spaces(char *line, int *i);
+void			skip_digits(char *line, int *i, int *rgb);
 /***********************  draw  ***********************/
 #endif

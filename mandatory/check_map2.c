@@ -6,22 +6,31 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:29:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 18:06:16 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/21 04:07:19 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_colors(t_game *game)
+{
+	if (game->floor == -1 || game->ceiling == -1)
+		return (FAILURE);
+	return (SUCCESS);
+}
 
 int	check_open_spaces(t_game *game)
 {
 	int		i;
 	int		j;
 	char	*line;
+	int		lim;
 
 	i = 1;
 	j = 1;
 	line = game->map[i];
-	while (i < game->mapcounter - 1)
+	lim = limit(game);
+	while (i < lim)
 	{
 		j = 1;
 		while (line[j])
@@ -62,7 +71,7 @@ int	valid_chars(char c, t_game *game, int i, int j)
 		game->player->pos_x = j * TILE_SIZE + (game->width / 2);
 		game->player->pos_y = i * TILE_SIZE + (game->height / 2);
 	}
-	else if (c != '0' && c != '1' && c != ' ')
+	else if (c != '0' && c != '1' && c != ' ' && c != '\n')
 		return (FAILURE);
 	return (SUCCESS);
 }

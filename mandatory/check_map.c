@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:20:18 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 17:29:04 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/21 04:08:22 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ int	check_mline(char *line)
 int	check_middle(t_game *game)
 {
 	int	i;
+	int	limite;
 
 	i = 1;
-	while (i < game->mapcounter - 1)
+	limite = limit(game);
+	while (i < limite)
 	{
 		if (!check_mline(game->map[i]))
 			return (FAILURE);

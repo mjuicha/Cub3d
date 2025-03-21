@@ -1,48 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_tools1.c                                      :+:      :+:    :+:   */
+/*   cub_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 23:15:18 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 03:11:49 by mjuicha          ###   ########.fr       */
+/*   Created: 2025/03/21 04:08:42 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/21 04:34:54 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	inf_equal(double a, double b)
+int	limit(t_game *game)
 {
-	if (a <= b)
+	int	i;
+
+	i = 0;
+	while (game->map[i])
+	{
+		if (game->map[i][0] == '\0')
+			return (i - 1);
+		i++;
+	}
+	return (game->mapcounter - 1);
+}
+
+int	is_digit(char c)
+{
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	equal(double a, double b)
+void	skip_spaces(char *line, int *i)
 {
-	if (a == b)
-		return (1);
-	return (0);
+	while (line[*i] && line[*i] == ' ')
+		(*i)++;
 }
 
-double	d_inf_equal(double a, double b, double r1, double r2)
+void	skip_digits(char *line, int *i, int *rgb)
 {
-	if (a <= b)
-		return (r1);
-	return (r2);
-}
-
-int	is_nord(double angle)
-{
-	if (angle >= M_PI && angle < 2 * M_PI)
-		return (1);
-	return (0);
-}
-
-int	is_east(double angle)
-{
-	if (angle >= M_PI_2 && angle < 3 * M_PI_2)
-		return (1);
-	return (0);
+	while (line[*i] && is_digit(line[*i]))
+		(*i)++;
+	*rgb++;
 }

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:01:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 23:28:56 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/21 04:32:58 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,39 @@ void	get_rgb(char *line, int *r, int *g, int *b)
 		i++;
 	i++;
 	*g = ft_atoi(line + i);
-	while (line[i] && line[i] != ',')
+	while (line[i] != ',')
 		i++;
 	i++;
 	*b = ft_atoi(line + i);
+}
+
+int	is_rgb(char *line)
+{
+	int	i;
+	int	rgb;
+
+	i = 0;
+	rgb = 0;
+	skip_spaces(line, &i);
+	if (line[i] && (ft_strchr2(line + i, "F ") || ft_strchr2(line + i, "C ")))
+		i += 2;
+	else
+		return (FAILURE);
+	skip_spaces(line, &i);
+	while (line[i] && rgb < 3)
+	{
+		if (!is_digit(line[i]))
+			return (FAILURE);
+		skip_digit(line, &i, &rgb);
+		if ((line[i] != ',' && rgb < 3) || (rgb == 3 && line[i] == ','))
+			return (FAILURE);
+		if (rgb < 3)
+			i++;
+	}
+	skip_spaces(line, &i);
+	if (line[i] != '\n')
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 void	get_color(char *line, t_game *game, int c)
@@ -39,6 +68,12 @@ void	get_color(char *line, t_game *game, int c)
 	int	b;
 	int	color;
 
+	if (!is_rgb(line))
+	{
+		free(line);
+		free_path(game);
+		auto_exit(game, COLOR_ERROR);
+	}
 	get_rgb(line, &r, &g, &b);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
