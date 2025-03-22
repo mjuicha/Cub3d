@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:19:07 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:07:04 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	valid_file(char **av)
 	return (fd);
 }
 
-int	valid_format(t_game *game)
+int	valid_format(t_game_data *game)
 {
 	if (!check_edges(game) || !check_valid_char(game)
 		|| !check_open_spaces(game) || !check_colors(game))

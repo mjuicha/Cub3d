@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:06:10 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 16:18:35 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_imgs(t_game *game)
+void	free_imgs(t_game_data *game)
 {
 	if (game->img_win->img)
 		mlx_destroy_image(game->mlx, game->img_win->img);
@@ -39,7 +39,7 @@ void	free_imgs(t_game *game)
 	}
 }
 
-t_texture	*texture_img(t_game *game, char *path)
+t_texture	*texture_img(t_game_data *game, char *path)
 {
 	t_texture	*texture;
 
@@ -64,7 +64,7 @@ t_texture	*texture_img(t_game *game, char *path)
 	return (texture);
 }
 
-void	load_textures(t_game *game)
+void	load_textures(t_game_data *game)
 {
 	game->nord = texture_img(game, game->texture_path[0]);
 	game->alloc_bool->n = true;

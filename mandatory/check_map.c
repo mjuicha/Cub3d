@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:20:18 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:08:22 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_mline(char *line)
 	return (FAILURE);
 }
 
-int	check_middle(t_game *game)
+int	check_middle(t_game_data *game)
 {
 	int	i;
 	int	limite;
@@ -64,7 +64,7 @@ int	check_middle(t_game *game)
 	return (SUCCESS);
 }
 
-int	check_edges(t_game *game)
+int	check_edges(t_game_data *game)
 {
 	char	*line;
 
@@ -81,7 +81,7 @@ int	check_edges(t_game *game)
 	return (SUCCESS);
 }
 
-int	find_open_space(char c, int i, int j, t_game *game)
+int	find_open_space(char c, int i, int j, t_game_data *game)
 {
 	if (c == ' ' || c == '1')
 		return (FAILURE);

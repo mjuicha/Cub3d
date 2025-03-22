@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:01:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:32:58 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	is_rgb(char *line)
 	{
 		if (!is_digit(line[i]))
 			return (FAILURE);
-		skip_digit(line, &i, &rgb);
+		skip_digits(line, &i, &rgb);
 		if ((line[i] != ',' && rgb < 3) || (rgb == 3 && line[i] == ','))
 			return (FAILURE);
 		if (rgb < 3)
@@ -61,7 +61,7 @@ int	is_rgb(char *line)
 	return (SUCCESS);
 }
 
-void	get_color(char *line, t_game *game, int c)
+void	get_color(char *line, t_game_data *game, int c)
 {
 	int	r;
 	int	g;
@@ -88,7 +88,7 @@ void	get_color(char *line, t_game *game, int c)
 		game->ceiling = color;
 }
 
-unsigned int	get_coloor(t_game *game, int x, int y, int ray)
+unsigned int	get_coloor(t_game_data *game, int x, int y, int ray)
 {
 	char	*dst;
 
@@ -113,7 +113,7 @@ unsigned int	get_coloor(t_game *game, int x, int y, int ray)
 	return (*(unsigned int *)dst);
 }
 
-void	put_pixel_to_img(t_game *game, int x, int y, int color)
+void	put_pixel_to_img(t_game_data *game, int x, int y, int color)
 {
 	char	*dst;
 

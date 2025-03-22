@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   check_map2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:29:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:07:19 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 11:03:52 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_colors(t_game *game)
+int	check_colors(t_game_data *game)
 {
 	if (game->floor == -1 || game->ceiling == -1)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-int	check_open_spaces(t_game *game)
+int	check_open_spaces(t_game_data *game)
 {
 	int		i;
 	int		j;
@@ -45,7 +45,7 @@ int	check_open_spaces(t_game *game)
 	return (SUCCESS);
 }
 
-void	flood_fill(t_game *game, int x, int y)
+void	flood_fill(t_game_data *game, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= game->mapcounter
 		|| y >= (int)ft_strlen(game->map[x]))
@@ -60,14 +60,14 @@ void	flood_fill(t_game *game, int x, int y)
 	flood_fill(game, x, y - 1);
 }
 
-int	valid_chars(char c, t_game *game, int i, int j)
+int	valid_chars(char c, t_game_data *game, int i, int j)
 {
 	if (ft_strchr("NSWE", c))
 	{
 		if (game->player->found_player)
 			return (FAILURE);
 		game->player->found_player = 1;
-		game->player->angle = angle_dir(c);
+		game->player->angle = get_angle_dir(c);
 		game->player->pos_x = j * TILE_SIZE + (game->width / 2);
 		game->player->pos_y = i * TILE_SIZE + (game->height / 2);
 	}
@@ -76,7 +76,7 @@ int	valid_chars(char c, t_game *game, int i, int j)
 	return (SUCCESS);
 }
 
-int	check_valid_char(t_game *game)
+int	check_valid_char(t_game_data *game)
 {
 	int		i;
 	int		j;

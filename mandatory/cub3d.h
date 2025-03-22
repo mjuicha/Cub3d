@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:35:19 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:32:40 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/***********************  includes  ***********************/
 #ifndef CUB3D_H
 # define CUB3D_H
+
 /***********************  defines  ************************/
+
 # define SUCCESS    1
 # define FAILURE    0
-/***********************  window  *************************/
 # define WIDTH      1024
 # define HEIGHT     768
 # define TILE_SIZE  64
 # define CT		 	2
-/***********************  keys  ***************************/
 # define ESC        53
 # define W          13
 # define S          1
@@ -29,7 +28,9 @@
 # define D          2
 # define LEFT       123
 # define RIGHT      124
+
 /***********************  colors  *************************/
+
 # define BLACK      0x00000000
 # define WHITE      0x00FFFFFF
 # define GREY	  	0x00A9A9A9
@@ -37,20 +38,21 @@
 # define GREEN	 	0x0000FF00
 # define BLUE	 	0x000000FF
 # define YELLOW	 	0x00FFFF00
-/***********************  XPM Files  **********************/
-# define BLACK_WALL "xpm_files/black.xpm"
-# define EMPTY_WALL "xpm_files/white.xpm"
+
 /***********************  errors  *************************/
-# define ERROR_ARG "\033[31mError: Wrong number of arguments\n\033[0m"
-# define ERROR_EXT "\033[31mError: Wrong extension\n\033[0m"
-# define OPPEN_ERROR "\033[31mError: Can't open file\n\033[0m"
-# define MLX_ERROR "\033[31mError: mlx_init failed\n\033[0m"
-# define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
-# define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
-# define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
-# define COLOR_ERROR "\033[31mError: Invalid color\n\033[0m"
-# define MALLOC_ERROR "\033[31mError: Malloc failed\n\033[0m"
+
+# define ERROR_ARG "\033[31mError: Wrong number of arguments\033[0m"
+# define ERROR_EXT "\033[31mError: Wrong extension\033[0m"
+# define OPPEN_ERROR "\033[31mError: Can't open file\033[0m"
+# define MLX_ERROR "\033[31mError: mlx_init failed\033[0m"
+# define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\033[0m"
+# define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\033[0m"
+# define MAP_ERROR "\033[31mError: Invalid map\033[0m"
+# define COLOR_ERROR "\033[31mError: Invalid color\033[0m"
+# define MALLOC_ERROR "\033[31mError: Malloc failed\033[0m"
+
 /***********************  includes  ***********************/
+
 # include <unistd.h>
 # include <stdio.h> 
 # include <stdlib.h>
@@ -60,13 +62,14 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# include "get_next_line.h"
+
 /***********************  structures  *********************/
-typedef struct s_map
+
+typedef struct s_file_cont
 {
-	char			*line;
-	struct s_map	*next;
-}			t_map;
+	char				*line;
+	struct s_file_cont	*next;
+}				t_file_cont;
 
 typedef struct s_dir
 {
@@ -87,16 +90,15 @@ typedef struct s_texture
 
 typedef struct s_player
 {
-	double	pos_x;
-	double	pos_y;
-	float	walk_dir;
-	float	side_dir;
-	float	turn_dir;
+	int		pos_x;
+	int		pos_y;
+	int		walk_dir;
+	int		side_dir;
+	int		turn_dir;
 	double	angle;
 	double	move_speed;
 	double	rot_speed;
 	double	fov;
-	int		fetch;
 	int		found_player;
 	t_dir	*dir;
 }			t_player;
@@ -118,7 +120,7 @@ typedef struct alloc
 	bool	w;
 }			t_alloc;
 
-typedef struct s_game
+typedef struct s_game_data
 {
 	void		*mlx;
 	void		*mlx_win;
@@ -154,59 +156,58 @@ typedef struct s_game
 	t_texture	*west;
 	t_player	*player;
 	t_texture	*img_win;
-}				t_game;
+}				t_game_data;
 
-/***********************  prototypes  ***********************/
-int				ft_strchr2(char *str, char *set);
-double			normalize_angle(double angle);
-void			put_pixel_to_img(t_game *game, int x, int y, int color);
-void			turn_player(t_game *game);
-void			load_textures(t_game *game);
 /***********************  utils  ***********************/
+
 size_t			ft_strlen(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 void			ft_putendl_fd(char *str, int fd);
 char			*ft_strdup(const char *s1);
 char			*ft_strrmv(char *str, char c);
-/***********************  init  ***********************/
-t_game			*init_cub(int ac, char **av);
-t_game			*get_map(t_game *game);
-void			start_game(t_game *game);
-int				render_game(t_game *game);
-int				valid_input(int ac, char **av);
-void			fov(t_game *game);
-void			events_hook(t_game *game);
-void			draw_walls(t_game *game);
-int				valid_format(t_game *game);
+int				ft_strchr2(char *str, char *set);
 int				ft_atoi(const char *str);
-void			auto_exit(t_game *game, char *error);
-void			free_path(t_game *game);
-void			mlx_free(t_game *game, char *error);
-void			free_map(t_game *game);
-void			game_free(t_game *game, char *error);
-void			free_imgs(t_game *game);
-void			free_list(t_map *map);
+int				is_digit(char c);
+
+/***********************  prototypes  ***********************/
+
+t_game_data		*init_cub(int ac, char **av);
+t_game_data		*get_map(t_game_data *game);
+void			start_game(t_game_data *game);
+int				render_game(t_game_data *game);
+int				valid_input(int ac, char **av);
+void			cast_all_rays(t_game_data *game);
+void			events_hook(t_game_data *game);
+void			draw_walls(t_game_data *game);
+int				valid_format(t_game_data *game);
+void			auto_exit(t_game_data *game, char *error);
+void			free_path(t_game_data *game);
+void			mlx_free(t_game_data *game, char *error);
+void			free_map(t_game_data *game);
+void			game_free(t_game_data *game, char *error);
+void			free_imgs(t_game_data *game);
+void			free_list(t_file_cont *map);
 void			ft_error(char *error);
 int				valid_file(char **av);
-void			init_bool(t_game *game);
-void			alloc_vars(t_game *game);
-char			**get_texture_path(t_game *game);
-int				direction(char *line, t_game *game);
-void			get_color(char *line, t_game *game, int c);
+void			init_bool(t_game_data *game);
+void			alloc_vars(t_game_data *game);
+char			**get_texture_path(t_game_data *game);
+int				wall_txt_direction(char *line, t_game_data *game);
+void			get_color(char *line, t_game_data *game, int c);
 int				skip(char *line);
-int				check_edges(t_game *game);
-int				check_valid_char(t_game *game);
-double			angle_dir(char c);
-int				check_open_spaces(t_game *game);
-int				find_open_space(char c, int i, int j, t_game *game);
-void			update_position(t_game *game);
-void			get_dir(t_game *game, double angle);
-int				is_down(t_game *game);
-int				is_right(t_game *game);
-int				_up(t_game *game);
-int				_left(t_game *game);
-void			spec_case(t_game *game, int ray);
-double			phitagore(t_game *game, int x2, int y2);
+int				check_edges(t_game_data *game);
+int				check_valid_char(t_game_data *game);
+double			get_angle_dir(char c);
+int				check_open_spaces(t_game_data *game);
+int				find_open_space(char c, int i, int j, t_game_data *game);
+void			update_position(t_game_data *game);
+void			get_ray_dir(t_game_data *game, double angle);
+int				is_down(t_game_data *game);
+int				is_right(t_game_data *game);
+int				is_up(t_game_data *game);
+int				is_left(t_game_data *game);
+void			spec_case(t_game_data *game, int ray);
+double			phitagore(t_game_data *game, int x2, int y2);
 int				inf_equal(double a, double b);
 int				equal(double a, double b);
 double			d_inf_equal(double a, double b, double r1, double r2);
@@ -214,13 +215,30 @@ int				is_nord(double angle);
 int				is_east(double angle);
 int				get_top_pixel(double wall_height);
 int				get_bottom_pixel(double wall_height);
-double			get_wall_height(t_game *game, int ray);
-unsigned int	get_coloor(t_game *game, int x, int y, int ray);
-int				limit(t_game *game);
-int				check_colors(t_game *game);
-int				limit(t_game *game);
-int				is_digit(char c);
+double			get_wall_height(t_game_data *game, int ray);
+unsigned int	get_coloor(t_game_data *game, int x, int y, int ray);
+int				limit(t_game_data *game);
+int				check_colors(t_game_data *game);
+int				limit(t_game_data *game);
 void			skip_spaces(char *line, int *i);
 void			skip_digits(char *line, int *i, int *rgb);
-/***********************  draw  ***********************/
+double			normalize_angle(double angle);
+void			put_pixel_to_img(t_game_data *game, int x, int y, int color);
+void			turn_player(t_game_data *game);
+void			load_textures(t_game_data *game);
+
+/***********************  GET_NEXT_LINE  ***********************/
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+char			*get_next_line(int fd);
+char			*empty_str(void);
+char			*ft_strchr(const char *str, int c);
+char			*ft_strjoin(char *str, char *buff);
+char			*the_line(char *str);
+char			*next_line(char *str);
+char			*read_line(int fd, char *str);
+
 #endif

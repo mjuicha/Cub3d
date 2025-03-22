@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   bool_vars.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:07:44 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 18:17:48 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_bool(t_game *game)
+void	init_bool(t_game_data *game)
 {
 	game->alloc_bool->m_player = 0;
 	game->alloc_bool->m_dir = 0;
@@ -29,7 +29,7 @@ void	init_bool(t_game *game)
 	game->alloc_bool->w = 0;
 }
 
-void	alloc_vars_1(t_game *game)
+void	alloc_vars_1(t_game_data *game)
 {
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
@@ -57,7 +57,7 @@ void	alloc_vars_1(t_game *game)
 	game->alloc_bool->m_wally = 1;
 }
 
-void	alloc_vars(t_game *game)
+void	alloc_vars(t_game_data *game)
 {
 	alloc_vars_1(game);
 	game->t_angle = malloc(sizeof(double) * WIDTH);

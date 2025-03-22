@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_game2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:02:04 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 17:03:43 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	auto_free(t_game *game)
+void	auto_free(t_game_data *game)
 {
 	if (game->alloc_bool->m_dir)
 		free(game->player->dir);
@@ -56,7 +56,7 @@ void	ft_error(char *error)
 	ft_putendl_fd(error, STDERR_FILENO);
 }
 
-void	auto_exit(t_game *game, char *error)
+void	auto_exit(t_game_data *game, char *error)
 {
 	ft_error(error);
 	auto_free(game);

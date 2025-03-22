@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 04:08:42 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:34:54 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	limit(t_game *game)
+int	limit(t_game_data *game)
 {
 	int	i;
 
@@ -43,5 +43,5 @@ void	skip_digits(char *line, int *i, int *rgb)
 {
 	while (line[*i] && is_digit(line[*i]))
 		(*i)++;
-	*rgb++;
+	(*rgb)++;
 }

@@ -3,57 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   player_control.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:23:49 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:14:51 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:11:02 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	is_wall(t_game *game)
-// {
-// 	int	pos_x;
-// 	int	pos_y;
-// 	int	mapx;
-// 	int	mapy;
-
-// 	pos_x = game->player->pos_x + game->player->walk_dir
-// 		* cos(game->player->angle) * game->player->move_speed;
-// 	pos_y = game->player->pos_y + game->player->walk_dir
-// 		* sin(game->player->angle) * game->player->move_speed;
-// 	pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2)
-// 		* game->player->move_speed;
-// 	pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2)
-// 		* game->player->move_speed;
-// 	if (game->player->walk_dir == 1)
-// 		pos_x += CT;
-// 	else if (game->player->walk_dir == -1)
-// 		pos_x -= CT;
-// 	if (game->player->side_dir == 1)
-// 		pos_y += CT;
-// 	else if (game->player->side_dir == -1)
-// 		pos_y -= CT;
-// 	mapx = pos_x / game->width;
-// 	mapy = pos_y / game->height;
-// 	if (game->map[mapy][mapx] && game->map[mapy][mapx] == '1')
-// 		return (1);
-// 	return (0);
-// }
-
-void	turn_player(t_game *game)
-{
-	game->player->angle += game->player->turn_dir * game->player->rot_speed;
-}
-
-int	is_wall(t_game *game, double next_x, double next_y)
+int	is_wall(t_game_data *game, double next_x, double next_y)
 {
 	int	mapx;
 	int	mapy;
 
-	mapx = (int)(next_x / game->height);
-	mapy = (int)(next_y / game->width);
+	mapx = next_x / game->height;
+	mapy = next_y / game->width;
 	if (mapx < 0 || mapy < 0 || mapy >= game->mapcounter
 		|| mapx >= (int)ft_strlen(game->map[mapy]))
 		return (1);
@@ -62,43 +27,43 @@ int	is_wall(t_game *game, double next_x, double next_y)
 	return (game->map[mapy][mapx] == '1');
 }
 
-void	walk_direct(t_game *game)
+void	walk_direct(t_game_data *game)
 {
-	double	next_x;
-	double	next_y;
+	int	next_player_x;
+	int	next_player_y;
 
-	next_x = game->player->pos_x + game->player->walk_dir
+	next_player_x = game->player->pos_x + game->player->walk_dir
 		* cos(game->player->angle) * game->player->move_speed;
-	next_y = game->player->pos_y + game->player->walk_dir
+	next_player_y = game->player->pos_y + game->player->walk_dir
 		* sin(game->player->angle) * game->player->move_speed;
-	if (!is_wall(game, next_x + CT, next_y + CT)
-		&& !is_wall(game, next_x - CT, next_y - CT))
+	if (!is_wall(game, next_player_x + CT, next_player_y + CT)
+		&& !is_wall(game, next_player_x - CT, next_player_y - CT))
 	{
-		game->player->pos_x = next_x;
-		game->player->pos_y = next_y;
+		game->player->pos_x = next_player_x;
+		game->player->pos_y = next_player_y;
 	}
 }
 
-void	side_direct(t_game *game)
+void	side_direct(t_game_data *game)
 {
-	double	next_x;
-	double	next_y;
+	int	next_player_x;
+	int	next_player_y;
 
-	next_x = game->player->pos_x + game->player->side_dir
+	next_player_x = game->player->pos_x + game->player->side_dir
 		* cos(game->player->angle + M_PI_2) * game->player->move_speed;
-	next_y = game->player->pos_y + game->player->side_dir
+	next_player_y = game->player->pos_y + game->player->side_dir
 		* sin(game->player->angle + M_PI_2) * game->player->move_speed;
-	if (!is_wall(game, next_x + CT, next_y + CT)
-		&& !is_wall(game, next_x - CT, next_y - CT))
+	if (!is_wall(game, next_player_x + CT, next_player_y + CT)
+		&& !is_wall(game, next_player_x - CT, next_player_y - CT))
 	{
-		game->player->pos_x = next_x;
-		game->player->pos_y = next_y;
+		game->player->pos_x = next_player_x;
+		game->player->pos_y = next_player_y;
 	}
 }
 
-void	update_position(t_game *game)
+void	update_position(t_game_data *game)
 {
 	walk_direct(game);
 	side_direct(game);
-	turn_player(game);
+	game->player->angle += game->player->turn_dir * game->player->rot_speed;
 }

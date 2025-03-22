@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   math_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:54:26 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/20 04:11:36 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:35:04 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_dir(t_game *game, double angle)
+void	get_ray_dir(t_game_data *game, double angle)
 {
 	game->player->dir->down = (angle >= 0.0 && angle <= M_PI);
 	game->player->dir->up = !game->player->dir->down;
@@ -20,7 +20,7 @@ void	get_dir(t_game *game, double angle)
 	game->player->dir->left = !game->player->dir->right;
 }
 
-double	phitagore(t_game *game, int x2, int y2)
+double	phitagore(t_game_data *game, int x2, int y2)
 {
 	int	x1;
 	int	y1;

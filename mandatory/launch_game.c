@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   launch_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:23:51 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/19 01:04:21 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:27:24 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	color_floor_ceiling(t_game *game, int ray)
+void	color_floor_ceiling(t_game_data *game, int ray)
 {
 	int	y;
 
@@ -29,7 +29,7 @@ void	color_floor_ceiling(t_game *game, int ray)
 	}
 }
 
-void	get_xoffset(t_game *game, int ray)
+void	get_xoffset(t_game_data *game, int ray)
 {
 	if (game->is_hor[ray])
 	{
@@ -43,7 +43,7 @@ void	get_xoffset(t_game *game, int ray)
 	}
 }
 
-void	wall_projection(t_game *game)
+void	wall_projection(t_game_data *game)
 {
 	double	wall_height;
 	int		y;
@@ -72,17 +72,11 @@ void	wall_projection(t_game *game)
 	}
 }
 
-void	draw_color(t_game *game)
-{
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
-}
-
-int	render_game(t_game *game)
+int	render_game(t_game_data *game)
 {
 	update_position(game);
-	fov(game);
+	cast_all_rays(game);
 	wall_projection(game);
-	game->player->fetch = 1;
-	draw_color(game);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
 	return (0);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   texture_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:33:31 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 01:43:02 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 11:06:24 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_array(t_game *game, char *line)
+int	check_array(t_game_data *game, char *line)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ int	check_array(t_game *game, char *line)
 	return (0);
 }
 
-char	*path(t_game *game, char *line)
+char	*path(t_game_data *game, char *line)
 {
 	int		i;
 	int		j;
@@ -73,7 +73,7 @@ char	**alloc(char **tab, int size)
 	return (tab);
 }
 
-char	**get_texture_path(t_game *game)
+char	**get_texture_path(t_game_data *game)
 {
 	char	*line;
 	int		i;
@@ -83,7 +83,7 @@ char	**get_texture_path(t_game *game)
 	line = get_next_line(game->mapfd);
 	while (line && check_array(game, line))
 	{
-		i = direction(line, game);
+		i = wall_txt_direction(line, game);
 		if (i)
 			game->texture_path[i - 1] = path(game, line);
 		free(line);

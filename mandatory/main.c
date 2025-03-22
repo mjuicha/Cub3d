@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:39:23 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 15:40:02 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 11:43:31 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	main(int ac, char **av)
 {
-	t_game	*game;
+	t_game_data	*game;
 
 	game = init_cub(ac, av);
 	if (!game)
-		return (1);
+		return (FAILURE);
 	start_game(game);
 	load_textures(game);
 	events_hook(game);
 	mlx_loop_hook(game->mlx, render_game, game);
 	mlx_loop(game->mlx);
-	return (0);
+	return (SUCCESS);
 }

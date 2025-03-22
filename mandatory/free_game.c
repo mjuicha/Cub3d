@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   free_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:04:26 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 17:01:01 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 11:13:55 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_list(t_map *map)
+void	free_list(t_file_cont *map)
 {
-	t_map	*tmp;
+	t_file_cont	*tmp;
 
 	while (map)
 	{
@@ -25,7 +25,7 @@ void	free_list(t_map *map)
 	}
 }
 
-void	free_path(t_game *game)
+void	free_path(t_game_data *game)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ void	free_path(t_game *game)
 		free(game->start_line);
 }
 
-void	free_map(t_game *game)
+void	free_map(t_game_data *game)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ void	free_map(t_game *game)
 	free(game->map);
 }
 
-void	game_free(t_game *game, char *error)
+void	game_free(t_game_data *game, char *error)
 {
 	free_map(game);
 	free_imgs(game);

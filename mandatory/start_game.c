@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:33:09 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 03:05:38 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 11:44:40 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	mlx_free(t_game *game, char *error)
+void	mlx_free(t_game_data *game, char *error)
 {
 	mlx_destroy_window(game->mlx, game->mlx_win);
 	free_path(game);
 	auto_exit(game, error);
 }
 
-void	init_img(t_game *game)
+void	init_img(t_game_data *game)
 {
 	game->img_win = malloc(sizeof(t_texture));
 	if (!game->img_win)
@@ -41,7 +41,7 @@ void	init_img(t_game *game)
 	}
 }
 
-void	init_mlx(t_game *game)
+void	init_mlx(t_game_data *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
@@ -58,20 +58,9 @@ void	init_mlx(t_game *game)
 	init_img(game);
 }
 
-void	show_map(t_game *game)
+void	start_game(t_game_data *game)
 {
-	int	i;
 
-	i = 0;
-	while (game->map[i])
-	{
-		printf("%s\n", game->map[i]);
-		i++;
-	}
-}
-
-void	start_game(t_game *game)
-{
 	init_mlx(game);
 	get_map(game);
 	valid_format(game);

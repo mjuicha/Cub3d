@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:53:00 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/20 04:36:16 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 10:52:42 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_bottom_pixel(double wall_height)
 	return (bottom_pixel);
 }
 
-double	get_wall_height(t_game *game, int ray)
+double	get_wall_height(t_game_data *game, int ray)
 {
 	double	dis_pro;
 	double	c_dis;

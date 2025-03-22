@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:01:58 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 03:34:16 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 11:38:04 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	mapcounter(t_map *map)
+int	mapcounter(t_file_cont *map)
 {
-	t_map	*tmp;
-	int		counter;
+	t_file_cont	*tmp;
+	int			counter;
 
 	counter = 0;
 	tmp = map;
@@ -27,16 +27,16 @@ int	mapcounter(t_map *map)
 	return (counter);
 }
 
-t_map	*new_map(char *line)
+t_file_cont	*new_map(char *line)
 {
-	t_map	*new;
+	t_file_cont	*new;
 
 	if (!line)
 		return (NULL);
 	line = ft_strrmv(line, 10);
 	if (!line)
 		return (NULL);
-	new = malloc(sizeof(t_map));
+	new = malloc(sizeof(t_file_cont));
 	if (!new)
 		return (NULL);
 	new->line = line;
@@ -49,9 +49,9 @@ t_map	*new_map(char *line)
 	return (new);
 }
 
-t_map	*add_back_map(t_map *map, t_map *new_map)
+t_file_cont	*add_back_map(t_file_cont *map, t_file_cont *new_map)
 {
-	t_map	*tmp;
+	t_file_cont	*tmp;
 
 	if (!new_map)
 		return (map);
@@ -64,11 +64,11 @@ t_map	*add_back_map(t_map *map, t_map *new_map)
 	return (map);
 }
 
-char	**list2array(t_map *map, t_game *game)
+char	**list2array(t_file_cont *map, t_game_data *game)
 {
-	char	**array;
-	int		i;
-	t_map	*tmp;
+	char		**array;
+	int			i;
+	t_file_cont	*tmp;
 
 	game->mapcounter = mapcounter(map);
 	array = malloc(sizeof(char *) * (game->mapcounter + 1));
@@ -93,10 +93,10 @@ char	**list2array(t_map *map, t_game *game)
 	return (array);
 }
 
-t_game	*get_map(t_game *game)
+t_game_data	*get_map(t_game_data *game)
 {
-	t_map	*map;
-	char	*str;
+	t_file_cont	*map;
+	char		*str;
 
 	map = NULL;
 	str = ft_strdup(game->start_line);

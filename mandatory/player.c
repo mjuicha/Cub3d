@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:20:01 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:10:41 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:32:51 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_waaal(t_game *game, int y, int x)
+int	check_waaal(t_game_data *game, int y, int x)
 {
 	if (x < 0 || y < 0 || y >= game->mapcounter \
 		|| x >= (int)ft_strlen(game->map[y]))
@@ -22,7 +22,7 @@ int	check_waaal(t_game *game, int y, int x)
 	return (0);
 }
 
-double	hoz(t_game *game, double angle)
+double	hoz(t_game_data *game, double angle)
 {
 	double	dy;
 	double	dx;
@@ -42,7 +42,7 @@ double	hoz(t_game *game, double angle)
 	vet = 0;
 	while (1)
 	{
-		vet = floor((game->hy + _up(game)) / game->height);
+		vet = floor((game->hy + is_up(game)) / game->height);
 		if (check_waaal(game, vet, floor(game->hx / game->width)))
 			break ;
 		game->hx += dx;
@@ -51,7 +51,7 @@ double	hoz(t_game *game, double angle)
 	return (phitagore(game, game->hx, game->hy));
 }
 
-double	ver(t_game *game, double angle)
+double	ver(t_game_data *game, double angle)
 {
 	double	het;
 	double	dy;
@@ -71,7 +71,7 @@ double	ver(t_game *game, double angle)
 	het = 0;
 	while (1)
 	{
-		het = floor((game->vx + _left(game)) / game->width);
+		het = floor((game->vx + is_left(game)) / game->width);
 		if (check_waaal(game, floor(game->vy / game->height), het))
 			break ;
 		game->vx += dx;
@@ -80,13 +80,13 @@ double	ver(t_game *game, double angle)
 	return (phitagore(game, game->vx, game->vy));
 }
 
-void	cast_ra(t_game *game, double angle, int ray)
+void	cast_one_ray(t_game_data *game, double angle, int ray)
 {
 	double	h_dis;
 	double	v_dis;
 
 	angle = normalize_angle(angle);
-	get_dir(game, angle);
+	get_ray_dir(game, angle);
 	h_dis = hoz(game, angle);
 	v_dis = ver(game, angle);
 	game->dis[ray] = d_inf_equal(h_dis, v_dis, h_dis, v_dis);
@@ -97,18 +97,18 @@ void	cast_ra(t_game *game, double angle, int ray)
 	game->is_spec[ray] = equal(h_dis, v_dis);
 }
 
-void	fov(t_game *game)
+void	cast_all_rays(t_game_data *game)
 {
 	float	dis_proj;
-	float	angle;
+	float	angle_ofray;
 	int		i;
 
 	i = 0;
 	dis_proj = (WIDTH / 2) / tan(game->player->fov / 2);
 	while (i < WIDTH)
 	{
-		angle = game->player->angle + atan((i - WIDTH / 2) / dis_proj);
-		cast_ra(game, angle, i);
+		angle_ofray = game->player->angle + atan((i - WIDTH / 2) / dis_proj);
+		cast_one_ray(game, angle_ofray, i);
 		i++;
 	}
 }
