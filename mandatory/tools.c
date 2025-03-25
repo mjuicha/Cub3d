@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:37:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 16:39:23 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 18:12:41 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_strrmv(char *str, char c)
 	j = 0;
 	if (!str)
 		return (NULL);
-	new = malloc(sizeof(char) * (ft_strlen(str)));
+	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!new)
 		return (NULL);
 	while (str[i])

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:35:19 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:27:05 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@
 # define D          2
 # define LEFT       123
 # define RIGHT      124
-/***********************  colors  *************************/
-# define BLACK      0x00000000
-# define WHITE      0x00FFFFFF
-# define GREY	  	0x00A9A9A9
-# define RED	 	0x00FF0000
-# define GREEN	 	0x0000FF00
-# define BLUE	 	0x000000FF
-# define YELLOW	 	0x00FFFF00
 /***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
@@ -104,7 +96,6 @@ typedef struct s_player
 typedef struct alloc
 {
 	bool	m_player;
-	bool	m_dir;
 	bool	m_dis;
 	bool	m_is_spec;
 	bool	m_t_angle;
@@ -112,6 +103,7 @@ typedef struct alloc
 	bool	m_wally;
 	bool	m_is_hor;
 	bool	m_fd;
+	bool	t_path;
 	bool	n;
 	bool	s;
 	bool	e;
@@ -138,7 +130,6 @@ typedef struct s_game
 	double		*t_angle;
 	int			*is_hor;
 	char		**map;
-	char		**cp_map;
 	char		*start_line;
 	int			mapfd;
 	int			off;
@@ -200,7 +191,7 @@ double			angle_dir(char c);
 int				check_open_spaces(t_game *game);
 int				find_open_space(char c, int i, int j, t_game *game);
 void			update_position(t_game *game);
-void			get_dir(t_game *game, double angle);
+t_dir			*get_dir(t_game *game, double angle);
 int				is_down(t_game *game);
 int				is_right(t_game *game);
 int				_up(t_game *game);
@@ -222,5 +213,11 @@ int				limit(t_game *game);
 int				is_digit(char c);
 void			skip_spaces(char *line, int *i);
 void			skip_digits(char *line, int *i, int *rgb);
+void			init_data(t_game *game);
+void			*alloc_img(void);
+void			short_free(t_game *game, char *error);
+int				check_path(t_game *game);
+int				check_spaces(t_game *game);
+int				wall_surrounded(t_game *game, int newx, int newy);
 /***********************  draw  ***********************/
 #endif

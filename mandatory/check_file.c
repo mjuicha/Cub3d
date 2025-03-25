@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:19:07 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:07:04 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:47:19 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	valid_file(char **av)
 int	valid_format(t_game *game)
 {
 	if (!check_edges(game) || !check_valid_char(game)
-		|| !check_open_spaces(game) || !check_colors(game))
+		|| !check_open_spaces(game) || !check_colors(game)
+		|| !check_spaces(game))
 	{
 		game_free(game, MAP_ERROR);
 		return (FAILURE);

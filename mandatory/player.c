@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:20:01 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:10:41 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 17:54:39 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ void	cast_ra(t_game *game, double angle, int ray)
 	double	v_dis;
 
 	angle = normalize_angle(angle);
-	get_dir(game, angle);
+	game->player->dir = get_dir(game, angle);
 	h_dis = hoz(game, angle);
 	v_dis = ver(game, angle);
+	free(game->player->dir);
 	game->dis[ray] = d_inf_equal(h_dis, v_dis, h_dis, v_dis);
 	game->wallx[ray] = d_inf_equal(h_dis, v_dis, game->hx, game->vx);
 	game->wally[ray] = d_inf_equal(h_dis, v_dis, game->hy, game->vy);

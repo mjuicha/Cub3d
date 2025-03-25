@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:57:23 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 23:57:55 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 18:15:51 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	_left(t_game *game)
 
 void	spec_case(t_game *game, int ray)
 {
-	if (game->is_spec[ray] && game->is_hor[ray] && (!game->is_hor[ray - 1]
-			|| !game->is_hor[ray + 1]))
-		game->is_hor[ray] = 0;
+	if (ray > 0 && ray < WIDTH - 1)
+	{
+		if (game->is_spec[ray] && game->is_hor[ray]
+			&& (!game->is_hor[ray - 1] || !game->is_hor[ray + 1]))
+			game->is_hor[ray] = 0;
+	}
 }

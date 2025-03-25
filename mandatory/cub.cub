@@ -1,40 +1,16 @@
-C 130,200,229
-
-
-
-
-
-
-
-F 255,165,0
-
-
-
-
-NO ./textures/wood.xpm
-
-
-
-
-
-
-
-
-
-
-
-SO ./textures/grey_stone.xpm
-EA ./textures/red_brick.xpm
-
-
-
-
-WE ./textures/color_stone.xpm
-111111
-1000001
-111111
-111111
-100N01
-111111
-111111
-111111
+    NO ./textures/wood.xpm    
+    WE ./textures/color_stone.xpm
+    EA ./textures/red_brick.xpm
+    SO ./textures/grey_stone.xpm
+    F    255 ,      165     ,     77                               
+    C    130   ,   200    ,    229      
+ 11111111111111111 
+1000000000000000001
+10N0000000000000001
+1000000000000000001
+1000000001000000001
+100000010100000001
+1000000001000000001
+1000000000000000001
+1000000000000000001
+ 11111111111111111 

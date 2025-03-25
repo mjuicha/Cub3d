@@ -6,41 +6,11 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:23:49 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:14:51 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/24 18:34:00 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// int	is_wall(t_game *game)
-// {
-// 	int	pos_x;
-// 	int	pos_y;
-// 	int	mapx;
-// 	int	mapy;
-
-// 	pos_x = game->player->pos_x + game->player->walk_dir
-// 		* cos(game->player->angle) * game->player->move_speed;
-// 	pos_y = game->player->pos_y + game->player->walk_dir
-// 		* sin(game->player->angle) * game->player->move_speed;
-// 	pos_x += game->player->side_dir * cos(game->player->angle + M_PI_2)
-// 		* game->player->move_speed;
-// 	pos_y += game->player->side_dir * sin(game->player->angle + M_PI_2)
-// 		* game->player->move_speed;
-// 	if (game->player->walk_dir == 1)
-// 		pos_x += CT;
-// 	else if (game->player->walk_dir == -1)
-// 		pos_x -= CT;
-// 	if (game->player->side_dir == 1)
-// 		pos_y += CT;
-// 	else if (game->player->side_dir == -1)
-// 		pos_y -= CT;
-// 	mapx = pos_x / game->width;
-// 	mapy = pos_y / game->height;
-// 	if (game->map[mapy][mapx] && game->map[mapy][mapx] == '1')
-// 		return (1);
-// 	return (0);
-// }
 
 void	turn_player(t_game *game)
 {
@@ -57,8 +27,8 @@ int	is_wall(t_game *game, double next_x, double next_y)
 	if (mapx < 0 || mapy < 0 || mapy >= game->mapcounter
 		|| mapx >= (int)ft_strlen(game->map[mapy]))
 		return (1);
-	if (game->map[mapy][mapx] == ' ')
-		return (1);
+	if (game->map[mapy][mapx] == ' ' || game->map[mapy][mapx] == '0')
+		return (wall_surrounded(game, mapx, mapy));
 	return (game->map[mapy][mapx] == '1');
 }
 

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:02:04 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/18 17:03:43 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 17:53:45 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	auto_free(t_game *game)
 {
-	if (game->alloc_bool->m_dir)
-		free(game->player->dir);
 	if (game->alloc_bool->m_player)
 		free(game->player);
 	if (game->alloc_bool->m_is_hor)
@@ -32,13 +30,10 @@ void	auto_free(t_game *game)
 		free(game->dis);
 	if (game->alloc_bool->m_fd)
 		close(game->mapfd);
+	if (game->alloc_bool->t_path)
+		free_path(game);
 	free(game->alloc_bool);
 	free(game);
-}
-
-void	leaks(void)
-{
-	system("leaks cub3D");
 }
 
 void	ft_putendl_fd(char *str, int fd)

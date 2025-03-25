@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:01:58 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 03:34:16 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:46:49 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,10 @@ t_map	*new_map(char *line)
 		return (NULL);
 	new = malloc(sizeof(t_map));
 	if (!new)
-		return (NULL);
+		return (free(line), NULL);
 	new->line = line;
 	if (!new->line)
-	{
-		free(new);
-		return (NULL);
-	}
+		return (free(new), NULL);
 	new->next = NULL;
 	return (new);
 }
@@ -75,8 +72,7 @@ char	**list2array(t_map *map, t_game *game)
 	if (!array)
 	{
 		free_list(map);
-		free_imgs(game);
-		mlx_free(game, MALLOC_ERROR);
+		auto_exit(game, MALLOC_ERROR);
 		return (NULL);
 	}
 	i = 0;
@@ -104,11 +100,7 @@ t_game	*get_map(t_game *game)
 	game->start_line = NULL;
 	map = add_back_map(map, new_map(str));
 	if (!map)
-	{
-		mlx_destroy_image(game->mlx, game->img_win->img);
-		free(game->img_win);
-		mlx_free(game, MALLOC_ERROR);
-	}
+		auto_exit(game, MALLOC_ERROR);
 	while (str)
 	{
 		free(str);

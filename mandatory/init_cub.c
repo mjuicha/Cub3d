@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:23:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 02:30:18 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/25 00:12:36 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,17 @@ void	get_info(t_game *game)
 {
 	game->width = TILE_SIZE;
 	game->height = TILE_SIZE;
+	init_data(game);
 	alloc_vars(game);
 	game->texture_path = get_texture_path(game);
+	game->alloc_bool->t_path = 1;
 	game->player->walk_dir = 0;
 	game->player->turn_dir = 0;
 	game->player->side_dir = 0;
-	game->player->move_speed = 10.0;
+	game->player->move_speed = 4.0;
 	game->player->rot_speed = 5.0 * (M_PI / 180);
 	game->player->fov = 60 * (M_PI / 180);
 	game->player->found_player = 0;
-	game->player->fetch = 0;
 	game->off = 0;
 }
 

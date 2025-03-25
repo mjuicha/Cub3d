@@ -6,18 +6,24 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:54:26 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/20 04:11:36 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 17:51:12 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_dir(t_game *game, double angle)
+t_dir	*get_dir(t_game *game, double angle)
 {
-	game->player->dir->down = (angle >= 0.0 && angle <= M_PI);
-	game->player->dir->up = !game->player->dir->down;
-	game->player->dir->right = (angle <= M_PI / 2 || angle >= 3 * M_PI / 2);
-	game->player->dir->left = !game->player->dir->right;
+	t_dir	*dir;
+
+	dir = malloc(sizeof(t_dir));
+	if (!dir)
+		mlx_free(game, MALLOC_ERROR);
+	dir->down = (angle >= 0.0 && angle <= M_PI);
+	dir->up = !dir->down;
+	dir->right = (angle <= M_PI / 2 || angle >= 3 * M_PI / 2);
+	dir->left = !dir->right;
+	return (dir);
 }
 
 double	phitagore(t_game *game, int x2, int y2)

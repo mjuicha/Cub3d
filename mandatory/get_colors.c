@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:01:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 04:32:58 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:43:11 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	is_rgb(char *line)
 		i += 2;
 	else
 		return (FAILURE);
-	skip_spaces(line, &i);
 	while (line[i] && rgb < 3)
 	{
+		skip_spaces(line, &i);
 		if (!is_digit(line[i]))
 			return (FAILURE);
-		skip_digit(line, &i, &rgb);
+		skip_digits(line, &i, &rgb);
 		if ((line[i] != ',' && rgb < 3) || (rgb == 3 && line[i] == ','))
 			return (FAILURE);
 		if (rgb < 3)
@@ -68,18 +68,20 @@ void	get_color(char *line, t_game *game, int c)
 	int	b;
 	int	color;
 
-	if (!is_rgb(line))
+	if (c == 'F')
+		color = game->floor;
+	else
+		color = game->ceiling;
+	if (!is_rgb(line) || color != -1)
 	{
 		free(line);
-		free_path(game);
-		auto_exit(game, COLOR_ERROR);
+		short_free(game, COLOR_ERROR);
 	}
 	get_rgb(line, &r, &g, &b);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
 		free(line);
-		free_path(game);
-		auto_exit(game, COLOR_ERROR);
+		short_free(game, COLOR_ERROR);
 	}
 	color = (r << 16) + (g << 8) + b;
 	if (c == 'F')
