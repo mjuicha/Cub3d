@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:01:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 16:43:11 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/26 02:22:57 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@ void	get_rgb(char *line, int *r, int *g, int *b)
 	int	i;
 
 	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
+	skip_spaces(line, &i);
 	if (line[i] && (line[i] == 'F' || line[i] == 'C'))
-		i += 2;
+		i++;
 	*r = ft_atoi(line + i);
 	while (line[i] && line[i] != ',')
 		i++;
 	i++;
 	*g = ft_atoi(line + i);
-	while (line[i] != ',')
+	while (line[i] && line[i] != ',')
 		i++;
 	i++;
 	*b = ft_atoi(line + i);
@@ -40,8 +39,8 @@ int	is_rgb(char *line)
 	i = 0;
 	rgb = 0;
 	skip_spaces(line, &i);
-	if (line[i] && (ft_strchr2(line + i, "F ") || ft_strchr2(line + i, "C ")))
-		i += 2;
+	if (line[i] && (line[i] == 'F' || line[i] == 'C'))
+		i++;
 	else
 		return (FAILURE);
 	while (line[i] && rgb < 3)

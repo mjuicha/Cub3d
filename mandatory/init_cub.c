@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:23:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/25 00:12:36 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/26 02:43:37 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ int	skip(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ')
-		i++;
+	skip_spaces(line, &i);
 	if (direction(line + i, NULL))
 		i += 2;
-	while (line[i] == ' ')
-		i++;
+	skip_spaces(line, &i);
 	return (i);
 }
 

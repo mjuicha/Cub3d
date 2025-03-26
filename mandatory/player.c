@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:20:01 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 17:54:39 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/26 02:57:53 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,15 @@ void	cast_ra(t_game *game, double angle, int ray)
 
 void	fov(t_game *game)
 {
-	float	dis_proj;
-	float	angle;
+	double	angle;
 	int		i;
 
 	i = 0;
-	dis_proj = (WIDTH / 2) / tan(game->player->fov / 2);
+	angle = game->player->angle - (game->player->fov / 2);
 	while (i < WIDTH)
 	{
-		angle = game->player->angle + atan((i - WIDTH / 2) / dis_proj);
 		cast_ra(game, angle, i);
+		angle += game->player->fov / WIDTH;
 		i++;
 	}
 }

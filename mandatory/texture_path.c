@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:33:31 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 16:46:02 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/26 02:45:25 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	check_array(t_game *game, char *line)
 				|| ft_strchr2(line, "WE") || ft_strchr2(line, "EA")))
 		{
 			free(line);
-			free_path(game);
-			auto_exit(game, MAP_ERROR);
+			short_free(game, MAP_ERROR);
 		}
 		return (1);
 	}
@@ -42,8 +41,8 @@ char	*path(t_game *game, char *line)
 	char	*path;
 
 	i = 0;
-	i = skip(line);
 	alloc = 0;
+	i = skip(line);
 	while (line[i + alloc] && !(line[i + alloc] == ' '
 			|| line[i + alloc] == '\n'))
 		alloc++;
