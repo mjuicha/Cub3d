@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 16:01:58 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/26 02:49:48 by mjuicha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	mapcounter(t_map *map)
@@ -17,14 +29,19 @@ int	mapcounter(t_map *map)
 
 t_map	*new_map(char *line)
 {
-	t_map *new;
+	t_map	*new;
 
+	if (!line)
+		return (NULL);
+	line = ft_strrmv(line, 10);
 	if (!line)
 		return (NULL);
 	new = malloc(sizeof(t_map));
 	if (!new)
-		return (NULL);
-	new->line = ft_strdup(line);
+		return (free(line), NULL);
+	new->line = line;
+	if (!new->line)
+		return (free(new), NULL);
 	new->next = NULL;
 	return (new);
 }
@@ -53,7 +70,11 @@ char	**list2array(t_map *map, t_game *game)
 	game->mapcounter = mapcounter(map);
 	array = malloc(sizeof(char *) * (game->mapcounter + 1));
 	if (!array)
+	{
+		free_list(map);
+		auto_exit(game, MALLOC_ERROR);
 		return (NULL);
+	}
 	i = 0;
 	while (map && i < game->mapcounter)
 	{
@@ -66,15 +87,20 @@ char	**list2array(t_map *map, t_game *game)
 	}
 	array[i] = NULL;
 	return (array);
-}	
-t_game	*get_map(t_game *game)
+}
 
+t_game	*get_map(t_game *game)
 {
-	t_map	*map = NULL;
+	t_map	*map;
 	char	*str;
 
-	str = game->start_line;
+	map = NULL;
+	str = ft_strdup(game->start_line);
+	free(game->start_line);
+	game->start_line = NULL;
 	map = add_back_map(map, new_map(str));
+	if (!map)
+		auto_exit(game, MALLOC_ERROR);
 	while (str)
 	{
 		free(str);
@@ -83,5 +109,6 @@ t_game	*get_map(t_game *game)
 	}
 	game->map = list2array(map, game);
 	close(game->mapfd);
+	game->alloc_bool->m_fd = 0;
 	return (game);
 }

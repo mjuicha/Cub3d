@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/29 03:11:20 by mjuicha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /***********************  includes  ***********************/
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -8,6 +20,7 @@
 # define WIDTH      1024
 # define HEIGHT     768
 # define TILE_SIZE  64
+# define CT		 	25
 /***********************  keys  ***************************/
 # define ESC        53
 # define W          13
@@ -17,19 +30,6 @@
 # define LEFT       123
 # define RIGHT      124
 # define SPACE      49
-# define M          46
-/***********************  movement  ***********************/
-# define FOV		60 * (M_PI / 180)
-/***********************  colors  *************************/
-# define BLACK      0x00000000
-# define WHITE      0x00FFFFFF
-# define GREY	  	0x00A9A9A9
-# define RED	 	0x00FF0000
-# define GREEN	 	0x0000FF00
-# define BLUE	 	0x000000FF
-# define YELLOW	 	0x00FFFF00
-# define SKY_BLUE	0x0080DFFF
-# define FLOOR		0x00B6855B
 /***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
@@ -40,6 +40,9 @@
 # define MLX_ERROR "\033[31mError: mlx_init failed\n\033[0m"
 # define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
 # define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
+# define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
+# define COLOR_ERROR "\033[31mError: Invalid color\n\033[0m"
+# define MALLOC_ERROR "\033[31mError: Malloc failed\n\033[0m"
 /***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
@@ -54,224 +57,181 @@
 /***********************  structures  *********************/
 typedef struct s_map
 {
-	char        *line;
-	struct s_map *next;
-}               t_map;
-
-typedef struct s_door_pos
-{
-	int x;
-	int y;
-	int valid;
-}               t_door_pos;
+	char			*line;
+	struct s_map	*next;
+}			t_map;
 
 typedef struct s_dir
 {
-	int up;
-	int down;
-	int left;
-	int right;
-}               t_dir;
-typedef struct s_player // nadi
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+}				t_dir;
+
+typedef struct s_door_pos
 {
-	double 	pos_x;
+	int	x;
+	int	y;
+	int	valid;
+}			t_door_pos;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}				t_texture;
+
+typedef struct s_player
+{
+	double	pos_x;
 	double	pos_y;
 	float	walk_dir;
 	float	side_dir;
 	float	turn_dir;
-	double  angle;
-	double  move_speed;
-	double  rot_speed;
+	double	angle;
+	double	move_speed;
+	double	rot_speed;
+	double	fov;
 	int		fetch;
-	t_dir   *dir;
-}            t_player;
+	int		found_player;
+	t_dir	*dir;
+}			t_player;
+
+typedef struct alloc
+{
+	bool	m_player;
+	bool	m_dis;
+	bool	m_is_spec;
+	bool	m_t_angle;
+	bool	m_wallx;
+	bool	m_wally;
+	bool	m_is_hor;
+	bool	m_is_door;
+	bool	m_fd;
+	bool	t_path;
+	bool	n;
+	bool	s;
+	bool	e;
+	bool	w;
+	bool	d;
+}			t_alloc;
 
 typedef struct s_game
 {
-	void    *mlx;
-	void    *mlx_win;
-	void    *img;
-	
-	int     width;
-	int     height;
-
-	void	*brown;
-	void	*green;
-	void	*red;
-	void	*blue;
-
-	void	*black_wall;
-	void	*blue_wall;
-	void	*red_wall;
-	void	*grey_wall;
-	void	*door;
-	void	*sky;
-	void	*sprite;
-	void	*sprite1;
-	void	*sprite2;
-	void	*sprite3;
-	void	*sprite4;
-	void	*sprite5;
-	void	*sprite6;
-	void	*warning;
-	void	*aim;
-	void	*gun;
-	void	*circle;
-
-	char	**texture_path;
-	
-///	///////////////
-	double  hx;
-	double  hy;
-///	///////////////
-	double  vx;
-	double  vy;
-///////////////////
-	double 	*wallx;
-	double 	*wally;
-///////////////////
-	int 	bpp00;
-	int 	line_length00;
-	int 	*endian00;
-	char    *addr00;
-///////////////////
-	int 	bppm1;
-	int 	line_lengthm1;
-	int 	*endianm1;
-	char    *addrm1;
-///////////////////
-	int 	bppm2;
-	int 	line_lengthm2;
-	int 	*endianm2;
-	char    *addrm2;
-///////////////////
-	int 	bppm3;
-	int 	line_lengthm3;
-	int 	*endianm3;
-	char    *addrm3;
-///////////////////
-	int 	bpp01;
-	int 	line_length01;
-	int 	*endian01;
-	char    *addr01;
-///////////////////
-	int 	bpp02;
-	int 	line_length02;
-	int 	*endian02;
-	char    *addr02;
-///////////////////
-	int 	bpp03;
-	int 	line_length03;
-	int 	*endian03;
-	char    *addr03;
-///////////////////
-	int 	bpp04;
-	int 	line_length04;
-	int 	*endian04;
-	char    *addr04;
-///////////////////
-	int 	bpp05;
-	int 	line_length05;
-	int 	*endian05;
-	char    *addr05;
-///////////////////
-	int 	bpp06;
-	int 	line_length06;
-	int 	*endian06;
-	char    *addr06;
-///////////////////
-	int 	bpp07;
-	int 	line_length07;
-	int 	*endian07;
-	char    *addr07;
-///////////////////
-	int 	bpp08;
-	int 	line_length08;
-	int 	*endian08;
-	char    *addr08;
-///////////////////
-	int 	bpp09;
-	int 	line_length09;
-	int 	*endian09;
-	char    *addr09;
-///////////////////
-	int 	bpp;
-	int 	line_length;
-	int 	*endian;
-	char    *addr;
-///////////////////
-	int 	bpp1;
-	int 	line_length1;
-	int 	*endian1;
-	char    *addr1;
-	///////////////////
-	int 	bpp2;
-	int 	line_length2;
-	int 	*endian2;
-	char    *addr2;
-	///////////////////
-	int 	bpp3;
-	int 	line_length3;
-	int 	*endian3;
-	char    *addr3;
-	///////////////////
-	int 	bpp4;
-	int 	line_length4;
-	int 	*endian4;
-	char    *addr4;
-	///////////////////
-	int 	bpp5;
-	int 	line_length5;
-	int 	*endian5;
-	char    *addr5;
-	///////////////////
-	int 	bpp6;
-	int 	line_length6;
-	int 	*endian6;
-	char    *addr6;
-	///////////////////
-	int		t_pix;
-	int		b_pix;
-	///////////////////
-	double 	*dis;
-	double  *is_spec;
-	double  *t_angle;
-	int 	*is_door;
-	int 	*is_hor;
-	///////////////////
-	char    **map;
-	char    *start_line;
-	int     mapfd;
-	int off;
-	int 	mouse_ready;
-	int	 	old_mouse_x;
-	int	 	mapcounter;
-	t_door_pos *door_pos;
-	t_player *player;
-	int set;
-	int floor;
-	int ceiling;
-}               t_game;
+	void		*mlx;
+	void		*mlx_win;
+	int			width;
+	int			height;
+	char		**texture_path;
+	double		hx;
+	double		hy;
+	double		vx;
+	double		vy;
+	double		*wallx;
+	double		*wally;
+	int			t_pix;
+	int			b_pix;
+	double		*dis;
+	double		*is_spec;
+	double		*t_angle;
+	int			*is_hor;
+	int			*is_door;
+	char		**map;
+	char		*start_line;
+	int			mapfd;
+	int			off;
+	int			xoff;
+	int			yoff;
+	int			mapcounter;
+	int			floor;
+	int			ceiling;
+	t_alloc		*alloc_bool;
+	t_texture	*nord;
+	t_texture	*south;
+	t_texture	*east;
+	t_texture	*west;
+	t_texture	*door;
+	t_player	*player;
+	t_texture	*img_win;
+}				t_game;
 
 /***********************  prototypes  ***********************/
-int	ft_strchr2(char *str, char *set);
-double	normalize_angle(double angle);
-void    put_pixel_to_img(t_game *game, int x, int y, int color);
-void	turn_player(t_game *game);
-int	white_space(char c);
+int				ft_strchr2(char *str, char *set);
+double			normalize_angle(double angle);
+void			put_pixel_to_img(t_game *game, int x, int y, int color);
+void			turn_player(t_game *game);
+void			load_textures(t_game *game);
 /***********************  utils  ***********************/
-size_t	ft_strlen(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-void	ft_putendl_fd(char *str, int fd);
-char	*ft_strdup(const char *s1);
+size_t			ft_strlen(const char *str);
+int				ft_strcmp(const char *s1, const char *s2);
+void			ft_putendl_fd(char *str, int fd);
+char			*ft_strdup(const char *s1);
+char			*ft_strrmv(char *str, char c);
 /***********************  init  ***********************/
-t_game  *init_cub(int ac, char **av);
-t_game  *get_map(t_game *game);
-void    start_game(t_game *game);
-int    	render_game(t_game *game);
-int 	valid_input(int ac, char **av);
-void	fov(t_game *game);
-void	events_hook(t_game *game);
-void    draw_walls(t_game *game);
+t_game			*init_cub(int ac, char **av);
+t_game			*get_map(t_game *game);
+void			start_game(t_game *game);
+int				render_game(t_game *game);
+int				valid_input(int ac, char **av);
+void			fov(t_game *game);
+void			events_hook(t_game *game);
+void			draw_walls(t_game *game);
+int				valid_format(t_game *game);
+int				ft_atoi(const char *str);
+void			auto_exit(t_game *game, char *error);
+void			free_path(t_game *game);
+void			mlx_free(t_game *game, char *error);
+void			free_map(t_game *game);
+void			game_free(t_game *game, char *error);
+void			free_imgs(t_game *game);
+void			free_list(t_map *map);
+void			ft_error(char *error);
+int				valid_file(char **av);
+void			init_bool(t_game *game);
+void			alloc_vars(t_game *game);
+char			**get_texture_path(t_game *game);
+int				direction(char *line, t_game *game);
+void			get_color(char *line, t_game *game, int c);
+int				skip(char *line);
+int				check_edges(t_game *game);
+int				check_valid_char(t_game *game);
+double			angle_dir(char c);
+int				check_open_spaces(t_game *game);
+int				find_open_space(char c, int i, int j, t_game *game);
+void			update_position(t_game *game);
+t_dir			*get_dir(t_game *game, double angle);
+int				is_down(t_game *game);
+int				is_right(t_game *game);
+int				_up(t_game *game);
+int				_left(t_game *game);
+void			spec_case(t_game *game, int ray);
+double			phitagore(t_game *game, int x2, int y2);
+int				inf_equal(double a, double b);
+int				equal(double a, double b);
+double			d_inf_equal(double a, double b, double r1, double r2);
+int				is_nord(double angle);
+int				is_east(double angle);
+int				get_top_pixel(double wall_height);
+int				get_bottom_pixel(double wall_height);
+double			get_wall_height(t_game *game, int ray);
+unsigned int	get_coloor(t_game *game, int x, int y, int ray);
+int				limit(t_game *game);
+int				check_colors(t_game *game);
+int				limit(t_game *game);
+int				is_digit(char c);
+void			skip_spaces(char *line, int *i);
+void			skip_digits(char *line, int *i, int *rgb);
+void			init_data(t_game *game);
+void			*alloc_img(void);
+void			short_free(t_game *game, char *error);
+int				check_path(t_game *game);
+int				check_spaces(t_game *game);
+int				wall_surrounded(t_game *game, int newx, int newy);
+void			is_door(t_game *game, int ray);
+void			open_close_door(t_game *game);
 /***********************  draw  ***********************/
 #endif

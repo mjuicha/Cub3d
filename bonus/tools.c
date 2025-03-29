@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 16:37:14 by mjuicha           #+#    #+#             */
+/*   Updated: 2025/03/26 01:54:47 by mjuicha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -6,8 +17,8 @@ size_t	ft_strlen(const char *str)
 	int	x;
 
 	x = 0;
-    if (!str)
-        return (x);
+	if (!str)
+		return (x);
 	while (str[x] != '\0')
 		x++;
 	return (x);
@@ -18,8 +29,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	int	x;
 
 	x = 0;
-    if (!s1 || !s2)
-        return (x);
+	if (!s1 || !s2)
+		return (x);
 	while ((s1[x] || s2[x]) && s1[x] == s2[x])
 		x++;
 	return (s1[x] - s2[x]);
@@ -27,7 +38,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 int	ft_strchr2(char *str, char *set)
 {
-	int i;
+	int	i;
 
 	if (!str || !set)
 		return (0);
@@ -40,12 +51,41 @@ int	ft_strchr2(char *str, char *set)
 	}
 	return (0);
 }
+
+char	*ft_strrmv(char *str, char c)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!str)
+		return (NULL);
+	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!new)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] != c)
+		{
+			new[j] = str[i];
+			j++;
+		}
+		i++;
+	}
+	new[j] = '\0';
+	return (new);
+}
+
 char	*ft_strdup(const char *s1)
 {
 	size_t	x;
 	size_t	i;
 	char	*dest;
 
+	if (!s1)
+		return (NULL);
 	x = 0;
 	while (s1[x])
 		x++;
@@ -61,12 +101,4 @@ char	*ft_strdup(const char *s1)
 	}
 	dest[i] = '\0';
 	return (dest);
-}
-
-void	ft_putendl_fd(char *str, int fd)
-{
-	if (fd == -1 || !str)
-		return ;
-	write(fd, str, ft_strlen(str));
-	write(fd, "\n", 1);
 }
