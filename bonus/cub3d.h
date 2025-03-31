@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/29 03:11:20 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/03/31 02:15:58 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define WIDTH      1024
 # define HEIGHT     768
 # define TILE_SIZE  64
-# define CT		 	25
+# define CT		 	2
 /***********************  keys  ***************************/
 # define ESC        53
 # define W          13
@@ -30,6 +30,15 @@
 # define LEFT       123
 # define RIGHT      124
 # define SPACE      49
+/***********************  directions  *********************/
+# define NORTH      111
+# define SOUTH      112
+# define EAST       113
+# define WEST       114
+# define NORTH_EAST 115
+# define NORTH_WEST 116
+# define SOUTH_EAST 117
+# define SOUTH_WEST 128
 /***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
