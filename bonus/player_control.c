@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:23:49 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/29 03:08:54 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/01 11:11:50 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	is_wall(t_game *game, double next_x, double next_y)
 	if (mapx < 0 || mapy < 0 || mapy >= game->mapcounter
 		|| mapx >= (int)ft_strlen(game->map[mapy]))
 		return (1);
-	if (game->map[mapy][mapx] == ' ' || game->map[mapy][mapx] == '0')
+	if (game->map[mapy][mapx] != '1' && game->map[mapy][mapx] != 'D')
 		return (wall_surrounded(game, mapx, mapy));
-	return (game->map[mapy][mapx] == '1' || game->map[mapy][mapx] == 'D');
+	return (1);
 }
 
 void	walk_direct(t_game *game)

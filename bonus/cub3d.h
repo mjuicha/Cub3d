@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/31 02:15:58 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:49:57 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define LEFT       123
 # define RIGHT      124
 # define SPACE      49
+# define M          46
 /***********************  directions  *********************/
 # define NORTH      111
 # define SOUTH      112
@@ -129,6 +130,39 @@ typedef struct alloc
 	bool	d;
 }			t_alloc;
 
+typedef struct s_mini_map
+{
+	t_texture	*player;
+	t_texture	*wall;
+	t_texture	*door;
+	t_texture	*space;
+	int			height;
+	int			width;
+}				t_mini_map;
+
+typedef struct s_sprite
+{
+	int		height;
+	int		width;
+	t_texture	*img1;
+	t_texture	*img2;
+	t_texture	*img3;
+	t_texture	*img4;
+	t_texture	*img5;
+	t_texture	*img6;
+	t_texture	*img7;
+	t_texture	*img8;
+	t_texture	*img9;
+	t_texture	*img10;
+	t_texture	*img14;
+	t_texture	*img15;
+	t_texture	*img16;
+	t_texture	*img17;
+	t_texture	*img18;
+	t_texture	*img19;
+	t_texture	*img20;
+}			t_sprite;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -152,12 +186,16 @@ typedef struct s_game
 	char		**map;
 	char		*start_line;
 	int			mapfd;
+	int			limit;
 	int			off;
 	int			xoff;
 	int			yoff;
 	int			mapcounter;
 	int			floor;
 	int			ceiling;
+	int			is_map_text;
+	int			is_sprite;
+	int			*fd;
 	t_alloc		*alloc_bool;
 	t_texture	*nord;
 	t_texture	*south;
@@ -166,6 +204,10 @@ typedef struct s_game
 	t_texture	*door;
 	t_player	*player;
 	t_texture	*img_win;
+	t_mini_map	*mini_map;
+	t_sprite	*sprite;
+	int			player_situation;
+	int			is_fighting;
 }				t_game;
 
 /***********************  prototypes  ***********************/
@@ -242,5 +284,16 @@ int				check_spaces(t_game *game);
 int				wall_surrounded(t_game *game, int newx, int newy);
 void			is_door(t_game *game, int ray);
 void			open_close_door(t_game *game);
+int				door_dir_x(int dir, int mapx);
+int				door_dir_y(int dir, int mapy);
+int				cardinal_direction(t_game *game, int mapx, int mapy);
+int				check_wall_door(t_game *game, int dir, int mapx, int mapy);
+int				is_door_surrounded(t_game *game, int x, int y);
+void			load_textures_map(t_game *game);
+void			mini_map(t_game *game);
+t_texture		*texture_img(t_game *game, char *path, int *height, int *width);
+void		    free_sprites(t_game *game);
+void		    load_gun(t_game *game);
+void			free_img(t_texture *img, t_game *game);
 /***********************  draw  ***********************/
 #endif

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:20:18 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/29 00:43:15 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/01 19:13:54 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ int	check_mline(char *line)
 int	check_middle(t_game *game)
 {
 	int	i;
-	int	limite;
 
 	i = 1;
-	limite = limit(game);
-	while (i < limite)
+	game->limit = limit(game);
+	while (i < game->limit)
 	{
 		if (!check_mline(game->map[i]))
 			return (FAILURE);
@@ -89,7 +88,7 @@ int	find_open_space(char c, int i, int j, t_game *game)
 	{
 		if (!(game->map[i][j - 1]) || !(game->map[i][j + 1])
 			|| !(game->map[i - 1][j]) || !(game->map[i + 1][j]))
-			return (FAILURE);
+			return (SUCCESS);
 		if (game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' '
 			|| game->map[i - 1][j] == ' ' || game->map[i + 1][j] == ' ')
 			return (SUCCESS);

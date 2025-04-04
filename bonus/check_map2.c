@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:29:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/29 00:39:54 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/01 18:53:50 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,11 @@ int	check_open_spaces(t_game *game)
 	int		i;
 	int		j;
 	char	*line;
-	int		lim;
 
 	i = 1;
 	j = 1;
 	line = game->map[i];
-	lim = limit(game);
-	while (i < lim)
+	while (i < game->limit)
 	{
 		j = 1;
 		while (line[j])
