@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:23:51 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/04 17:04:00 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/04 17:27:36 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	is_walking(t_game *game, void **img)
 {
 	static int frame = 0;
 
+	if (game->is_fighting)
+		return ;
 	if (frame < 10)
 		*img = game->sprite->img1->img;
 	else
@@ -88,8 +90,7 @@ void	is_walking(t_game *game, void **img)
 void	player_attack(t_game *game, void **img)
 {
 	static int frame = 0;
-	// int		speed = 5;
-	printf("frame = %d\n", frame);
+
 	if (!frame)
 		*img = game->sprite->img1->img;
 	else if (frame <= 3)
@@ -152,8 +153,5 @@ int	render_game(t_game *game)
 	mini_map(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
 	animated_sprite(game);
-	// 10 is nothing
-	
-	
 	return (0);
 }
