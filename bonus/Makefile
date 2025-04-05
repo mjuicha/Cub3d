@@ -1,4 +1,4 @@
-SRCS = bool_vars.c check_file.c check_map.c check_map2.c cub3d.c event_hook.c free_game.c free_game2.c ft_atoi.c get_colors.c get_next_line.c get_next_line_utils.c getters.c init_cub.c launch_game.c load_textures.c map.c math_tools.c math_tools1.c mini_tools1.c player.c player_control.c start_game.c texture_path.c tools.c cub_tools.c init_data.c door.c dir_door.c mini_map.c animated_sprite.c
+SRCS = bool_vars.c check_file.c check_map.c check_map2.c cub3d.c event_hook.c free_game.c free_game2.c ft_atoi.c get_colors.c get_next_line.c get_next_line_utils.c getters.c init_cub.c launch_game.c load_textures.c map.c math_tools.c math_tools1.c mini_tools1.c player.c player_control.c start_game.c texture_path.c tools.c cub_tools.c init_data.c door.c dir_door.c mini_map.c animated_sprite.c mouse_move.c
 OBJD = obj
 OBJS = $(SRCS:%.c=$(OBJD)/%.o)
 

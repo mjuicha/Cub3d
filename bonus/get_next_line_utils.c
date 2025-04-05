@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:50:27 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/01/25 10:17:57 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 15:01:59 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*ft_strchr(const char *str, int c)
 {
 	int	x;
 
+	if (!str)
+		return (0);
 	x = 0;
 	while (str[x] != (char)c)
 	{

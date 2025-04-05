@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:33:31 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/28 23:36:08 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 15:45:48 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ int	check_array(t_game *game, char *line)
 	int	i;
 
 	i = 0;
-	if (line[0] == '\n' || ft_strchr2(line, "F ")
-		|| ft_strchr2(line, "C "))
+	if (line[0] == '\n' || ft_strcmpm(line, "F ")
+		|| ft_strcmpm(line, "C ") || ft_strcmpm(line, "DO "))
 		return (1);
 	if (check_path(game))
 	{
-		if (!(ft_strchr2(line, "NO") || ft_strchr2(line, "SO")
-				|| ft_strchr2(line, "WE") || ft_strchr2(line, "EA")
-				|| ft_strchr2(line, "DO")))
+		if (!(ft_strcmpm(line, "NO ") || ft_strcmpm(line, "SO ")
+				|| ft_strcmpm(line, "WE ") || ft_strcmpm(line, "EA ")))
 		{
 			free(line);
 			short_free(game, MAP_ERROR);
@@ -43,6 +42,7 @@ char	*path(t_game *game, char *line)
 
 	i = 0;
 	alloc = 0;
+	printf("line: %s\n", line);
 	i = skip(line);
 	while (line[i + alloc] && !(line[i + alloc] == ' '
 			|| line[i + alloc] == '\n'))
@@ -90,13 +90,25 @@ void	fill_path(t_game *game, char *line, int i)
 	game->texture_path[i - 1] = path(game, line);
 }
 
+void	show_path(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (game->texture_path[i])
+			printf("Path[%d]: %s\n", i, game->texture_path[i]);
+		i++;
+	}
+}
 char	**get_texture_path(t_game *game)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	game->texture_path = alloc(game->texture_path, 6, game);
+	game->texture_path = alloc(game->texture_path, 5, game);
 	line = get_next_line(game->mapfd);
 	while (line && check_array(game, line))
 	{
@@ -112,5 +124,6 @@ char	**get_texture_path(t_game *game)
 	}
 	else
 		short_free(game, MAP_ERROR);
+	show_path(game);
 	return (game->texture_path);
 }

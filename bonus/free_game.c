@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:04:26 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/28 23:30:29 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 13:59:39 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_path(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		if (game->texture_path[i])
 			free(game->texture_path[i]);
@@ -39,6 +39,8 @@ void	free_path(t_game *game)
 	free(game->texture_path);
 	if (game->start_line)
 		free(game->start_line);
+	if (game->founded_door)
+		free(game->door_path);
 }
 
 void	free_map(t_game *game)

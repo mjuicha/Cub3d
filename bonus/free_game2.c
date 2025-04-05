@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:02:04 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/29 02:13:55 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 15:57:55 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,15 @@ void	ft_error(char *error)
 	ft_putendl_fd(error, STDERR_FILENO);
 }
 
+void	l(void)
+{
+	system("leaks cub3D");
+}
 void	auto_exit(t_game *game, char *error)
 {
 	ft_error(error);
 	auto_free(game);
+	atexit(l);
 	if (!error)
 		exit(SUCCESS);
 	exit(FAILURE);

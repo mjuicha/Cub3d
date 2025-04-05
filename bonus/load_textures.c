@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:06:10 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/02 20:17:53 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 14:10:10 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,12 @@ void	load_textures(t_game *game)
 	game->west = texture_img(game, game->texture_path[3],
 			&game->height, &game->width);
 	game->alloc_bool->w = true;
-	game->door = texture_img(game, game->texture_path[4],
-			&game->height, &game->width);
-	game->alloc_bool->d = true;
+	if (game->founded_door)
+	{
+		game->door = texture_img(game, game->door_path,
+				&game->height, &game->width);
+		game->alloc_bool->d = true;
+	}
 	free_path(game);
 	game->alloc_bool->t_path = false;
 	load_textures_map(game);

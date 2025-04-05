@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:57:28 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/04 17:25:00 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 16:13:50 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,44 +53,10 @@ int	key_released(int keycode, t_game *game)
 	return (0);
 }
 
-int mouse_move(int x, int y, t_game *game)
-{
-    static int	old_mouse_x = 0;
-    int 		diff;
-    float		turn_scale;
-	(void)y;
-
-    if (x != old_mouse_x)
-    {
-        diff = abs(x - old_mouse_x);
-        turn_scale = 180.0f / 2560;
-        if (x > old_mouse_x)
-            game->player->turn_dir = turn_scale;
-        else
-            game->player->turn_dir = -turn_scale;
-        while (diff--)
-            turn_player(game);
-        game->player->turn_dir = 0;
-    }
-    old_mouse_x = x;
-    return 0;
-}
-
-int	fighting(int keycode, int x, int y, t_game *game)
-{
-	(void)x;
-	(void)y;
-	if (keycode == 1)
-		game->is_fighting = 1;
-	printf("fighting\n");
-	return (0);
-}
-
 void	events_hook(t_game *game)
 {
 	mlx_hook(game->mlx_win, 2, 0, key_pressed, game);
 	mlx_hook(game->mlx_win, 3, 0, key_released, game);
 	mlx_hook(game->mlx_win, 6, 0, mouse_move, game);
-	mlx_hook(game->mlx_win, 4, 0, fighting, game);
 	mlx_hook(game->mlx_win, 17, 0, close_window, game);
 }

@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/mjuicha/Desktop/ki",
-      "program": "/Users/mjuicha/Desktop/ki/build/Debug/outDebug"
+      "cwd": "/Users/mjuicha/Desktop/Cub3d/bonus",
+      "program": "/Users/mjuicha/Desktop/Cub3d/bonus/build/Debug/outDebug"
     }
   ]
 }

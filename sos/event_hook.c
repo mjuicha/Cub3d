@@ -117,20 +117,34 @@ int mouse_move(int x, int y, t_game *game)
 {
     static int old_mouse_x = 0;
     int diff;
+    float turn_scale;
+    int screen_width = 1024;  // Replace with dynamic screen width if available
 
     if (old_mouse_x != -1 && x != old_mouse_x)
     {
         diff = abs(x - old_mouse_x);
+
+        // Normalize the turn factor based on screen width
+        // This makes sure the turn speed is proportional to screen size
+        turn_scale = 180.0f / 2560;  // 360 degrees of rotation for the full width of the screen
+
+        // Set the turn direction based on the relative movement
         if (x > old_mouse_x)
-            game->player->turn_dir = 0.07;
+            game->player->turn_dir = turn_scale;  // Rotate to the right
         else
-            game->player->turn_dir = -0.07;
+            game->player->turn_dir = -turn_scale; // Rotate to the left
+
+        // Loop to apply the turn (scaled for precision)
         while (diff--)
+        {
             turn_player(game);
-        game->player->turn_dir = 0;
+        }
+
+        game->player->turn_dir = 0;  // Reset turn direction after movement
     }
+
     old_mouse_x = x;
-    return (0);
+    return 0;
 }
 
 int stop_mouse(int x, int y, t_game *game)

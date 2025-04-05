@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:23:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/02 20:08:05 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 15:45:34 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ double	angle_dir(char c)
 
 int	direction(char *line, t_game *game)
 {
-	if (ft_strchr2(line, "NO"))
+	if (ft_strcmpm(line, "NO "))
 		return (1);
-	if (ft_strchr2(line, "SO"))
+	if (ft_strcmpm(line, "SO "))
 		return (2);
-	if (ft_strchr2(line, "WE"))
+	if (ft_strcmpm(line, "WE "))
 		return (3);
-	if (ft_strchr2(line, "EA"))
+	if (ft_strcmpm(line, "EA "))
 		return (4);
-	if (ft_strchr2(line, "DO"))
-		return (5);
-	if (ft_strchr2(line, "F "))
+	if (ft_strcmpm(line, "DO "))
+		get_door(line, game);
+	if (ft_strcmpm(line, "F "))
 		get_color(line, game, 'F');
-	if (ft_strchr2(line, "C "))
+	if (ft_strcmpm(line, "C "))
 		get_color(line, game, 'C');
 	return (0);
 }
@@ -50,7 +50,9 @@ int	skip(char *line)
 
 	i = 0;
 	skip_spaces(line, &i);
-	if (direction(line + i, NULL))
+	if (ft_strcmpm(line + i, "DO "))
+		i += 2;
+	else if (direction(line + i, NULL))
 		i += 2;
 	skip_spaces(line, &i);
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/04 16:49:57 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 15:46:18 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ typedef struct s_mini_map
 
 typedef struct s_sprite
 {
-	int		height;
-	int		width;
+	int			height;
+	int			width;
 	t_texture	*img1;
 	t_texture	*img2;
 	t_texture	*img3;
@@ -170,6 +170,7 @@ typedef struct s_game
 	int			width;
 	int			height;
 	char		**texture_path;
+	char		*door_path;
 	double		hx;
 	double		hy;
 	double		vx;
@@ -208,10 +209,10 @@ typedef struct s_game
 	t_sprite	*sprite;
 	int			player_situation;
 	int			is_fighting;
+	int			founded_door;
 }				t_game;
 
 /***********************  prototypes  ***********************/
-int				ft_strchr2(char *str, char *set);
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);
 void			turn_player(t_game *game);
@@ -292,8 +293,14 @@ int				is_door_surrounded(t_game *game, int x, int y);
 void			load_textures_map(t_game *game);
 void			mini_map(t_game *game);
 t_texture		*texture_img(t_game *game, char *path, int *height, int *width);
-void		    free_sprites(t_game *game);
-void		    load_gun(t_game *game);
+void			free_sprites(t_game *game);
+void			load_gun(t_game *game);
 void			free_img(t_texture *img, t_game *game);
+int				mouse_move(int x, int y, t_game *game);
+void			animated_sprite(t_game *game);
+void			is_walking(t_game *game, void **img);
+char			*path(t_game *game, char *line);
+void			get_door(char *line, t_game *game);
+int				ft_strcmpm(char *line, char *set);
 /***********************  draw  ***********************/
 #endif

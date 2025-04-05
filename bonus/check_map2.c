@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:29:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/01 18:53:50 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 14:15:12 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	valid_chars(char c, t_game *game, int i, int j)
 		game->player->pos_y = i * TILE_SIZE + (game->height / 2);
 	}
 	else if (c != '0' && c != '1' && c != 'D' && c != ' ' && c != '\n')
+		return (FAILURE);
+	if (c == 'D' && !game->founded_door)
 		return (FAILURE);
 	return (SUCCESS);
 }

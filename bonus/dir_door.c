@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 11:56:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/01 11:57:05 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 14:31:07 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ int	door_dir_y(int dir, int mapy)
 	if (dir == NORTH || dir == NORTH_EAST || dir == NORTH_WEST)
 		return (mapy - 1);
 	return (mapy);
+}
+
+void	get_door(char *line, t_game *game)
+{
+	game->founded_door = 1;
+	game->door_path = path(game, line);
 }

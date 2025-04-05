@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 04:08:42 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/28 23:28:49 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/05 13:23:59 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_path(t_game *game)
 	int	i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 4)
 	{
 		if (game->texture_path[i] == NULL)
 			return (1);

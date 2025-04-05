@@ -1,0 +1,366 @@
+mapx = 18, mapy = 3
+mapx - 5 = 13, mapy - 5 = -2
+draw on j = 0, i = 0
+x = 13, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 0
+x = 14, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 0
+x = 15, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 0
+x = 16, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 0
+x = 17, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 0
+x = 18, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 0
+x = 19, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 0
+x = 20, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 0
+x = 21, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 0
+x = 22, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 0
+x = 23, y = -2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 1
+x = 13, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 1
+x = 14, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 1
+x = 15, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 1
+x = 16, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 1
+x = 17, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 1
+x = 18, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 1
+x = 19, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 1
+x = 20, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 1
+x = 21, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 1
+x = 22, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 1
+x = 23, y = -1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 2
+x = 13, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 2
+x = 14, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 2
+x = 15, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 2
+x = 16, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 2
+x = 17, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 2
+x = 18, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 2
+x = 19, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 2
+x = 20, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 2
+x = 21, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 2
+x = 22, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 2
+x = 23, y = 0
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 3
+x = 13, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 3
+x = 14, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 3
+x = 15, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 3
+x = 16, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 3
+x = 17, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 3
+x = 18, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 3
+x = 19, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 3
+x = 20, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 3
+x = 21, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 3
+x = 22, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 3
+x = 23, y = 1
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 4
+x = 13, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 4
+x = 14, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 4
+x = 15, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 4
+x = 16, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 4
+x = 17, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 4
+x = 18, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 4
+x = 19, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 4
+x = 20, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 4
+x = 21, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 4
+x = 22, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 4
+x = 23, y = 2
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 5
+x = 13, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 5
+x = 14, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 5
+x = 15, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 5
+x = 16, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 5
+x = 17, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 5
+x = 18, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 5
+x = 19, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 5
+x = 20, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 5
+x = 21, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 5
+x = 22, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 5
+x = 23, y = 3
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 6
+x = 13, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 6
+x = 14, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 6
+x = 15, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 6
+x = 16, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 6
+x = 17, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 6
+x = 18, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 6
+x = 19, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 6
+x = 20, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 6
+x = 21, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 6
+x = 22, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 6
+x = 23, y = 4
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 7
+x = 13, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 7
+x = 14, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 7
+x = 15, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 7
+x = 16, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 7
+x = 17, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 7
+x = 18, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 7
+x = 19, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 7
+x = 20, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 7
+x = 21, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 7
+x = 22, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 7
+x = 23, y = 5
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 8
+x = 13, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 8
+x = 14, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 8
+x = 15, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 8
+x = 16, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 8
+x = 17, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 8
+x = 18, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 8
+x = 19, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 8
+x = 20, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 8
+x = 21, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 8
+x = 22, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 8
+x = 23, y = 6
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 9
+x = 13, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 9
+x = 14, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 9
+x = 15, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 9
+x = 16, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 9
+x = 17, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 9
+x = 18, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 9
+x = 19, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 9
+x = 20, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 9
+x = 21, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 9
+x = 22, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 9
+x = 23, y = 7
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 0, i = 10
+x = 13, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 1, i = 10
+x = 14, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 2, i = 10
+x = 15, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 3, i = 10
+x = 16, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 4, i = 10
+x = 17, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 5, i = 10
+x = 18, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 6, i = 10
+x = 19, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 7, i = 10
+x = 20, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 8, i = 10
+x = 21, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 9, i = 10
+x = 22, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+draw on j = 10, i = 10
+x = 23, y = 8
+mapx  + 5 = 23, mapy + 5 = 8
+window closed
