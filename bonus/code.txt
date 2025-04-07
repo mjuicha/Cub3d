@@ -1,0 +1,16 @@
+##############################################
+#******************* code *******************#
+##############################################
+
+>> init_cub
+    > valid_args(2) + valid_extension + valid_file 
+    > init_bool + init_data 
+    > get_texture_path 
+        .> check_array
+        .> direction
+            ..> get_color
+            ..> get_door
+>> start_game
+    > get_map
+    > valid_format
+    

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:57:55 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/02 20:13:54 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/07 19:26:10 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	load_textures_map(t_game *game)
 
 void	*map_color(t_game *game, int x, int y)
 {
-	if (x < 0 || y < 0 || y > game->limit || x > (int)ft_strlen(game->map[y]))
+	if (x < 0 || y < 0 || y > game->mapcounter
+		|| x > (int)ft_strlen(game->map[y]))
 		return (game->mini_map->space->img);
 	if (!game->map[y][x])
 		return (game->mini_map->space->img);

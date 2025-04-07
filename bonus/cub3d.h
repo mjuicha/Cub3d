@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 15:46:18 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/07 20:06:34 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,20 @@
 # define NORTH_WEST 116
 # define SOUTH_EAST 117
 # define SOUTH_WEST 128
-/***********************  XPM Files  **********************/
-# define BLACK_WALL "xpm_files/black.xpm"
-# define EMPTY_WALL "xpm_files/white.xpm"
 /***********************  errors  *************************/
-# define ERROR_ARG "\033[31mError: Wrong number of arguments\n\033[0m"
-# define ERROR_EXT "\033[31mError: Wrong extension\n\033[0m"
-# define OPPEN_ERROR "\033[31mError: Can't open file\n\033[0m"
-# define MLX_ERROR "\033[31mError: mlx_init failed\n\033[0m"
-# define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
-# define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
-# define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
-# define COLOR_ERROR "\033[31mError: Invalid color\n\033[0m"
-# define MALLOC_ERROR "\033[31mError: Malloc failed\n\033[0m"
+# define ERROR_ARG "Error\nWrong number of arguments\n"
+# define ERROR_EXT "Error\nWrong extension"
+# define OPPEN_ERROR "Error\nCan't open file"
+# define MLX_ERROR "Error\nmlx_init failed"
+# define MLX_WIN_ERROR "Error\nmlx_new_window failed"
+# define XPM_ERROR "Error\nmlx_xpm_file_to_image failed"
+# define MAP_ERROR "Error\nInvalid map"
+# define COLOR_ERROR "Error\nInvalid color"
+# define MALLOC_ERROR "Error\nMalloc failed"
 /***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
 # include <stdlib.h>
-# include <string.h>
-# include <sys/time.h>
 # include <stdbool.h>
 # include <fcntl.h>
 # include <math.h>
@@ -106,7 +101,6 @@ typedef struct s_player
 	double	move_speed;
 	double	rot_speed;
 	double	fov;
-	int		fetch;
 	int		found_player;
 	t_dir	*dir;
 }			t_player;
@@ -187,7 +181,6 @@ typedef struct s_game
 	char		**map;
 	char		*start_line;
 	int			mapfd;
-	int			limit;
 	int			off;
 	int			xoff;
 	int			yoff;
@@ -196,7 +189,6 @@ typedef struct s_game
 	int			ceiling;
 	int			is_map_text;
 	int			is_sprite;
-	int			*fd;
 	t_alloc		*alloc_bool;
 	t_texture	*nord;
 	t_texture	*south;
@@ -207,23 +199,21 @@ typedef struct s_game
 	t_texture	*img_win;
 	t_mini_map	*mini_map;
 	t_sprite	*sprite;
-	int			player_situation;
 	int			is_fighting;
 	int			founded_door;
 }				t_game;
 
 /***********************  prototypes  ***********************/
+
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);
 void			turn_player(t_game *game);
 void			load_textures(t_game *game);
-/***********************  utils  ***********************/
 size_t			ft_strlen(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 void			ft_putendl_fd(char *str, int fd);
 char			*ft_strdup(const char *s1);
 char			*ft_strrmv(char *str, char c);
-/***********************  init  ***********************/
 t_game			*init_cub(int ac, char **av);
 t_game			*get_map(t_game *game);
 void			start_game(t_game *game);
@@ -264,7 +254,7 @@ void			spec_case(t_game *game, int ray);
 double			phitagore(t_game *game, int x2, int y2);
 int				inf_equal(double a, double b);
 int				equal(double a, double b);
-double			d_inf_equal(double a, double b, double r1, double r2);
+double			_short(double a, double b, double r1, double r2);
 int				is_nord(double angle);
 int				is_east(double angle);
 int				get_top_pixel(double wall_height);
@@ -302,5 +292,5 @@ void			is_walking(t_game *game, void **img);
 char			*path(t_game *game, char *line);
 void			get_door(char *line, t_game *game);
 int				ft_strcmpm(char *line, char *set);
-/***********************  draw  ***********************/
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:29:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 14:15:12 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/07 17:12:11 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_open_spaces(t_game *game)
 	i = 1;
 	j = 1;
 	line = game->map[i];
-	while (i < game->limit)
+	while (i < game->mapcounter)
 	{
 		j = 1;
 		while (line[j])
@@ -70,7 +70,7 @@ int	check_valid_char(t_game *game)
 	i = 0;
 	j = 0;
 	line = game->map[i];
-	while (i < game->mapcounter)
+	while (game->map[i])
 	{
 		j = 0;
 		while (line[j])

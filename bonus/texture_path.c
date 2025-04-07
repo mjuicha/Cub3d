@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:33:31 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 15:45:48 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/07 16:00:42 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*path(t_game *game, char *line)
 
 	i = 0;
 	alloc = 0;
-	printf("line: %s\n", line);
 	i = skip(line);
 	while (line[i + alloc] && !(line[i + alloc] == ' '
 			|| line[i + alloc] == '\n'))
@@ -50,14 +49,14 @@ char	*path(t_game *game, char *line)
 	alloc++;
 	path = malloc(sizeof(char) * (alloc));
 	if (!path)
-		short_free(game, MALLOC_ERROR);
-	j = 0;
-	while (j < alloc - 1)
 	{
-		path[j] = line[i + j];
-		j++;
+		free(line);
+		short_free(game, MALLOC_ERROR);
 	}
-	path[j] = '\0';
+	j = 0;
+	while (j++ < alloc - 1)
+		path[j - 1] = line[i + j - 1];
+	path[j - 1] = '\0';
 	return (path);
 }
 
@@ -90,18 +89,6 @@ void	fill_path(t_game *game, char *line, int i)
 	game->texture_path[i - 1] = path(game, line);
 }
 
-void	show_path(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < 5)
-	{
-		if (game->texture_path[i])
-			printf("Path[%d]: %s\n", i, game->texture_path[i]);
-		i++;
-	}
-}
 char	**get_texture_path(t_game *game)
 {
 	char	*line;
@@ -124,6 +111,5 @@ char	**get_texture_path(t_game *game)
 	}
 	else
 		short_free(game, MAP_ERROR);
-	show_path(game);
 	return (game->texture_path);
 }

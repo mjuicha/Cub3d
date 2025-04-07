@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:37:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 15:46:31 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/07 15:49:33 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (s1[x] - s2[x]);
 }
 
-int ft_strcmpm(char *line, char *set)
+int	ft_strcmpm(char *line, char *set)
 {
 	int	i;
 	int	j;

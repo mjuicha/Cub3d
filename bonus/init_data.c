@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:12:02 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 13:53:21 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/07 14:11:56 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	init_data(t_game *game)
 	game->ceiling = -1;
 	game->is_map_text = 0;
 	game->is_sprite = 0;
-	game->player_situation = 0;
 	game->is_fighting = 0;
 	game->founded_door = 0;
+	game->off = 0;
 }
 
 int	check_spaces(t_game *game)
