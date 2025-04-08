@@ -6,7 +6,7 @@
 /*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:39:23 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/22 11:43:31 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/04 04:01:35 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,4 @@ int	main(int ac, char **av)
 	mlx_loop(game->mlx);
 	return (SUCCESS);
 }
+  
