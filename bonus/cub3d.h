@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/07 20:06:34 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 16:31:10 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,10 @@ typedef struct s_game
 	int			height;
 	char		**texture_path;
 	char		*door_path;
-	double		hx;
-	double		hy;
-	double		vx;
-	double		vy;
+	double		hor_x_intercept;
+	double		hor_y_intercept;
+	double		ver_x_intercept;
+	double		ver_y_intercept;
 	double		*wallx;
 	double		*wally;
 	int			t_pix;
@@ -219,7 +219,7 @@ t_game			*get_map(t_game *game);
 void			start_game(t_game *game);
 int				render_game(t_game *game);
 int				valid_input(int ac, char **av);
-void			fov(t_game *game);
+void			cast_all_rays(t_game *game);
 void			events_hook(t_game *game);
 void			draw_walls(t_game *game);
 int				valid_format(t_game *game);
@@ -245,16 +245,16 @@ double			angle_dir(char c);
 int				check_open_spaces(t_game *game);
 int				find_open_space(char c, int i, int j, t_game *game);
 void			update_position(t_game *game);
-t_dir			*get_dir(t_game *game, double angle);
+t_dir			*get_ray_direction(t_game *game, double angle);
 int				is_down(t_game *game);
 int				is_right(t_game *game);
-int				_up(t_game *game);
-int				_left(t_game *game);
+int				is_up(t_game *game);
+int				is_left(t_game *game);
 void			spec_case(t_game *game, int ray);
 double			phitagore(t_game *game, int x2, int y2);
 int				inf_equal(double a, double b);
 int				equal(double a, double b);
-double			_short(double a, double b, double r1, double r2);
+double			shortest_dist(double a, double b, double r1, double r2);
 int				is_nord(double angle);
 int				is_east(double angle);
 int				get_top_pixel(double wall_height);
@@ -284,7 +284,7 @@ void			load_textures_map(t_game *game);
 void			mini_map(t_game *game);
 t_texture		*texture_img(t_game *game, char *path, int *height, int *width);
 void			free_sprites(t_game *game);
-void			load_gun(t_game *game);
+void			load_animation(t_game *game);
 void			free_img(t_texture *img, t_game *game);
 int				mouse_move(int x, int y, t_game *game);
 void			animated_sprite(t_game *game);

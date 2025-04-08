@@ -1,0 +1,134 @@
+##############################################
+#******************* code *******************#
+##############################################
+
+! if something fail we call ft_error
+
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> init_cube
+    *----------------------------*
+    ** check valid input 
+        *** check args number
+        *** check extension file 
+    ** check file open (-1)
+    *----------------------------*
+    ** malloc game bool
+    ** init_bool
+    *----------------------------*
+    ** get_info
+        *** set game info | player info
+        *** malloc vars
+        *** get_texture_path   
+            **** malloc texture_path
+            **** check_array (NO|SO|WE|EA|DO|C |F | \n + check_path)
+            **** direction { return value : get_door | get_color}
+                ***** get_door
+                    ****** set door to 1
+                    ****** get door path
+                ***** get_color
+                    ****** check rgb is correct 
+                    ****** set color
+            **** fill path
+            **** save line
+    *----------------------------*
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> start_game
+    *----------------------------*
+    ** get_map
+        *** get start line
+        *** add back map (get_next_line)
+        *** convert map to 2d array
+        *** close fd
+    *----------------------------*
+    ** check_map
+        *** check 4 edges
+        *** check all characters (+ rep + no door) + set player angle
+        *** check open spaces
+        *** check color
+        ! *** check spaces 
+    *----------------------------*
+    ** init_mlx
+        *** init mlx
+        *** init window
+        *** init image
+        - explain image attributes
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> load_textures
+    *----------------------------*
+    ** load_wall_textures
+        *** load nord + south + west + east + door
+    ** free_path
+    ** load_textures_map 
+        *** red + black + white + blue [squares]
+    ** load_animation
+        *** 20 frames
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> events_hook
+    *----------------------------*
+    ** key_pressed vs ky_release
+        *** set walk|side|turn >1 & >0 & <-1
+        *** close_window
+            **** show msg
+            **** free all
+        *** open_close_door
+            **** get my pos
+            **** set direction
+                ***** is door surrounded
+            **** get_pos_doo > open_door || close_door
+        *** is_fighting to 1
+    *----------------------------*
+    ** mouse_move
+        *** static old_x
+        *** diff (x- old_x)
+        *** check is turn -|+
+        *** start turning
+        *** stop turning
+        *** update old_x
+    *----------------------------*
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> render_game
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> update position
+    *----------------------------*
+    ** walk + side + turn direction
+        *** is_wall + CT
+            **** get next_pos
+            **** check range + check is_wall
+            **** check wall_surrounded   
+                ***** get player pos + check xs and ys are diff 
+                ***** check surrounded
+*----------------------------------------------------------------------------*
+*----------------------------------------------------------------------------*
+>> fov 
+    *----------------------------*
+    ** get start view angle 
+    ** loop angle of raycasting (all rays)
+    ** normalize angle
+    ** get_direction | detect exact direction
+    ** get_hoz&ver_intersection
+        *** hoz
+            **** (A) get y of A // is_down to add TS
+            **** (A) get x of A
+            **** get delta_y // if up *(-1)
+            **** get delta_x // bc of dx can ba +|- [when right and -] [when left and +] *(-1)
+            **** startlooping
+                ***** we will check A // _up for if y on toop we decrement -1 to be in correct square
+                ***** when true break loop 
+                ***** else increment to next intersection
+            **** return distance using phitagore
+        *** ver
+            **** like hoz
+        *** save short distance
+        *** save short x (ver | hoz)
+        *** save short y (ver | hoz)
+        *** save angle
+        *** is_door
+    !   *** save is hor or vertical 
+    !   *** save is_special
+

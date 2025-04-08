@@ -5,7 +5,7 @@ OBJS = $(SRCS:%.c=$(OBJD)/%.o)
 NAME = cub3D
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
 MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
 $(OBJD)/%.o: %.c cub3d.h get_next_line.h

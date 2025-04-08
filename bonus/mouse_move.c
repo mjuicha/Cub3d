@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:13:29 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 17:28:01 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:42:14 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	mouse_move(int x, int y, t_game *game)
 
 	(void)y;
 	diff = abs(x - old_mouse_x);
-	turn_scale = 0.05;
+	turn_scale = 0.2;
 	if (x > old_mouse_x)
 		game->player->turn_dir = turn_scale;
 	else

@@ -6,19 +6,28 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 15:57:55 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/07 19:26:10 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:07:11 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_mini_map(t_game *game)
+{
+	game->mini_map->player = NULL;
+	game->mini_map->wall = NULL;
+	game->mini_map->door = NULL;
+	game->mini_map->space = NULL;
+	game->mini_map->height = 16;
+	game->mini_map->width = 16;
+}
 
 void	load_textures_map(t_game *game)
 {
 	game->mini_map = malloc(sizeof(t_mini_map));
 	if (!game->mini_map)
 		mlx_free(game, MALLOC_ERROR);
-	game->mini_map->height = 16;
-	game->mini_map->width = 16;
+	init_mini_map(game);
 	game->is_map_text = 1;
 	game->mini_map->player = texture_img(game, "textures/mini_map/red.xpm",
 			&game->mini_map->height, &game->mini_map->width);

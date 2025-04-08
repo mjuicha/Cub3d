@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:02:04 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/07 13:27:19 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 14:53:27 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	auto_exit(t_game *game, char *error)
 {
 	ft_error(error);
 	auto_free(game);
-	atexit(l);
+	// atexit(l);
 	if (!error)
 		exit(SUCCESS);
 	exit(FAILURE);

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:23:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/07 15:50:11 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 12:34:26 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	get_info(t_game *game)
 	game->player->rot_speed = 2.0 * (M_PI / 180);
 	game->player->fov = 60 * (M_PI / 180);
 	game->player->found_player = 0;
-	game->off = 0;
 }
 
 t_game	*init_cub(int ac, char **av)

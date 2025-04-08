@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:23:39 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/26 02:43:37 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 12:01:59 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	get_info(t_game *game)
 	game->player->turn_dir = 0;
 	game->player->side_dir = 0;
 	game->player->move_speed = 4.0;
-	game->player->rot_speed = 5.0 * (M_PI / 180);
+	game->player->rot_speed = 2.0 * (M_PI / 180);
 	game->player->fov = 60 * (M_PI / 180);
 	game->player->found_player = 0;
 	game->off = 0;

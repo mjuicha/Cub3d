@@ -6,13 +6,13 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:54:26 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 17:51:12 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:59:07 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_dir	*get_dir(t_game *game, double angle)
+t_dir	*get_ray_direction(t_game *game, double angle)
 {
 	t_dir	*dir;
 

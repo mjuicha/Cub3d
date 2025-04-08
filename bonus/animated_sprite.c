@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:09:05 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/05 12:23:10 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:00:15 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	load_p2(t_game *game)
 			&game->sprite->height, &game->sprite->width);
 }
 
-void	load_gun(t_game *game)
+void	load_animation(t_game *game)
 {
 	game->sprite = malloc(sizeof(t_sprite));
 	if (!game->sprite)

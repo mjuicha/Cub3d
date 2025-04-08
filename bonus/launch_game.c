@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:23:51 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/07 13:26:16 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 15:53:13 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	wall_projection(t_game *game)
 int	render_game(t_game *game)
 {
 	update_position(game);
-	fov(game);
+	cast_all_rays(game);
 	wall_projection(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
 	mini_map(game);

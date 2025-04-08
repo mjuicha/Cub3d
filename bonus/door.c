@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 02:15:23 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/01 18:50:06 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 16:02:00 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	is_door(t_game *game, int ray)
 	x = game->wallx[ray];
 	y = game->wally[ray];
 	if (game->is_hor[ray])
-		y = y + _up(game);
+		y = y + is_up(game);
 	else
-		x = x + _left(game);
+		x = x + is_left(game);
 	x = x / game->width;
 	y = y / game->height;
 	if (game->map[y][x] && game->map[y][x] == 'D')

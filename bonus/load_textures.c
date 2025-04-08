@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:06:10 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/07 16:14:35 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:00:15 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ void	load_textures(t_game *game)
 	free_path(game);
 	game->alloc_bool->t_path = false;
 	load_textures_map(game);
-	load_gun(game);
+	load_animation(game);
 }

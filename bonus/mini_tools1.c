@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:57:23 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 18:15:51 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/08 16:02:00 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	is_right(t_game *game)
 	return (0);
 }
 
-int	_up(t_game *game)
+int	is_up(t_game *game)
 {
 	if (game->player->dir->up)
 		return (-1);
 	return (0);
 }
 
-int	_left(t_game *game)
+int	is_left(t_game *game)
 {
 	if (game->player->dir->left)
 		return (-1);
