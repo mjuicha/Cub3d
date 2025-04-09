@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/09 17:04:19 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:25:06 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -28,7 +28,17 @@
 # define D          2
 # define LEFT       123
 # define RIGHT      124
-# define ERROR_ARG "Error\nWrong number of arguments"
+# define SPACE      49
+# define M          46
+# define NORTH      111
+# define SOUTH      112
+# define EAST       113
+# define WEST       114
+# define NORTH_EAST 115
+# define NORTH_WEST 116
+# define SOUTH_EAST 117
+# define SOUTH_WEST 128
+# define ERROR_ARG "Error\nWrong number of arguments\n"
 # define ERROR_EXT "Error\nWrong extension"
 # define OPPEN_ERROR "Error\nCan't open file"
 # define MLX_ERROR "Error\nmlx_init failed"
@@ -59,6 +69,13 @@ typedef struct s_dir
 	int	right;
 }				t_dir;
 
+typedef struct s_door_pos
+{
+	int	x;
+	int	y;
+	int	valid;
+}			t_door_pos;
+
 typedef struct s_texture
 {
 	void	*img;
@@ -79,7 +96,6 @@ typedef struct s_player
 	double	move_speed;
 	double	rot_speed;
 	double	fov;
-	int		fetch;
 	int		found_player;
 	t_dir	*dir;
 }			t_player;
@@ -93,13 +109,48 @@ typedef struct alloc
 	bool	m_wallx;
 	bool	m_wally;
 	bool	m_is_hor;
+	bool	m_is_door;
 	bool	m_fd;
 	bool	t_path;
 	bool	n;
 	bool	s;
 	bool	e;
 	bool	w;
+	bool	d;
 }			t_alloc;
+
+typedef struct s_mini_map
+{
+	t_texture	*player;
+	t_texture	*wall;
+	t_texture	*door;
+	t_texture	*space;
+	int			height;
+	int			width;
+}				t_mini_map;
+
+typedef struct s_sprite
+{
+	int			height;
+	int			width;
+	t_texture	*img1;
+	t_texture	*img2;
+	t_texture	*img3;
+	t_texture	*img4;
+	t_texture	*img5;
+	t_texture	*img6;
+	t_texture	*img7;
+	t_texture	*img8;
+	t_texture	*img9;
+	t_texture	*img10;
+	t_texture	*img14;
+	t_texture	*img15;
+	t_texture	*img16;
+	t_texture	*img17;
+	t_texture	*img18;
+	t_texture	*img19;
+	t_texture	*img20;
+}			t_sprite;
 
 typedef struct s_game
 {
@@ -108,6 +159,7 @@ typedef struct s_game
 	int			width;
 	int			height;
 	char		**texture_path;
+	char		*door_path;
 	double		hor_x_intercept;
 	double		hor_y_intercept;
 	double		ver_x_intercept;
@@ -120,6 +172,7 @@ typedef struct s_game
 	double		*is_spec;
 	double		*t_angle;
 	int			*is_hor;
+	int			*is_door;
 	char		**map;
 	char		*start_line;
 	int			mapfd;
@@ -129,13 +182,20 @@ typedef struct s_game
 	int			mapcounter;
 	int			floor;
 	int			ceiling;
+	int			is_map_text;
+	int			is_sprite;
 	t_alloc		*alloc_bool;
 	t_texture	*nord;
 	t_texture	*south;
 	t_texture	*east;
 	t_texture	*west;
+	t_texture	*door;
 	t_player	*player;
 	t_texture	*img_win;
+	t_mini_map	*mini_map;
+	t_sprite	*sprite;
+	int			is_fighting;
+	int			founded_door;
 }				t_game;
 
 char			*get_next_line(int fd);
@@ -145,7 +205,6 @@ char			*ft_strjoin(char *str, char *buff);
 char			*the_line(char *str);
 char			*next_line(char *str);
 char			*read_line(int fd, char *str);
-int				ft_strchr2(char *str, char *set);
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);
 void			turn_player(t_game *game);
@@ -186,16 +245,16 @@ double			angle_dir(char c);
 int				check_open_spaces(t_game *game);
 int				find_open_space(char c, int i, int j, t_game *game);
 void			update_position(t_game *game);
-t_dir			*get_dir(t_game *game, double angle);
+t_dir			*get_ray_direction(t_game *game, double angle);
 int				is_down(t_game *game);
 int				is_right(t_game *game);
-int				_up(t_game *game);
-int				_left(t_game *game);
+int				is_up(t_game *game);
+int				is_left(t_game *game);
 void			spec_case(t_game *game, int ray);
 double			phitagore(t_game *game, int x2, int y2);
 int				inf_equal(double a, double b);
 int				equal(double a, double b);
-double			d_inf_equal(double a, double b, double r1, double r2);
+double			shortest_dist(double a, double b, double r1, double r2);
 int				is_nord(double angle);
 int				is_east(double angle);
 int				get_top_pixel(double wall_height);
@@ -214,4 +273,24 @@ void			short_free(t_game *game, char *error);
 int				check_path(t_game *game);
 int				check_spaces(t_game *game);
 int				wall_surrounded(t_game *game, int newx, int newy);
+void			is_door(t_game *game, int ray);
+void			open_close_door(t_game *game);
+int				door_dir_x(int dir, int mapx);
+int				door_dir_y(int dir, int mapy);
+int				cardinal_direction(t_game *game, int mapx, int mapy);
+int				check_wall_door(t_game *game, int dir, int mapx, int mapy);
+int				is_door_surrounded(t_game *game, int x, int y);
+void			load_textures_map(t_game *game);
+void			mini_map(t_game *game);
+t_texture		*texture_img(t_game *game, char *path, int *height, int *width);
+void			free_sprites(t_game *game);
+void			load_animation(t_game *game);
+void			free_img(t_texture *img, t_game *game);
+int				mouse_move(int x, int y, t_game *game);
+void			animated_sprite(t_game *game);
+void			is_walking(t_game *game, void **img);
+char			*path(t_game *game, char *line);
+void			get_door(char *line, t_game *game);
+int				ft_strcmpm(char *line, char *set);
+void			init_load_animation(t_game *game);
 #endif

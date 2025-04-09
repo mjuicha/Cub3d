@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_control.c                                   :+:      :+:    :+:   */
+/*   player_control_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 17:36:54 by librahim          #+#    #+#             */
-/*   Updated: 2025/04/09 17:36:55 by librahim         ###   ########.fr       */
+/*   Created: 2025/04/09 17:39:46 by librahim          #+#    #+#             */
+/*   Updated: 2025/04/09 17:39:49 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	turn_player(t_game *game)
 {
@@ -28,9 +27,9 @@ int	is_wall(t_game *game, double next_x, double next_y)
 	if (mapx < 0 || mapy < 0 || mapy >= game->mapcounter
 		|| mapx >= (int)ft_strlen(game->map[mapy]))
 		return (1);
-	if (game->map[mapy][mapx] == ' ' || game->map[mapy][mapx] == '0')
+	if (game->map[mapy][mapx] != '1' && game->map[mapy][mapx] != 'D')
 		return (wall_surrounded(game, mapx, mapy));
-	return (game->map[mapy][mapx] == '1');
+	return (1);
 }
 
 void	walk_direct(t_game *game)

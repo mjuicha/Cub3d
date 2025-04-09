@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   launch_game.c                                      :+:      :+:    :+:   */
+/*   launch_game_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 17:36:36 by librahim          #+#    #+#             */
-/*   Updated: 2025/04/09 17:36:37 by librahim         ###   ########.fr       */
+/*   Created: 2025/04/09 17:39:01 by librahim          #+#    #+#             */
+/*   Updated: 2025/04/09 17:39:04 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	color_floor_ceiling(t_game *game, int ray)
 {
@@ -79,5 +78,7 @@ int	render_game(t_game *game)
 	cast_all_rays(game);
 	wall_projection(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
+	mini_map(game);
+	animated_sprite(game);
 	return (0);
 }
