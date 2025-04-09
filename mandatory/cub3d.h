@@ -6,12 +6,15 @@
 /*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/09 14:47:36 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:57:37 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 # define SUCCESS    1
 # define FAILURE    0
 # define WIDTH      1024
@@ -45,7 +48,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# include "get_next_line.h"
 
 typedef struct s_map
 {
@@ -140,6 +142,13 @@ typedef struct s_game
 	t_texture	*img_win;
 }				t_game;
 
+char			*get_next_line(int fd);
+char			*empty_str(void);
+char			*ft_strchr(const char *str, int c);
+char			*ft_strjoin(char *str, char *buff);
+char			*the_line(char *str);
+char			*next_line(char *str);
+char			*read_line(int fd, char *str);
 int				ft_strchr2(char *str, char *set);
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);

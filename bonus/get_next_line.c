@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:44:21 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/01/25 10:18:04 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:59:59 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
 
 char	*read_line(int fd, char *str)
 {

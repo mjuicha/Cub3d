@@ -6,12 +6,15 @@
 /*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/09 14:35:29 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:02:04 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 # define SUCCESS    1
 # define FAILURE    0
 # define WIDTH      1024
@@ -44,7 +47,6 @@
 # define MAP_ERROR "Error\nInvalid map"
 # define COLOR_ERROR "Error\nInvalid color"
 # define MALLOC_ERROR "Error\nMalloc failed"
-/***********************  includes  ***********************/
 # include <unistd.h>
 # include <stdio.h> 
 # include <stdlib.h>
@@ -53,7 +55,7 @@
 # include <math.h>
 # include <mlx.h>
 # include "get_next_line.h"
-/***********************  structures  *********************/
+
 typedef struct s_map
 {
 	char			*line;
@@ -197,8 +199,13 @@ typedef struct s_game
 	int			founded_door;
 }				t_game;
 
-/***********************  prototypes  ***********************/
-
+char			*get_next_line(int fd);
+char			*empty_str(void);
+char			*ft_strchr(const char *str, int c);
+char			*ft_strjoin(char *str, char *buff);
+char			*the_line(char *str);
+char			*next_line(char *str);
+char			*read_line(int fd, char *str);
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);
 void			turn_player(t_game *game);
