@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 23:15:18 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/21 03:11:49 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:16:41 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	equal(double a, double b)
 	return (0);
 }
 
-double	d_inf_equal(double a, double b, double r1, double r2)
+double	shortest_dist(double a, double b, double r1, double r2)
 {
 	if (a <= b)
 		return (r1);

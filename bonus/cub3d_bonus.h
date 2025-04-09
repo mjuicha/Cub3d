@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/09 17:25:06 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:44:27 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # define SOUTH      112
 # define EAST       113
 # define WEST       114
-# define NORTH_EAST 115
-# define NORTH_WEST 116
-# define SOUTH_EAST 117
+# define NORTH_EAST 115  
+# define NORTH_WEST 116 
+# define SOUTH_EAST 117   
 # define SOUTH_WEST 128
 # define ERROR_ARG "Error\nWrong number of arguments\n"
 # define ERROR_EXT "Error\nWrong extension"

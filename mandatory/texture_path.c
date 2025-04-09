@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:33:31 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/26 02:45:25 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 17:52:49 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	check_array(t_game *game, char *line)
 	int	i;
 
 	i = 0;
-	if (line[0] == '\n' || ft_strchr2(line, "F ")
-		|| ft_strchr2(line, "C "))
+	if (line[0] == '\n' || ft_strcmpm(line, "F ")
+		|| ft_strcmpm(line, "C "))
 		return (1);
 	if (check_path(game))
 	{
-		if (!(ft_strchr2(line, "NO") || ft_strchr2(line, "SO")
-				|| ft_strchr2(line, "WE") || ft_strchr2(line, "EA")))
+		if (!(ft_strcmpm(line, "NO ") || ft_strcmpm(line, "SO ")
+				|| ft_strcmpm(line, "WE ") || ft_strcmpm(line, "EA ")))
 		{
 			free(line);
 			short_free(game, MAP_ERROR);
@@ -60,7 +60,7 @@ char	*path(t_game *game, char *line)
 	return (path);
 }
 
-char	**alloc(char **tab, int size, t_game *game)
+char	**alloc_double_array(char **tab, int size, t_game *game)
 {
 	int	i;
 
@@ -95,7 +95,7 @@ char	**get_texture_path(t_game *game)
 	int		i;
 
 	i = 0;
-	game->texture_path = alloc(game->texture_path, 5, game);
+	game->texture_path = alloc_double_array(game->texture_path, 5, game);
 	line = get_next_line(game->mapfd);
 	while (line && check_array(game, line))
 	{

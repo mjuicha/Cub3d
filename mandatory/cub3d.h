@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/09 17:04:19 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:44:45 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ char			*ft_strjoin(char *str, char *buff);
 char			*the_line(char *str);
 char			*next_line(char *str);
 char			*read_line(int fd, char *str);
-int				ft_strchr2(char *str, char *set);
+int				ft_strcmpm(char *str, char *set);
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);
 void			turn_player(t_game *game);
@@ -189,13 +189,13 @@ void			update_position(t_game *game);
 t_dir			*get_dir(t_game *game, double angle);
 int				is_down(t_game *game);
 int				is_right(t_game *game);
-int				_up(t_game *game);
-int				_left(t_game *game);
+int				is_up(t_game *game);
+int				is_left(t_game *game);
 void			spec_case(t_game *game, int ray);
 double			phitagore(t_game *game, int x2, int y2);
 int				inf_equal(double a, double b);
 int				equal(double a, double b);
-double			d_inf_equal(double a, double b, double r1, double r2);
+double			shortest_dist(double a, double b, double r1, double r2);
 int				is_nord(double angle);
 int				is_east(double angle);
 int				get_top_pixel(double wall_height);

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:37:14 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/26 01:54:47 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 17:51:41 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,24 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (s1[x] - s2[x]);
 }
 
-int	ft_strchr2(char *str, char *set)
+int	ft_strcmpm(char *line, char *set)
 {
 	int	i;
+	int	j;
 
-	if (!str || !set)
+	if (!line || !set)
 		return (0);
 	i = 0;
-	while (str[i])
+	j = 0;
+	skip_spaces(line, &i);
+	while (line[i] && set[j])
 	{
-		if (ft_strchr(str, set[0]) && ft_strchr(str, set[1]))
-			return (1);
+		if (line[i] != set[j])
+			return (0);
 		i++;
+		j++;
 	}
-	return (0);
+	return (1);
 }
 
 char	*ft_strrmv(char *str, char c)

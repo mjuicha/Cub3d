@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:12:02 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/24 18:48:26 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:09:44 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_data(t_game *game)
 	game->img_win = NULL;
 	game->floor = -1;
 	game->ceiling = -1;
+	game->off = 0;
 }
 
 int	check_spaces(t_game *game)

@@ -60,6 +60,8 @@
     "cub3d.h": "c",
     "__locale": "c",
     "locale": "c",
-    "complex": "c"
+    "complex": "c",
+    "cub3d_bonus.h": "c",
+    "sstream": "c"
   }
 }

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:20:18 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/22 16:18:01 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:30:15 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,9 @@ int	check_mline(char *line)
 int	check_middle(t_game *game)
 {
 	int	i;
-	int	limite;
 
 	i = 1;
-	limite = limit(game);
-	while (i < limite)
+	while (i < game->mapcounter)
 	{
 		if (!check_mline(game->map[i]))
 			return (FAILURE);
@@ -68,12 +66,13 @@ int	check_edges(t_game *game)
 {
 	char	*line;
 
-	if (!game->map[0] || !game->map[game->mapcounter - 1])
+	game->mapcounter = limit(game);
+	if (!game->map[0] || !game->map[game->mapcounter])
 		return (FAILURE);
 	line = game->map[0];
 	if (!check_line(line))
 		return (FAILURE);
-	line = game->map[game->mapcounter - 1];
+	line = game->map[game->mapcounter];
 	if (!check_line(line))
 		return (FAILURE);
 	if (!check_middle(game))
@@ -85,11 +84,11 @@ int	find_open_space(char c, int i, int j, t_game *game)
 {
 	if (c == ' ' || c == '1')
 		return (FAILURE);
-	else if (c == '0' || ft_strchr("NSWE", c))
+	else if (ft_strchr("NSWE0", c))
 	{
 		if (!(game->map[i][j - 1]) || !(game->map[i][j + 1])
 			|| !(game->map[i - 1][j]) || !(game->map[i + 1][j]))
-			return (FAILURE);
+			return (SUCCESS);
 		if (game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' '
 			|| game->map[i - 1][j] == ' ' || game->map[i + 1][j] == ' ')
 			return (SUCCESS);

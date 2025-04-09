@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   player_control.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 17:36:54 by librahim          #+#    #+#             */
-/*   Updated: 2025/04/09 17:36:55 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:37:47 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "cub3d.h"
 
@@ -28,7 +27,7 @@ int	is_wall(t_game *game, double next_x, double next_y)
 	if (mapx < 0 || mapy < 0 || mapy >= game->mapcounter
 		|| mapx >= (int)ft_strlen(game->map[mapy]))
 		return (1);
-	if (game->map[mapy][mapx] == ' ' || game->map[mapy][mapx] == '0')
+	if (game->map[mapy][mapx] != '1')
 		return (wall_surrounded(game, mapx, mapy));
 	return (game->map[mapy][mapx] == '1');
 }

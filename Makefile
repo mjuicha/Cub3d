@@ -91,12 +91,12 @@ $(BONUS) : $(OBJS_BONUS)
 			$(CC) $(CFLAGS) $(MLXFLAGS) -o $(BONUS) $(OBJS_BONUS)
 
 
-%.o: %.c cub3d.h
-			$(CC) $(CFLAGS) -c $< -o $@
+mandatory/%.o: mandatory/%.c mandatory/cub3d.h
+			$(CC)  -c $< -o $@ $(CFLAGS)
 
-%_bonus.o: %_bonus.c cub3d_bonus.h
-			$(CC) $(CFLAGS) -c $< -o $@
 
+bonus/%_bonus.o: bonus/%_bonus.c bonus/cub3d_bonus.h
+			$(CC) $(CFLAGS) -c $< -o $@
 
 
 clean :

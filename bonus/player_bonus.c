@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:20:01 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/09 16:52:29 by librahim         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:16:53 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	cast_one_ray(t_game *game, double angle, int ray)
 	game->t_angle[ray] = angle;
 	game->is_hor[ray] = inf_equal(h_dis, v_dis);
 	is_door(game, ray);
-	free(game->player->dir);
 	game->is_spec[ray] = equal(h_dis, v_dis);
+	free(game->player->dir);
 }
 
 void	cast_all_rays(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 04:08:42 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 03:38:45 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:05:45 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	limit(t_game *game)
 {
 	int	i;
 
-	i = 0;
+	i = game->mapcounter - 1;
 	while (game->map[i])
 	{
-		if (game->map[i][0] == '\0')
-			return (i - 1);
-		i++;
+		if (game->map[i][0] != '\0')
+			return (i);
+		i--;
 	}
 	return (game->mapcounter - 1);
 }

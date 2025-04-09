@@ -6,7 +6,7 @@
 /*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:01:58 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/26 02:49:48 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:03:24 by mjuicha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ t_game	*get_map(t_game *game)
 	game->start_line = NULL;
 	map = add_back_map(map, new_map(str));
 	if (!map)
+	{
+		free(str);
 		auto_exit(game, MALLOC_ERROR);
+	}
 	while (str)
 	{
 		free(str);
