@@ -3,25 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/26 03:00:16 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:47:36 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/***********************  includes  ***********************/
 #ifndef CUB3D_H
 # define CUB3D_H
-/***********************  defines  ************************/
 # define SUCCESS    1
 # define FAILURE    0
-/***********************  window  *************************/
 # define WIDTH      1024
 # define HEIGHT     768
 # define TILE_SIZE  64
 # define CT		 	2
-/***********************  keys  ***************************/
 # define ESC        53
 # define W          13
 # define S          1
@@ -29,20 +25,17 @@
 # define D          2
 # define LEFT       123
 # define RIGHT      124
-/***********************  XPM Files  **********************/
 # define BLACK_WALL "xpm_files/black.xpm"
 # define EMPTY_WALL "xpm_files/white.xpm"
-/***********************  errors  *************************/
-# define ERROR_ARG "\033[31mError: Wrong number of arguments\n\033[0m"
-# define ERROR_EXT "\033[31mError: Wrong extension\n\033[0m"
-# define OPPEN_ERROR "\033[31mError: Can't open file\n\033[0m"
-# define MLX_ERROR "\033[31mError: mlx_init failed\n\033[0m"
-# define MLX_WIN_ERROR "\033[31mError: mlx_new_window failed\n\033[0m"
-# define XPM_ERROR "\033[31mError: mlx_xpm_file_to_image failed\n\033[0m"
-# define MAP_ERROR "\033[31mError: Invalid map\n\033[0m"
-# define COLOR_ERROR "\033[31mError: Invalid color\n\033[0m"
-# define MALLOC_ERROR "\033[31mError: Malloc failed\n\033[0m"
-/***********************  includes  ***********************/
+# define ERROR_ARG "Error\nWrong number of arguments\n"
+# define ERROR_EXT "Error\nWrong extension"
+# define OPPEN_ERROR "Error\nCan't open file"
+# define MLX_ERROR "Error\nmlx_init failed"
+# define MLX_WIN_ERROR "Error\nmlx_new_window failed"
+# define XPM_ERROR "Error\nmlx_xpm_file_to_image failed"
+# define MAP_ERROR "Error\nInvalid map"
+# define COLOR_ERROR "Error\nInvalid color"
+# define MALLOC_ERROR "Error\nMalloc failed"
 # include <unistd.h>
 # include <stdio.h> 
 # include <stdlib.h>
@@ -53,7 +46,7 @@
 # include <math.h>
 # include <mlx.h>
 # include "get_next_line.h"
-/***********************  structures  *********************/
+
 typedef struct s_map
 {
 	char			*line;
@@ -117,10 +110,10 @@ typedef struct s_game
 	int			width;
 	int			height;
 	char		**texture_path;
-	double		hx;
-	double		hy;
-	double		vx;
-	double		vy;
+	double		hor_x_intercept;
+	double		hor_y_intercept;
+	double		ver_x_intercept;
+	double		ver_y_intercept;
 	double		*wallx;
 	double		*wally;
 	int			t_pix;
@@ -147,25 +140,22 @@ typedef struct s_game
 	t_texture	*img_win;
 }				t_game;
 
-/***********************  prototypes  ***********************/
 int				ft_strchr2(char *str, char *set);
 double			normalize_angle(double angle);
 void			put_pixel_to_img(t_game *game, int x, int y, int color);
 void			turn_player(t_game *game);
 void			load_textures(t_game *game);
-/***********************  utils  ***********************/
 size_t			ft_strlen(const char *str);
 int				ft_strcmp(const char *s1, const char *s2);
 void			ft_putendl_fd(char *str, int fd);
 char			*ft_strdup(const char *s1);
 char			*ft_strrmv(char *str, char c);
-/***********************  init  ***********************/
 t_game			*init_cub(int ac, char **av);
 t_game			*get_map(t_game *game);
 void			start_game(t_game *game);
 int				render_game(t_game *game);
 int				valid_input(int ac, char **av);
-void			fov(t_game *game);
+void			cast_all_rays(t_game *game);
 void			events_hook(t_game *game);
 void			draw_walls(t_game *game);
 int				valid_format(t_game *game);
@@ -219,5 +209,4 @@ void			short_free(t_game *game, char *error);
 int				check_path(t_game *game);
 int				check_spaces(t_game *game);
 int				wall_surrounded(t_game *game, int newx, int newy);
-/***********************  draw  ***********************/
 #endif

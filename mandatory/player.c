@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:20:01 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/26 02:57:53 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:51:18 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ double	hoz(t_game *game, double angle)
 	double	dx;
 	double	vet;
 
-	game->hy = (floor(game->player->pos_y / game->height) * game->height)
-		+ is_down(game);
-	game->hx = game->player->pos_x + ((game->hy - game->player->pos_y)
-			/ tan(angle));
+	game->hor_y_intercept = (floor(game->player->pos_y / game->height)
+			* game->height) + is_down(game);
+	game->hor_x_intercept = game->player->pos_x + ((game->hor_y_intercept
+				- game->player->pos_y) / tan(angle));
 	dy = game->height;
 	if (game->player->dir->up)
 		dy *= -1;
@@ -42,13 +42,13 @@ double	hoz(t_game *game, double angle)
 	vet = 0;
 	while (1)
 	{
-		vet = floor((game->hy + _up(game)) / game->height);
-		if (check_waaal(game, vet, floor(game->hx / game->width)))
+		vet = floor((game->hor_y_intercept + _up(game)) / game->height);
+		if (check_waaal(game, vet, floor(game->hor_x_intercept / game->width)))
 			break ;
-		game->hx += dx;
-		game->hy += dy;
+		game->hor_x_intercept += dx;
+		game->hor_y_intercept += dy;
 	}
-	return (phitagore(game, game->hx, game->hy));
+	return (phitagore(game, game->hor_x_intercept, game->hor_y_intercept));
 }
 
 double	ver(t_game *game, double angle)
@@ -57,10 +57,10 @@ double	ver(t_game *game, double angle)
 	double	dy;
 	double	dx;
 
-	game->vx = (floor(game->player->pos_x / game->width) * game->width)
-		+ is_right(game);
-	game->vy = game->player->pos_y + ((game->vx - game->player->pos_x)
-			* tan(angle));
+	game->ver_x_intercept = (floor(game->player->pos_x / game->width)
+			* game->width) + is_right(game);
+	game->ver_y_intercept = game->player->pos_y + ((game->ver_x_intercept
+				- game->player->pos_x) * tan(angle));
 	dx = game->width;
 	if (game->player->dir->left)
 		dx *= -1;
@@ -71,16 +71,16 @@ double	ver(t_game *game, double angle)
 	het = 0;
 	while (1)
 	{
-		het = floor((game->vx + _left(game)) / game->width);
-		if (check_waaal(game, floor(game->vy / game->height), het))
+		het = floor((game->ver_x_intercept + _left(game)) / game->width);
+		if (check_waaal(game, floor(game->ver_y_intercept / game->height), het))
 			break ;
-		game->vx += dx;
-		game->vy += dy;
+		game->ver_x_intercept += dx;
+		game->ver_y_intercept += dy;
 	}
-	return (phitagore(game, game->vx, game->vy));
+	return (phitagore(game, game->ver_x_intercept, game->ver_y_intercept));
 }
 
-void	cast_ra(t_game *game, double angle, int ray)
+void	cast_one_ray(t_game *game, double angle, int ray)
 {
 	double	h_dis;
 	double	v_dis;
@@ -91,24 +91,26 @@ void	cast_ra(t_game *game, double angle, int ray)
 	v_dis = ver(game, angle);
 	free(game->player->dir);
 	game->dis[ray] = d_inf_equal(h_dis, v_dis, h_dis, v_dis);
-	game->wallx[ray] = d_inf_equal(h_dis, v_dis, game->hx, game->vx);
-	game->wally[ray] = d_inf_equal(h_dis, v_dis, game->hy, game->vy);
+	game->wallx[ray] = d_inf_equal(h_dis, v_dis, game->hor_x_intercept,
+			game->ver_x_intercept);
+	game->wally[ray] = d_inf_equal(h_dis, v_dis, game->hor_y_intercept,
+			game->ver_y_intercept);
 	game->t_angle[ray] = angle;
 	game->is_hor[ray] = inf_equal(h_dis, v_dis);
 	game->is_spec[ray] = equal(h_dis, v_dis);
 }
 
-void	fov(t_game *game)
+void	cast_all_rays(t_game *game)
 {
-	double	angle;
+	double	angleofray;
 	int		i;
 
 	i = 0;
-	angle = game->player->angle - (game->player->fov / 2);
+	angleofray = game->player->angle - (game->player->fov / 2);
 	while (i < WIDTH)
 	{
-		cast_ra(game, angle, i);
-		angle += game->player->fov / WIDTH;
+		cast_one_ray(game, angleofray, i);
+		angleofray += game->player->fov / WIDTH;
 		i++;
 	}
 }

@@ -3,25 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 15:40:43 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/08 16:31:10 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:35:29 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/***********************  includes  ***********************/
 #ifndef CUB3D_H
 # define CUB3D_H
-/***********************  defines  ************************/
 # define SUCCESS    1
 # define FAILURE    0
-/***********************  window  *************************/
 # define WIDTH      1024
 # define HEIGHT     768
 # define TILE_SIZE  64
 # define CT		 	2
-/***********************  keys  ***************************/
 # define ESC        53
 # define W          13
 # define S          1
@@ -31,7 +27,6 @@
 # define RIGHT      124
 # define SPACE      49
 # define M          46
-/***********************  directions  *********************/
 # define NORTH      111
 # define SOUTH      112
 # define EAST       113
@@ -40,7 +35,6 @@
 # define NORTH_WEST 116
 # define SOUTH_EAST 117
 # define SOUTH_WEST 128
-/***********************  errors  *************************/
 # define ERROR_ARG "Error\nWrong number of arguments\n"
 # define ERROR_EXT "Error\nWrong extension"
 # define OPPEN_ERROR "Error\nCan't open file"

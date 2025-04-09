@@ -1,8 +1,0 @@
-! understand
-? img (bpp), (endian) ....
-
-! rmv -> is_special
-
-
-
->> leaks + fsanitize

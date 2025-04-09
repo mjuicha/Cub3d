@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:23:51 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/03/23 03:32:35 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:41:21 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	wall_projection(t_game *game)
 int	render_game(t_game *game)
 {
 	update_position(game);
-	fov(game);
+	cast_all_rays(game);
 	wall_projection(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img_win->img, 0, 0);
 	return (0);
