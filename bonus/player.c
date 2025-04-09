@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:20:01 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/08 16:32:07 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:16:52 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	check_waaal(t_game *game, int indice)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	if (indice)
 	{
@@ -40,10 +40,10 @@ double	hoz(t_game *game, double angle)
 	double	y_step;
 	double	x_step;
 
-	game->hor_y_intercept = (floor(game->player->pos_y / game->height) * game->height)
-		+ is_down(game);
-	game->hor_x_intercept = game->player->pos_x + ((game->hor_y_intercept - game->player->pos_y)
-			/ tan(angle));
+	game->hor_y_intercept = (floor(game->player->pos_y / game->height)
+			* game->height) + is_down(game);
+	game->hor_x_intercept = game->player->pos_x + ((game->hor_y_intercept
+				- game->player->pos_y) / tan(angle));
 	y_step = game->height;
 	if (game->player->dir->up)
 		y_step *= -1;
@@ -66,10 +66,10 @@ double	ver(t_game *game, double angle)
 	double	y_step;
 	double	x_step;
 
-	game->ver_x_intercept = (floor(game->player->pos_x / game->width) * game->width)
-		+ is_right(game);
-	game->ver_y_intercept = game->player->pos_y + ((game->ver_x_intercept - game->player->pos_x)
-			* tan(angle));
+	game->ver_x_intercept = (floor(game->player->pos_x / game->width)
+			* game->width) + is_right(game);
+	game->ver_y_intercept = game->player->pos_y + ((game->ver_x_intercept
+				- game->player->pos_x) * tan(angle));
 	x_step = game->width;
 	if (game->player->dir->left)
 		x_step *= -1;
@@ -97,8 +97,10 @@ void	cast_one_ray(t_game *game, double angle, int ray)
 	h_dis = hoz(game, angle);
 	v_dis = ver(game, angle);
 	game->dis[ray] = shortest_dist(h_dis, v_dis, h_dis, v_dis);
-	game->wallx[ray] = shortest_dist(h_dis, v_dis, game->hor_x_intercept, game->ver_x_intercept);
-	game->wally[ray] = shortest_dist(h_dis, v_dis, game->hor_y_intercept, game->ver_y_intercept);
+	game->wallx[ray] = shortest_dist(h_dis, v_dis,
+			game->hor_x_intercept, game->ver_x_intercept);
+	game->wally[ray] = shortest_dist(h_dis, v_dis,
+			game->hor_y_intercept, game->ver_y_intercept);
 	game->t_angle[ray] = angle;
 	game->is_hor[ray] = inf_equal(h_dis, v_dis);
 	is_door(game, ray);

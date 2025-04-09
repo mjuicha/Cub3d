@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_game2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjuicha <mjuicha@student.42.fr>            +#+  +:+       +#+        */
+/*   By: librahim <librahim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:02:04 by mjuicha           #+#    #+#             */
-/*   Updated: 2025/04/08 14:53:27 by mjuicha          ###   ########.fr       */
+/*   Updated: 2025/04/09 14:12:28 by librahim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	auto_exit(t_game *game, char *error)
 {
 	ft_error(error);
 	auto_free(game);
-	// atexit(l);
 	if (!error)
 		exit(SUCCESS);
 	exit(FAILURE);
